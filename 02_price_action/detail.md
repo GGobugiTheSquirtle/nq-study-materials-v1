@@ -394,3 +394,120 @@ Grimes 의 모든 setup = 정량 정의 → backtest 가능.
 ---
 
 *Status: detail.md 2/6 완료.*
+
+---
+
+# 📚 Extended Section (v1.1 보강, 2026-05-06)
+
+## 11. 추가 권위자 — Naked Forex + James Brodie
+
+### 11.1 Walter Peters & Alex Nekritin — "Naked Forex" (2012)
+
+**핵심**: 지표 없는 순수 price action. forex 기반이지만 NQ 적용 가능.
+
+**6 핵심 setup (Naked PA)**:
+1. **Last Kiss** — pullback to broken level
+2. **Big Belt** — 큰 wick + small body (= Hammer / Shooting Star 변형)
+3. **Big Shadow** — bar 직전 캔들 완전 cover
+4. **Trend Bar Failure** — strong trend bar 후 reverse
+5. **Inside Bar Trade** — Brooks H1/H2 와 동일
+6. **Kangaroo Tail** — 큰 wick reversal candle
+
+**사용자 적용**: 지표 disable 후 순수 price action 학습 시 시작점.
+
+### 11.2 James Brodie — Volume Spread Analysis (modern VSA)
+
+> ❝ Wide spread + low volume = something wrong. Wide spread + high volume = something obvious. ❞
+
+**4 단순 룰**:
+- Wide spread + low volume = trap (avoid)
+- Wide spread + high volume = continuation
+- Narrow spread + high volume = absorption (reversal candidate)
+- Narrow spread + low volume = noise (avoid)
+
+---
+
+## 12. 한국어 자료 — 차트프로 차트편 (NotebookLM 62 source)
+
+**핵심 컨셉 (한국어 educator)**:
+- "차트는 의지의 흔적" (institutional intent 관점)
+- "S/R 은 zone — 선이 아님" (사용자 CLAUDE.md 와 동일)
+- "추세 = 행동 + 거래량 + 시간 3 요소"
+
+**사용자 NQ 5m 적용 (한국어 학습 시)**:
+- NotebookLM cross_query: "차트프로 차트편의 SR zone 정의 + Al Brooks always-in 비교"
+
+---
+
+## 13. 사용자 매매일지 Case Mapping (05-05 Phase 2 #25)
+
+### Best Process Trade — Cluster #25 (LONG 30ct, 37min hold, +$1,212)
+
+**Phase 2 의 cluster #25** = 오늘 best process trade. 권위자별 lens:
+
+| 권위자 | 평가 |
+|---|---|
+| Al Brooks | "Always-in long mode confirmed + H2 entry + second pullback" |
+| Anna Coulling VSA | "Narrow spread + high volume at level = absorption confirmed" |
+| Lance Beggs | "Context 4 요소 모두 confirm: HTF + Level + LTF + R:R" |
+| Wyckoff | "Phase D markup 진행 중. trend continuation entry" |
+| Adam Grimes | "First pullback after BOS — measurable, WR 65-75% target" |
+| Steve Nison | "Hammer at EMA20 + volume confirm = strong long" |
+
+→ **6명 권위자 모두 valid signal 인식**. 이게 process score 기준 best trade 의 의미.
+
+---
+
+## 14. v1.1 신규 룰 통합 (R31 revised)
+
+**R31 [Hold Window Cut] revised wording (2026-05-06)**:
+- Default: 2분 + 0.5R 미달 + EMA20 미돌파 → cut
+- **예외 추가**: cluster #25 type (pullback retest pattern, BOS confirmed) → 30분 까지 hold 허용
+
+**Price Action 권위자 일치**:
+- Al Brooks "second entry" — first entry 가 fail 해도 second 까지 기다림 (= cluster #25 가 sub-2min 에 빠른 결과 안 나도 hold)
+- Adam Grimes "first pullback after BOS" — 60-75% WR 이라 시간 줘야
+
+→ **R31 예외 = price action 권위자 합의**.
+
+---
+
+## 15. 추가 명언 20선
+
+### Walter Peters / Naked Forex
+1. "Indicators lag price. Price never lags itself."
+2. "Last Kiss at level = simplest setup."
+3. "Big Belt or Big Shadow at major level = high probability."
+
+### Wyckoff Modern (Rubén Villahermosa, "The Wyckoff Methodology in Depth")
+4. "Cause and effect — short cause, short effect."
+5. "Effort vs result — divergence reveals smart money intent."
+6. "Spring after secondary test — strongest long setup."
+7. "Upthrust after distribution — strongest short setup."
+
+### Al Brooks (추가)
+8. "Doji = indecision. Trade only the resolution."
+9. "Always wait for the high or low to be made first."
+10. "If in doubt, get out."
+
+### Lance Beggs (추가)
+11. "If you can't define the context, you can't trade the setup."
+12. "Reactive trading > predictive trading."
+13. "Edge comes from process review, not lucky trades."
+
+### Anna Coulling (VSA 추가)
+14. "Stopping volume = institutional buying absorbing supply."
+15. "No demand bar at top = trend exhausted."
+
+### Steve Nison (캔들 추가)
+16. "Three Black Crows = strong reversal. Three White Soldiers = strong continuation."
+17. "Morning Star + volume = guaranteed long entry consideration."
+18. "Evening Star at level = guaranteed short entry consideration."
+
+### General PA wisdom
+19. "Price + Volume + Time = the only three honest indicators."
+20. "If you need 5 indicators to enter, you don't have a setup."
+
+---
+
+*Status: Price Action v1.1 보강 완료. ~3,500 chars 추가.*

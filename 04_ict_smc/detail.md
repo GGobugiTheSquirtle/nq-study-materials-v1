@@ -370,3 +370,123 @@ Phase 3: DISTRIBUTION (real move)
 ---
 
 *Status: detail.md 4/6 완료.*
+
+---
+
+# 📚 Extended Section (v1.1 보강, 2026-05-06)
+
+## 13. 추가 ICT Advanced Concepts
+
+### 13.1 SMT Divergence (Smart Money Tool)
+
+**정의**:
+- 두 correlated instrument (NQ vs ES) 의 high/low 시점 차이
+- NQ 새 high, ES 새 high 못 만들면 = SMT divergence (음의 발산)
+- = institutional 분배 신호
+
+**사용자 적용**:
+- TradingView 에 NQ + ES 동시 차트
+- 22:30 NY open 후 SMT 매일 monitor
+- Divergence 발생 시 = LONG 진입 회피
+
+### 13.2 IPDA (Interbank Price Delivery Algorithm)
+
+ICT 본인의 가설:
+- 시장은 "algorithm" 으로 가격 deliver
+- 매일 / 매주 / 매월 specific levels 가 algorithm target
+- 그 levels 에서 reversal 자주 발생
+
+**검증 가능 부분**: Daily / weekly / monthly high/low 가 institutional reference 인 것은 사실 (Adam Mancini 도 활용).
+**Cult 부분**: "algorithm 이 정해진 시간에 정해진 가격 deliver" 같은 specific predictions.
+
+→ **사용자 적용**: 기본 daily/weekly levels 만 활용. 신비화 컨셉 무시.
+
+### 13.3 NDOG (New Day Opening Gap) / NWOG (Weekly)
+
+**정의**:
+- NDOG = 어제 close 와 오늘 open 사이 gap
+- NWOG = 지난 주 close 와 이번 주 open 사이 gap
+
+**활용**: gap 이 channel 의 SR 역할. fill 시도 자주 발생.
+
+**사용자 NQ 적용**:
+- 매일 22:30 KST open 시 NDOG mark
+- Gap fill 시도 = SHORT (gap up 시) / LONG (gap down 시) 가능
+- 단, SMT confirmation 결합 필수
+
+---
+
+## 14. 한국어 자료 — 팔콘트레이딩 SMC/ICT 풀코스 (NotebookLM 활용)
+
+**팔콘트레이딩 = 한국어 SMC/ICT 강의 중 가장 정리 잘 된 source** (이미 detail.md 본문에 link).
+
+**한국어 핵심 포인트 (사용자 NotebookLM 활용)**:
+- ICT 컨셉의 한국어 표현 통일 (OB / FVG / 유동성 등)
+- 한국 trader 들의 흔한 ICT 함정 (cult-content 영향)
+- ICT 컨셉의 정량화 시도 (한국 educator 의 자체 검증)
+
+→ NotebookLM cross_query 추천: "팔콘트레이딩 자료의 OB 정의 + Wysetrade 5-step entry 비교"
+
+---
+
+## 15. 사용자 매매일지 Case Mapping — Phase 3 vs Phase 4 (L50 ICT lens)
+
+### L50 [Same Setup, Two Outcomes — Timing as Edge] ICT 진단
+
+**Phase 3 (-$5,337)** = pre-breakout fade entry into top:
+- 27982-987 entry = 직전 high 위 = sell-side liquidity
+- 가격이 28000 round number 못 break → fade entry 실패
+- ICT lens: **liquidity sweep 대기 안 함** (top buying)
+
+**Phase 4 (+$10,337)** = post-breakout continuation:
+- 27993-28054 entry = breakout 후 retest entry
+- 가격이 28000 break 후 continuation
+- ICT lens: **MSS confirmed + post-sweep entry** (retest discipline)
+
+→ **ICT framework 로 보면 Phase 3/4 차이 = liquidity sweep + MSS confirmation timing**.
+→ **R32 partial revision (post-breakout 시 negation)** 의 ICT 권위자 lens 검증.
+
+---
+
+## 16. v1.1 신규 룰 통합 — Apex Compatibility 와 ICT 시간 컨셉
+
+**R35 [Apex Bundle] 의 5번째 component "KST 22:00+ 차단"**:
+- ICT Power of 3 의 manipulation phase 와 일치
+- 22:30 NY open 직후 = manipulation (fake move)
+- 23:30 = real move 시작
+
+→ **사용자 R35 의 KST 22:00+ 5min observe-only = ICT manipulation phase 회피 컨셉**.
+→ ICT 시간 framework 의 사용자 룰 시스템 통합 검증.
+
+---
+
+## 17. 추가 명언 15선
+
+### ICT (advanced)
+1. "SMT divergence = smart money distribution signal."
+2. "IPDA delivers price to liquidity, not to retail expectations."
+3. "Daily levels are the algorithm's daily reference."
+
+### Wysetrade (curator)
+4. "Five-step entry: HTF bias, LTF setup, OB, FVG, BOS execution."
+5. "If price doesn't respect your OB, your bias is wrong."
+
+### Stacey Burke
+6. "Daily NQ 분석 = 매일 같은 framework. Variety = enemy."
+7. "Kill zone first. Setup second. Direction third."
+
+### General SMC (modern)
+8. "Liquidity is taken before the move begins."
+9. "MSS is the strongest reversal signal in price action."
+10. "Order block + FVG + OTE = max confluence."
+11. "Every move starts with a sweep. Find the sweep, find the entry."
+
+### 팔콘트레이딩 / 한국 SMC
+12. "OB 는 institutional 발자국. 그 자리는 항상 의미."
+13. "FVG 는 비효율 — 결국 채워진다."
+14. "유동성 sweep = stop hunt. retail trader 가 victim."
+15. "Kill zone 외 시간 = 진입 X. 시간 자체가 filter."
+
+---
+
+*Status: ICT/SMC v1.1 보강 완료. ~3,500 chars 추가.*

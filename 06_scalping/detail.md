@@ -396,6 +396,133 @@ Modern 환경에서:
 
 ---
 
+# 📚 Extended Section (v1.1 보강, 2026-05-06)
+
+## 13. 추가 권위자 — Al Brooks Scalp + Bobby Sweet
+
+### 13.1 Al Brooks — Scalp Specific Chapter
+
+Al Brooks "Trading Price Action" 의 scalping chapter:
+
+**Brooks scalp 5 룰**:
+1. **Always-in scalp** — sub-1min hold 가능 (1-2 tick scalps)
+2. **Doji at level → reverse scalp** — high probability micro reversal
+3. **Reversal bar at HOD/LOD** — day의 high/low 에서 reverse scalp
+4. **Failed breakout scalp** — H1/L1 fail 후 quick reverse
+5. **Climactic bar scalp** — 큰 wide range 후 즉시 reverse
+
+**사용자 적용**: Brooks scalp 5룰 모두 NQ 5m 차트 적용 가능.
+
+### 13.2 Bobby Sweet — "Tape Reading for the 21st Century"
+
+**Modern tape reading** 컨셉:
+- Time & Sales 의 large block trades 인식
+- Cumulative Delta divergence
+- Footprint candle 안의 buyer/seller breakdown
+
+**사용자 advanced setup**:
+- Tradovate Time & Sales 무료
+- Footprint = ATAS (paid) or BookMap (free trial)
+
+---
+
+## 14. 한국어 자료 — 아시아 세션 유동성 스윕 스캘핑 (NotebookLM 85 source) ⭐⭐⭐
+
+**한국어 scalping archive 거대 (85 source)**:
+- 유동성 sweep + scalp 결합 (ICT + scalp)
+- 아시아 세션 (사용자 KST 시간대) 적용
+- 한국 trader 의 sub-minute scalp 사례
+
+**핵심 포인트**:
+- "아시아 세션은 manipulation phase" (= ICT Power of 3)
+- "유동성 sweep 대기 후 scalp" (= ICT + Volman 결합)
+- "KST 22:30~23:30 = 가장 활발한 sweep" (사용자 검증 일치)
+
+→ NotebookLM cross_query: "아시아 세션 유동성 스윕 스캘핑 자료의 NQ 적용 가능 setup 추출"
+
+---
+
+## 15. 사용자 매매일지 Case Mapping — Sub-2min Winner Trap (Phase E)
+
+### L44 [Sub-2min Winner = Greed Trigger] Scalping 권위자 lens
+
+**Phase E (-$680)** 사례:
+- 18:45:57 win (+$155, 43초) → 18:46:40 next entry size up (10→20) → -$263
+- 18:47:15 add (size up to 30) → -$417
+
+**Scalp 권위자 진단**:
+
+| 권위자 | 진단 |
+|---|---|
+| Bob Volman | "VTR 확인 안 함. Round number 27950 break 인지 X. Hook pattern 무시." |
+| Joe Ross | "Hook bar 2 inside bar 형성 안 됨. 그냥 chase." |
+| Linda Raschke | "First win 후 same setup 아닌 size up = Anti pattern 위반." |
+| Tom Hougaard | "Sub-2min winner = setup works signal. Size up = greed signal. Different signals." |
+| BookMap | "Aggressive sell orders 인지 X. 단순 가격 chase." |
+
+→ **5명 권위자 모두 Phase E 의 size up reentry 를 violation 으로 진단**.
+→ R32 [Win-After Size Lock] 의 외부 권위자 합의.
+
+---
+
+## 16. v1.1 신규 룰 통합 — Scalping 의 Sub-2min 함정 정량화
+
+**R32 partial revision (chop = active, post-breakout = negated)**:
+
+**Chop 식별 (R32 active 조건)**:
+- ATR_5m < 평균 × 1.0 (Volman VTR 부족)
+- BB squeeze (좁은 범위)
+- Volume 평균 이하
+- → **R32 active = sub-2min winner 후 size lock**
+
+**Post-breakout 식별 (R32 negated 조건)**:
+- BOS confirmed (직전 swing high/low 돌파)
+- Volume > 평균 × 1.5
+- ATR > 평균 × 1.2
+- → **R32 negated = pyramid 가능**
+
+**사용자 적용**: 매 sub-2min winner 직후 1초 자가 점검:
+- "지금 chop 인가 post-breakout 인가?"
+- Chop → R32 active (size lock)
+- Post-breakout → R32 negated (size up OK)
+
+---
+
+## 17. 추가 명언 15선
+
+### Bob Volman (추가)
+1. "Scalping is patience for the right action, then immediate execution."
+2. "VTR 확인 없이 진입 = 감정 진입."
+3. "Round number = 자연 SR. 진입 자리만 round 사이 X."
+
+### Joe Ross (추가)
+4. "Hook patterns work because they're simple. Repeat the same hook."
+5. "If volume doesn't confirm bar 3, no entry."
+
+### Tom Hougaard (scalp 추가)
+6. "Same setup every day. Don't chase variety."
+7. "Sub-2min winner = setup works. Different from size-up signal."
+8. "Tight loss is feature. Quick exit win OK at 1:1."
+
+### Linda Raschke (Anti 추가)
+9. "Anti = quick scalp against trend. 1-3 minutes max."
+10. "Counter-trend hold = death."
+
+### BookMap / Tape Reading
+11. "Iceberg orders = institutional footprint."
+12. "Aggressive market orders = real interest. Spoofing = fake."
+13. "Absorption at level = strong reversal candidate."
+
+### 한국 scalp 전문가 (NotebookLM 자료)
+14. "유동성 sweep 후 scalp = 가장 안전한 단타."
+15. "아시아 세션 manipulation = scalper 의 wait time."
+
+---
+
+*Status: Scalping v1.1 보강 완료. ~3,500 chars 추가.*
+
+---
+
 ## 🎓 6 detail.md 통합 완료
 
 | Category | detail.md | 권위자 수 | 사용자 약점 매핑 |

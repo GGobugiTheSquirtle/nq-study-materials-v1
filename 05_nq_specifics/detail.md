@@ -423,3 +423,127 @@ TICK 직전 peak 미달 (+1200 → +800 약화)
 ---
 
 *Status: detail.md 5/6 완료.*
+
+---
+
+# 📚 Extended Section (v1.1 보강, 2026-05-06)
+
+## 12. 추가 권위자 — Mark Douglas Index Trader + Gary Norden
+
+### 12.1 Mark Douglas — Index Trader Specifics
+
+Mark Douglas (위 Psychology) 의 NQ 특화 사례:
+- Index futures = 가장 일관된 매매 가능 (단일 instrument)
+- NQ 가 ES 보다 변동성 큼 = scalper 적합
+- NQ tech 비중 높음 = macro (yield, DXY) 영향 큼
+
+**사용자 직접 적용**:
+- NQ 만 trade (single instrument focus = consistency)
+- Yield 상승 시 = NQ pressure 가능 (사용자 macro routine)
+
+### 12.2 Gary Norden — "The Trader's Pendulum" (2014)
+
+**Norden 의 핵심**: 시장은 pendulum 처럼 over-reaction → under-reaction → over-reaction.
+
+**3 phase**:
+1. **Over-reaction phase**: 큰 move + emotion (NY open 직후)
+2. **Settling phase**: chop / mid-range (NY mid-day)
+3. **Resolution phase**: real direction (NY late afternoon)
+
+**사용자 NQ 매핑**:
+- 22:30~23:30 KST = over-reaction
+- 00:00~02:00 KST = settling
+- 02:00~05:00 KST = resolution
+
+→ **사용자 본인 검증 (L35 TIME-VOL MAP) + Gary Norden pendulum 일치**.
+
+---
+
+## 13. 한국어 자료 — 김직선 100억 해외선물 (NotebookLM 136 source) ⭐⭐⭐
+
+**김직선 자료 = 한국어 NQ/ES/MNQ 매매 가장 거대 archive** (사용자 NotebookLM).
+
+**핵심 포인트 (한국어 NQ educator)**:
+- **하루 매매 횟수 제한** = R29 ceiling 의 한국 버전
+- **분할 매수** = TPA / Pyramid 한국 버전
+- **시간대별 진입** = 사용자 L35 TIME-VOL MAP 일치
+- **계좌 관리** = 사용자 R34 (sim 30ct cap) 의 한국 권위자 검증
+
+→ NotebookLM cross_query: "김직선 자료에서 NY first hour (KST 22:30~23:30) 진입 setup 추출"
+→ NotebookLM cross_query: "김직선 + Mike Bellafiore 의 prop firm 사고 비교"
+
+---
+
+## 14. 사용자 매매일지 Case Mapping — Phase 2 #18 vs #25
+
+### Phase 2 의 두 cluster (NQ specifics 관점)
+
+**Cluster #18 (-$1,305 chasing top)**:
+- 27946-955 entry = 직전 high 위 chase
+- AVWAP 고려 X (RTH AVWAP 근처 또는 위?)
+- Mancini levels 무시
+- TICK divergence 무시
+- ICT liquidity sweep 무시
+- → **모든 NQ specifics framework 위반**
+
+**Cluster #25 (+$1,212 patient retest)**:
+- 27932 entry = 직전 swing low + AVWAP support
+- 37min hold = AVWAP confluence 유지
+- Mancini level 닿음 (가능성)
+- TICK supportive
+- → **NQ specifics framework 모두 confirm**
+
+**룰화 (NQ specifics 통합)**:
+- 진입 전 NQ-Specific 7-Step Check (위 §10) 사용
+- AVWAP + Mancini + TICK + ICT confluence ≥ 4 confirm 시만 진입
+
+---
+
+## 15. v1.1 신규 룰 통합 — Apex 호환 + L46 MDD
+
+**R35 Bundle 의 NQ Specifics 매핑**:
+
+| R35 Component | NQ Specifics 권위자 검증 |
+|---|---|
+| R34 30ct cap | SMB 22 patterns — pro size discipline |
+| Daily DD -$1,500 | Mike Bellafiore "One Good Trade" — risk first |
+| R30 환경 강제 | (직접 X — 일반 trading psychology 영역) |
+| R8 strict TPA | SMB Playbook — pre-defined adds |
+| KST 22:00+ 차단 | Gary Norden over-reaction phase 회피 |
+
+**L46 [Intraday MDD Tracking]** = SMB Capital 의 daily risk audit 와 동일:
+- SMB trader 들 = 매 30분 cumulative P&L + max drawdown audit
+- 사용자 R34 + L46 통합 = SMB practice 의 사용자 버전
+
+---
+
+## 16. 추가 명언 15선
+
+### Mike Bellafiore (SMB 추가)
+1. "One good trade. Then stop."
+2. "Pros trade fewer, better. Beginners trade more, worse."
+3. "Playbook = setup + risk + outcome. Repeat."
+
+### Brian Shannon (AVWAP 추가)
+4. "Anchor at the moment that matters most."
+5. "Multi-AVWAP confluence = institutional consensus."
+6. "Volume-weighted price > simple price."
+
+### Mark Fisher (ACD 추가)
+7. "Opening range = market's opening statement."
+8. "A breakout, then C failure, watch for reversal."
+9. "Don't fight the OR. Trade with it."
+
+### Gary Norden
+10. "Over-reaction → settling → resolution. Pendulum cycle daily."
+11. "First hour = pendulum maximum. Wait for settling."
+
+### 김직선 (한국 NQ educator)
+12. "선물 매매는 99% 마음, 1% 기술."
+13. "하루에 한 번이면 충분."
+14. "진입 전 시간대 확인이 매매 50%."
+15. "분할 매수만이 살아남는 길."
+
+---
+
+*Status: NQ Specifics v1.1 보강 완료. ~3,500 chars 추가.*

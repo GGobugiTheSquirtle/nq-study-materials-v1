@@ -358,3 +358,139 @@ Covel 의 인터뷰 정리:
 ---
 
 *Status: detail.md 3/6 완료.*
+
+---
+
+# 📚 Extended Section (v1.1 보강, 2026-05-06)
+
+## 11. 추가 권위자 — Ed Seykota + Bill Dunn + Jerry Parker
+
+### 11.1 Ed Seykota — Trend Following Legend
+
+> ❝ The trend is your friend. The end of the trend is your enemy. ❞
+> ❝ Risk no more than you can afford to lose. Risk enough that winning is meaningful. ❞
+
+**Seykota 의 5 원칙** (Schwager Market Wizards 인터뷰):
+1. **Cut losses** — 모든 trader 의 첫 룰
+2. **Ride winners** — 둘째 룰
+3. **Keep bets small** — 셋째 룰
+4. **Follow rules without question** — 넷째 룰
+5. **Know when to break the rules** — 다섯째 룰 (가장 어려움 — 시스템 무효 인지)
+
+**사용자 적용**:
+- #4 = R29-R35 룰 시스템 정확 일치
+- #5 = 사용자 매매일지 weekly review 의 "rule violation 분석" 부분
+
+### 11.2 Bill Dunn — Long-term Trend Follower
+
+**Dunn Capital** 의 25년 운영 통계:
+- Win rate: ~35-40%
+- PF: 1.6-2.0
+- MDD: 30-40% (long-term)
+- Sharpe: 1.0-1.4
+
+→ **trend following 의 현실 metric**. 사용자 R29 (sim PF 2.27 from 1 day) 의 vs 25년 PF 1.6 비교 시 — 사용자 단기 매매가 fundamentally 다른 game.
+
+### 11.3 Jerry Parker — Original Turtle (Faith 시리즈)
+
+**Parker 의 핵심 통찰** (Curtis Faith 보다 더 오래 운영):
+- "Volatility 가 entry signal" (volatility breakout)
+- "Long-term trend 만 trade" (5-10 year horizons)
+- "Discretion = the enemy" (rule based 100%)
+
+→ 사용자 단기 NQ 매매와 long-term trend following 은 다른 strategy. **하지만 mental framework 는 동일** — rule-based, cut quickly, ride winners.
+
+---
+
+## 12. 한국어 자료 — 보조지표편 Strategies (NotebookLM 37 source) + 데이트레이딩편 (29 source)
+
+**한국어 trend following 컨셉**:
+- "추세 추종 = 인내" (사용자 L41 selectivity 와 호환)
+- "거래량 기반 trend 확인" (VSA 한국어 버전)
+- "시간 기반 hold rule" (R31 의 한국어 source)
+
+→ NotebookLM cross_query: "한국어 자료의 trend pullback entry 와 Adam Grimes first pullback after BOS 비교"
+
+---
+
+## 13. 사용자 매매일지 Case Mapping (05-05 Phase 4 cluster #31)
+
+### Day's Best — Cluster #31 (LONG 115ct, 4min hold, +$4,553)
+
+**Phase 4 의 cluster #31** = day 최고 결과:
+- Entry: 28039 (post-breakout continuation)
+- Exit: 28069
+- 4min hold, 30pt move
+- Net: +$4,553 (sim, 28ct after sizing)
+
+**Trend follower lens 진단**:
+
+| 권위자 | 평가 |
+|---|---|
+| Curtis Faith (Turtle) | "Donchian breakout confirmed — pyramid OK" |
+| Linda Raschke | "First hour direction respected — long bias confirmed" |
+| Adam Grimes | "Post-BOS continuation, retest entry valid" |
+| Ed Seykota | "Trend friend, riding winner" |
+| Stan Weinstein | "Stage 2 markup phase, trade with the stage" |
+
+→ **Phase 4 의 결과는 trend following 권위자 모두 valid 로 평가**. 단, **L47 (recovery skill ≠ trading skill)** 는 여전히 적용 — Phase 4 가 valid signal 이지만 Phase 3 cascade 후 entry 라 real account 에선 발현 X.
+
+**룰화 (R31 revised exception)**:
+- Cluster #25 (Phase 2, 37min hold +$1,212) = pullback retest type
+- Cluster #31 (Phase 4, 4min hold +$4,553) = post-breakout continuation type
+- 둘 다 R31 예외 적용 가능 (default 2-min cut 무효)
+
+---
+
+## 14. v1.1 신규 룰 통합
+
+**R32 partial revision (post-breakout continuation 시 negation)**:
+- Default: sub-2min winner → next entry size ≤ prev size
+- **예외 추가**: post-breakout continuation 확인 시 (cluster #30-32 type, parabolic move 진행 중) → size up 허용
+
+**Trend following 권위자 일치**:
+- Curtis Faith Pyramid: "+0.5N 마다 1 unit add" — 정확히 size up rule
+- Hougaard "wide win" — winner 키우기
+- Ed Seykota "ride winners" — 동일
+
+→ **R32 예외 = trend following 권위자 합의**. 단, BOS confirmation 명확해야.
+
+---
+
+## 15. 추가 명언 20선
+
+### Ed Seykota (Schwager 인터뷰)
+1. "The trend is your friend. The end of the trend is your enemy."
+2. "Until the trend changes, the trend won't change."
+3. "Risk no more than you can afford to lose."
+4. "Win or lose, everybody gets what they want from the market."
+
+### Bill Dunn / Jerry Parker
+5. "Discretion is the enemy of trend following."
+6. "Volatility breakout = entry signal. Volatility contraction = sit out."
+7. "Trade the system, not your opinion."
+
+### Linda Raschke (추가)
+8. "First hour reveals intent. Trade with it the rest of the day."
+9. "Anti = scalp only. Counter-trend hold = death."
+10. "ADX > 30 + EMA20 touch = best pullback entry."
+
+### Curtis Faith / Turtle (추가)
+11. "If you can follow the rules, you can be a turtle."
+12. "Turtles trade the system, not the market."
+13. "When in doubt, do nothing."
+14. "The rules are 100% mechanical."
+
+### Adam Grimes (추가)
+15. "First pullback is the trade. After that, you're chasing."
+16. "Measurable patterns or it's not a pattern."
+17. "Edge = process. Process = backtest + execute."
+
+### Tom Hougaard (trend 측면 추가)
+18. "Most traders cut winners at +5R when trend has +50R."
+19. "Trail with the trend, not your hopes."
+20. "Same setup every day. Variety is the trader's enemy."
+
+---
+
+*Status: Trend Following v1.1 보강 완료. ~3,500 chars 추가.*
