@@ -1,4 +1,4 @@
-# NQ 매매 공부 자료 통합 (v1)
+# NQ 매매 공부 자료 통합 (v1.1)
 
 > **목적**: NQ (나스닥 100 선물) 단기·스캘프 매매에 통용되는 검증된 개념·기법·분석도구를 유튜브/책/블로그에서 망라 → 사용자 본인 약점 처방으로 활용.
 >
@@ -6,7 +6,33 @@
 >
 > **방향**: 매매 시간 ↓, 공부 시간 ↑. 틈만 나면 읽을 수 있는 자료.
 >
-> **시작**: 2026-05-06
+> **시작**: 2026-05-06 · **v1.1 갱신**: 2026-05-06 late (풀데이 분석 + L46-L50 + R33-R35 + Apex 매트릭스)
+
+---
+
+## 🆕 v1.1 갱신 (2026-05-06 late) — 풀데이 분석 통합
+
+### 트리거: 2026-05-05 풀데이 재분석 결과
+
+**Sim Net +$2,311.50 흑자** 표면 — 그러나:
+- **일중 MDD −$8,030.70 (−16.06%)** at 22:33:05
+- **Apex 4.0 Eval $50k BREACH at 19:40:28** (HYP-APEX-001 GO)
+- Phase 4 +$10,337 recovery = sim artifact (real account 종료 후)
+- **Net P&L 단독 self-eval 부적절** — MDD = 진짜 risk metric
+
+### 신규 추가 (v1.1)
+
+| 항목 | 내용 |
+|---|---|
+| **5 신규 lessons** | L46 (intraday MDD tracking) / L47 (recovery skill ≠ trading skill) / L48 (sim size reflex non-transferable) / L49 (post-break reset reproduced) / L50 (same setup, two outcomes — timing as edge) |
+| **3 신규 rules (candidates)** | R33 (post-break 5min observe) / R34 (sim 30ct cap) / R35 (Apex Compatibility Bundle 5종) |
+| **Pre-Entry Gate** | 8 → **10 Gate** 확장 (R33 + R34 추가) |
+| **일중 MDD Framework** | 매 15분 audit (DD 5%/10%/15% trigger) + Apex Daily DD −$1,500 |
+| **Apex Compatibility Matrix** | 7 룰 × 05-05 결과 (5 BREACH + 1 HIGH risk + 2 PASS) |
+| **R31 revised wording** | pullback-retest pattern (cluster #25 type) 30분까지 허용 |
+| **R32 partial revision** | post-breakout continuation 시 negation (Phase 4 #30-32 사례) |
+
+→ HTML 갱신: [v1.1 Update Section](_html/index.html#v11-update) 직접 link.
 
 ---
 

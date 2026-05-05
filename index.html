@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NQ 매매 공부 자료 v1</title>
+<title>NQ 매매 공부 자료 v1.1 — Full Day Update with MDD + Apex Compatibility</title>
 <style>
   :root {
     --bg: #0d1117;
@@ -276,9 +276,12 @@
 <div class="container">
 
 <header>
-  <h1>📈 NQ 매매 공부 자료 — v1</h1>
+  <h1>📈 NQ 매매 공부 자료 — v1.1 (Full Day Update)</h1>
   <div class="sub">나스닥 100 선물 (E-mini NQ) 단기·스캘프 매매 — 검증된 컨셉·기법·분석도구 망라 · 사용자 약점 처방 중심</div>
-  <div class="sub" style="margin-top:6px;">시작: 2026-05-06 · 6 카테고리 · 30+ source · 영어 + 한국어</div>
+  <div class="sub" style="margin-top:6px;">최종 갱신: 2026-05-06 (late) · 6 카테고리 · 1,109 source · 영어 + 한국어</div>
+  <div class="sub" style="margin-top:6px;color:var(--accent-warn);">
+    🆕 v1.1 변경: <strong>L46-L50 신규 / R33-R35 후보 / 일중 MDD framework / Apex 호환 매트릭스 / 10-Gate (8→10)</strong>
+  </div>
 </header>
 
 <!-- WHY 박스 -->
@@ -292,6 +295,18 @@
   <div class="data" style="margin-top:6px;">
     데이터 검증 (05-05): 새 sim 계좌 + TV 유료 연동 첫 세션 -$1,621.90 / WR 39.7% / R30 의지 cooldown 위반율 59% → 환경 강제 + 공부 우선순위 명확
   </div>
+</div>
+
+<!-- v1.1 풀데이 사건 박스 -->
+<div class="why-box" style="border-left-color: var(--accent-danger);">
+  <h2 style="color: var(--accent-danger);">🚨 2026-05-05 풀데이 재분석 결과 (v1.1 갱신 트리거)</h2>
+  <div style="margin-top:8px;">
+    <strong>Sim Net +$2,311 (+4.62%)</strong> 표면 흑자 — 그러나 <strong>일중 MDD −$8,030 (−16.06%)</strong> = real Apex/Lucid Eval $50k <strong>22:25 경 BREACH</strong>.
+  </div>
+  <div class="data" style="margin-top:8px;">
+    Phase Map: P1 −$1,922 (selectivity collapse) → P2 −$50 (mid wash) → [70min break] → P3 −$6,052 cascade (#29 280ct) → P4 +$10,337 parabolic recovery (sim only).
+  </div>
+  <div class="quote" style="margin-top:8px;">"Real edge = breakout retest discipline, NOT direction prediction." — Lesson 50</div>
 </div>
 
 <!-- 검색 -->
@@ -310,6 +325,7 @@
   <a href="#sources">전체 source list</a>
   <a href="#notebooklm" style="background: rgba(63, 185, 80, 0.1); border-color: var(--accent-good); color: var(--accent-good);">🧠 NotebookLM (1,109 source)</a>
   <a href="#details" style="background: rgba(251, 191, 36, 0.1); border-color: var(--tier1); color: var(--tier1);">📚 Detail.md (자기충족 교재)</a>
+  <a href="#v11-update" style="background: rgba(248, 81, 73, 0.1); border-color: var(--accent-danger); color: var(--accent-danger);">🆕 v1.1 — L46-L50 + R33-R35 + MDD + Apex</a>
 </div>
 
 <!-- 카테고리 카드 -->
@@ -824,9 +840,181 @@
   </div>
 </section>
 
+<!-- v1.1 Update Section -->
+<section id="v11-update">
+  <h2>🆕 v1.1 Update (2026-05-06 late) — Full Day Analysis 통합</h2>
+  <div class="why-box" style="border-left-color: var(--accent-danger);">
+    <h2 style="color: var(--accent-danger);">⚠️ Background — 왜 v1.1 갱신이 필요했나</h2>
+    <p>2026-05-05 풀데이 재분석 (4h 35min, 32 cluster, 275 legs) 결과:</p>
+    <ul style="margin: 12px 0 12px 24px;">
+      <li><strong>Sim Net +$2,311 흑자</strong> 표면 — 하지만 <strong>일중 MDD −$8,030 (−16.06%)</strong></li>
+      <li><strong>Apex 4.0 Eval $50k BREACH at 19:40:28</strong> (HYP-APEX-001 검증)</li>
+      <li>Phase 4 +$10,337 recovery = sim artifact (real account 종료 후)</li>
+      <li><strong>Net P&L 단독 self-eval = 부적절 metric.</strong> MDD 가 진짜 risk metric.</li>
+    </ul>
+    <p>→ 5 신규 lessons (L46-L50) + 3 신규 rules (R33/R34/R35) + 일중 MDD framework + Apex 호환 매트릭스 = v1.1.</p>
+  </div>
+
+  <h3 style="color: var(--text-bright); margin-top: 28px; margin-bottom: 12px;">📚 Lesson 46 ~ 50 — 신규 교훈</h3>
+  <div class="grid">
+    <div class="card">
+      <h3>L46 — Intraday MDD Tracking Birth</h3>
+      <div class="desc">매 세션 = peak-to-trough MDD 함께 보고. Net P&L 단독 self-eval 금지. MDD 가 진짜 risk metric.</div>
+      <ul>
+        <li>05-05 MDD −$8,030.70 (−16.06%) at 22:33:05</li>
+        <li>같은 날 Net +$2,311 흑자 (sim artifact)</li>
+        <li>Real account 환산 = 22:25 BREACH</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>L47 — Recovery Skill ≠ Trading Skill</h3>
+      <div class="desc">Phase 4 +$10k 회복 = reactive skill, −$8k 후에만 발현. Real edge = correct timing FIRST. Real account = 회복 기회 0.</div>
+      <ul>
+        <li>같은 LONG 28000 방향이 pre-loss 에도 가능했음</li>
+        <li>Real account: P4 자본 zero (계좌 종료)</li>
+        <li>Recovery 자신감 = misleading</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>L48 — Sim Size Reflex Non-Transferable</h3>
+      <div class="desc">Sim 200+ct reflex 는 PA 에서 0. PA Tier 1 환산 1/10. Sim 학습효과 transfer X = 사실상 0.</div>
+      <ul>
+        <li>Phase 3 #29 280ct (-$5,337) → PA 환산 -$571</li>
+        <li>Phase 4 #30 290ct (+$2,370) → PA 환산 +$245</li>
+        <li>R34 후보: sim 30ct cap 으로 PA reflex 훈련</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>L49 — Post-Break Discipline Reset Reproduced</h3>
+      <div class="desc">70-min 휴식 = 머릿속 카운터 reset = top-buy 함정. L43 (계좌 reset) 의 시간 변형. R33 후보.</div>
+      <ul>
+        <li>21:08 break 시작 → 22:19 즉시 top-buy → −$6,052 in 11min</li>
+        <li>L29 + L43 패턴의 micro / time variant</li>
+        <li>처방: 30min+ break 후 5min observe-only</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>L50 — Same Setup, Two Outcomes = Timing as Edge ⭐</h3>
+      <div class="desc">Phase 3 (−$5,337) + Phase 4 (+$10,337) = <strong>같은 parabolic move</strong> (27970→28085, +115pt). 차이 = breakout-confirmation timing 1개. <strong>방향 양쪽 다 정확.</strong></div>
+      <ul>
+        <li>P3 = pre-breakout fade entry (top buy)</li>
+        <li>P4 = post-breakout continuation (retest)</li>
+        <li><strong>Real edge = breakout retest discipline, NOT direction prediction</strong></li>
+        <li>룰화: "parabolic 진행 중 fade 진입 절대 X. Retest only."</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="color: var(--text-bright); margin-top: 28px; margin-bottom: 12px;">⚖️ R33 / R34 / R35 — 신규 룰 후보 (Candidates)</h3>
+  <div class="grid">
+    <div class="card">
+      <h3>R33 — Post-Break Re-Entry Restriction</h3>
+      <div class="desc">휴식 ≥ 30분 후 첫 5분 = observe-only. 신규 fill 절대 X.</div>
+      <ul>
+        <li><strong>Trigger</strong>: 직전 휴식 ≥ 30분 (식사 / 화장실 / 외출 등)</li>
+        <li><strong>Action</strong>: 복귀 직후 5분 timer (observe-only)</li>
+        <li><strong>Why</strong>: 70min 휴식 후 즉시 top-buy → −$6,052 cascade</li>
+        <li><strong>Status</strong>: Candidate (single-incident evidence + L29/L43 reproduction)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>R34 — Sim Position Cap @ 30 Contracts</h3>
+      <div class="desc">Sim/PA 동일. Concurrent position 30ct hard cap. 사이즈 reflex transfer 강제.</div>
+      <ul>
+        <li><strong>Hard cap</strong>: 30ct concurrent (single + accumulated)</li>
+        <li><strong>예외</strong>: 없음 (sim 도 동일)</li>
+        <li><strong>Why</strong>: 280-290ct reflex = sim only, PA 환산 1/10</li>
+        <li><strong>Status</strong>: Candidate (strong evidence — L48)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>R35 — Apex Compatibility Bundle ⭐</h3>
+      <div class="desc">Apex Eval/PA 활성화 시 lock-in. 5종 룰 동시 활성.</div>
+      <ul>
+        <li>1. R34 (30ct cap)</li>
+        <li>2. <strong>Daily DD limit −$1,500</strong> (Tier 1 DLL $2,500 의 60%)</li>
+        <li>3. R30 환경 강제 (TV / ATM lockout)</li>
+        <li>4. R8 strict TPA (사이즈 jump X)</li>
+        <li>5. <strong>KST 22:00+ 차단</strong> (5분 observe-only without confirmed setup)</li>
+      </ul>
+      <div class="links">
+        <a href="#apex-matrix" style="color: var(--accent-danger);">→ Apex 호환 매트릭스 ↓</a>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="color: var(--text-bright); margin-top: 28px; margin-bottom: 12px;" id="apex-matrix">🛡 Apex Compatibility Matrix (HYP-APEX-001)</h3>
+  <table>
+    <thead>
+      <tr><th>계좌 / 룰</th><th>한도</th><th>05-05 결과</th><th>판정</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Apex 4.0 Eval $50k Trailing DLL</td><td>−$2,500 ($48,000 threshold)</td><td>BREACH at <strong>19:40:28</strong> (잔고 $47,921)</td><td style="color: var(--accent-danger);">🔴 BREACH</td></tr>
+      <tr><td>Apex Legacy $50k Trailing DLL</td><td>−$2,500 ($47,500 threshold)</td><td>BREACH at <strong>19:43:44</strong> (잔고 $47,418)</td><td style="color: var(--accent-danger);">🔴 BREACH</td></tr>
+      <tr><td>PA Tier 1 Max Contracts</td><td>20 micro</td><td>40ct used in 95 sec</td><td style="color: var(--accent-danger);">🔴 BREACH</td></tr>
+      <tr><td>PA Tier 1 DLL</td><td>−$1,000</td><td>Phase 3 −$6,052</td><td style="color: var(--accent-danger);">🔴 BREACH 6×</td></tr>
+      <tr><td>Reckless Trading Review</td><td>—</td><td>280ct/11min #29 + 290ct/8min #30</td><td style="color: var(--accent-warn);">🟡 HIGH risk</td></tr>
+      <tr><td>Eval Max Contracts</td><td>60 micro</td><td>40 used (max)</td><td style="color: var(--accent-good);">🟢 PASS</td></tr>
+      <tr><td>Eval DLL</td><td>없음</td><td>—</td><td style="color: var(--accent-good);">🟢 PASS</td></tr>
+    </tbody>
+  </table>
+  <div class="data" style="margin-top: 12px; color: var(--accent-warn);">
+    → <strong>현재 trading style 과 Apex 룰 incompatible.</strong> R35 Bundle 5종 모두 적용 시 호환 가능 가설.
+  </div>
+
+  <h3 style="color: var(--text-bright); margin-top: 28px; margin-bottom: 12px;">✅ Pre-Entry 10-Gate (8 → 10 확장)</h3>
+  <table>
+    <thead><tr><th style="width:6%;">#</th><th style="width:50%;">Check</th><th>Rule</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>PC charting confirmed (not phone)</td><td>R22</td></tr>
+      <tr><td>2</td><td>Inside 20:00~23:00 KST main window</td><td>R16 / R26</td></tr>
+      <tr><td>3</td><td>15-minute PC chart trend confirmed</td><td>R24</td></tr>
+      <tr><td>4</td><td>First entry ≤ 10 contracts, TPA rules ready</td><td>R20</td></tr>
+      <tr><td>5</td><td>Hard StopLoss order placed at entry moment</td><td>(Fundamental)</td></tr>
+      <tr><td>6</td><td>Daily ceiling memorized (sim $3K / PA $1.5-2K)</td><td>R29</td></tr>
+      <tr><td>7</td><td>Environmental enforcement installed (60s cooldown)</td><td>R30 TRIAL</td></tr>
+      <tr><td>8</td><td>2-min timer ready at every entry</td><td>R31 TRIAL</td></tr>
+      <tr style="background: rgba(248, 81, 73, 0.1);"><td>9</td><td><strong>🆕 Position size cap 30ct (sim/PA 동일)</strong></td><td>R34</td></tr>
+      <tr style="background: rgba(248, 81, 73, 0.1);"><td>10</td><td><strong>🆕 If returning from break ≥30min: 5-min observe-only</strong></td><td>R33</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="color: var(--text-bright); margin-top: 28px; margin-bottom: 12px;">📊 Intraday MDD Self-Monitoring (R34 + L46)</h3>
+  <table>
+    <thead><tr><th style="width:25%;">DD %</th><th>Action</th></tr></thead>
+    <tbody>
+      <tr><td>DD &gt; 5%</td><td>Size 축소 또는 세션 보류</td></tr>
+      <tr><td>DD &gt; 10%</td><td>세션 강제 종료</td></tr>
+      <tr><td>DD &gt; 15%</td><td>2-day no-trade penalty</td></tr>
+      <tr style="background: rgba(248, 81, 73, 0.1);"><td><strong>Apex / PA 활성화 시</strong></td><td><strong>Daily DD limit −$1,500</strong> (Tier 1 DLL $2,500 의 60% 버퍼)</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="color: var(--text-bright); margin-top: 28px; margin-bottom: 12px;">🎯 다음 세션 액션 (v1.1 갱신)</h3>
+  <div class="quote-grid">
+    <div class="quote-card">
+      <strong style="color: var(--accent-good);">🟢 Primary 권장: Mandatory Rest Day</strong>
+      <div class="author" style="margin-top:8px; color: var(--text);">Selectivity 회복 + 룰 통합 시간. 차트 보지 않기.</div>
+    </div>
+    <div class="quote-card">
+      <strong style="color: var(--accent-warn);">🟡 매매 시 — 모든 가드 설치 후만</strong>
+      <div class="author" style="margin-top:8px; color: var(--text);">10-Gate + 일중 MDD audit + R33/R34 self-test. R30 환경 강제 필수.</div>
+    </div>
+    <div class="quote-card">
+      <strong>📌 R33 Self-test 양식</strong>
+      <div class="author" style="margin-top:8px; color: var(--text);">Break duration / Return time / 5-min observe adhered (Y/N) / First entry quality</div>
+    </div>
+    <div class="quote-card">
+      <strong>📌 R34 Self-test 양식</strong>
+      <div class="author" style="margin-top:8px; color: var(--text);">Concurrent max ct / Cap violation count / Subjective resistance / WR at cap</div>
+    </div>
+  </div>
+</section>
+
 <footer>
-  <p>NQ Study v1 · 2026-05-06 · 6 카테고리 · <strong>1,109 source 통합</strong> (신규 19 + 기존 1,090) · NotebookLM cross-query 활용 권장</p>
-  <p>출처: <a href="../README.md">README.md</a> · 카테고리별 detail: <a href="../01_psychology/summary.md">01</a> · <a href="../02_price_action/summary.md">02</a> · <a href="../03_trend_following/summary.md">03</a> · <a href="../04_ict_smc/summary.md">04</a> · <a href="../05_nq_specifics/summary.md">05</a> · <a href="../06_scalping/summary.md">06</a></p>
+  <p>NQ Study <strong>v1.1</strong> · 2026-05-06 late · 6 카테고리 · <strong>1,109 source 통합</strong> + 신규 L46-L50 + R33-R35 + Apex matrix · NotebookLM cross-query 활용 권장</p>
+  <p>출처: <a href="../README.md">README.md</a> · 카테고리별 detail: <a href="../01_psychology/detail.md">01 📖</a> · <a href="../02_price_action/detail.md">02 📖</a> · <a href="../03_trend_following/detail.md">03 📖</a> · <a href="../04_ict_smc/detail.md">04 📖</a> · <a href="../05_nq_specifics/detail.md">05 📖</a> · <a href="../06_scalping/detail.md">06 📖</a></p>
+  <p>매매 SSOT: <a href="../../../../매매일지/해외선물/research/LEARNINGS_INDEX.md">LEARNINGS_INDEX v2.4</a> · <a href="../../../../매매일지/해외선물/research/PRE_SESSION_CARD.md">PRE_SESSION_CARD (10-Gate)</a> · <a href="../../../../매매일지/해외선물/research/LEARNINGS.md">LEARNINGS.md (L1-L50)</a></p>
 </footer>
 
 </div>
