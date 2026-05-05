@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NQ 매매 공부 자료 v1</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg-card: #161b22;
+    --bg-card-hover: #1f262e;
+    --border: #30363d;
+    --text: #c9d1d9;
+    --text-dim: #8b949e;
+    --text-bright: #f0f6fc;
+    --accent: #58a6ff;
+    --accent-warn: #d29922;
+    --accent-danger: #f85149;
+    --accent-good: #3fb950;
+    --tier1: #fbbf24;
+    --tier2: #94a3b8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Pretendard", "Noto Sans KR", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 24px 16px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+  }
+  header h1 {
+    color: var(--text-bright);
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+  header .sub {
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+
+  /* WHY 박스 */
+  .why-box {
+    background: linear-gradient(135deg, rgba(88, 166, 255, 0.05), rgba(248, 81, 73, 0.05));
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent-warn);
+    padding: 16px 20px;
+    margin: 16px 0 32px;
+    border-radius: 6px;
+  }
+  .why-box h2 {
+    color: var(--accent-warn);
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  .why-box .quote {
+    font-style: italic;
+    color: var(--text-bright);
+    margin: 8px 0;
+    padding-left: 16px;
+    border-left: 2px solid var(--accent);
+  }
+  .why-box .data {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-top: 8px;
+  }
+
+  /* Search */
+  .search-box {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+  .search-box:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  /* Quick nav */
+  .quick-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+  .quick-nav a {
+    padding: 8px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 13px;
+    transition: all 0.15s;
+  }
+  .quick-nav a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* Category cards */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    transition: all 0.2s;
+  }
+  .card:hover {
+    border-color: var(--accent);
+    background: var(--bg-card-hover);
+  }
+  .card h3 {
+    color: var(--text-bright);
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+  .card .priority {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    background: var(--accent);
+    color: var(--bg);
+    margin-left: 8px;
+    font-weight: 600;
+  }
+  .card .desc {
+    color: var(--text-dim);
+    font-size: 13px;
+    margin: 12px 0;
+  }
+  .card ul {
+    list-style: none;
+    margin: 12px 0;
+  }
+  .card ul li {
+    padding: 4px 0;
+    font-size: 13px;
+    color: var(--text);
+  }
+  .card ul li::before {
+    content: "▸ ";
+    color: var(--accent);
+  }
+  .card .links {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .card .links a {
+    color: var(--accent);
+    text-decoration: none;
+    margin-right: 12px;
+    display: inline-block;
+    padding: 2px 0;
+  }
+  .card .links a:hover { text-decoration: underline; }
+  .card details {
+    margin-top: 12px;
+    font-size: 13px;
+  }
+  .card summary {
+    cursor: pointer;
+    color: var(--text-dim);
+    padding: 6px 0;
+    user-select: none;
+  }
+  .card summary:hover { color: var(--accent); }
+  .card details ul li { padding: 2px 0; font-size: 12px; }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 13px;
+  }
+  th, td {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    color: var(--text-bright);
+    background: rgba(88, 166, 255, 0.1);
+    font-weight: 600;
+  }
+  td.priority-col { color: var(--accent-warn); font-weight: 600; }
+
+  /* Section */
+  section {
+    margin: 40px 0;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  section h2 {
+    color: var(--text-bright);
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+  .quote-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .quote-card {
+    background: var(--bg-card);
+    border-left: 3px solid var(--accent);
+    padding: 12px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+  .quote-card .author {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  /* Schedule */
+  .schedule-week {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin: 8px 0;
+  }
+  .schedule-week h4 {
+    color: var(--accent);
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+  .schedule-week ul {
+    margin-left: 20px;
+    font-size: 13px;
+  }
+
+  footer {
+    margin-top: 60px;
+    padding: 24px 0;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+  footer a { color: var(--accent); }
+
+  @media (max-width: 768px) {
+    body { padding: 16px 12px; }
+    header h1 { font-size: 22px; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>📈 NQ 매매 공부 자료 — v1</h1>
+  <div class="sub">나스닥 100 선물 (E-mini NQ) 단기·스캘프 매매 — 검증된 컨셉·기법·분석도구 망라 · 사용자 약점 처방 중심</div>
+  <div class="sub" style="margin-top:6px;">시작: 2026-05-06 · 6 카테고리 · 30+ source · 영어 + 한국어</div>
+</header>
+
+<!-- WHY 박스 -->
+<div class="why-box">
+  <h2>🎯 이 자료의 작성 의도</h2>
+  <div class="quote">"매매 시간 짧게 — 집중해서 규율 지키는 만큼만. 지금은 공부에 시간 쏟을 시기"</div>
+  <div class="data">— 사용자 자가 결정 (2026-05-06)</div>
+  <div style="margin-top:12px;">
+    <strong>사용자 약점 (자가 진단)</strong>: 단기 추세 끝물 진입 → 물타기 / 짤짤이 후 욕심 / "치고 더 갈까봐" / 희망적 추세지향 (LONG bias)
+  </div>
+  <div class="data" style="margin-top:6px;">
+    데이터 검증 (05-05): 새 sim 계좌 + TV 유료 연동 첫 세션 -$1,621.90 / WR 39.7% / R30 의지 cooldown 위반율 59% → 환경 강제 + 공부 우선순위 명확
+  </div>
+</div>
+
+<!-- 검색 -->
+<input type="text" class="search-box" id="searchBox" placeholder="🔍 검색: 키워드, 저자, 컨셉 (예: Mark Douglas, top buying, AVWAP)">
+
+<!-- Quick navigation -->
+<div class="quick-nav">
+  <a href="#cat1">01 Psychology ⭐</a>
+  <a href="#cat2">02 Price Action</a>
+  <a href="#cat3">03 Trend Following</a>
+  <a href="#cat4">04 ICT/SMC</a>
+  <a href="#cat5">05 NQ Specifics</a>
+  <a href="#cat6">06 Scalping</a>
+  <a href="#mapping">사용자 약점 매핑</a>
+  <a href="#schedule">4주 학습 일정</a>
+  <a href="#sources">전체 source list</a>
+  <a href="#notebooklm" style="background: rgba(63, 185, 80, 0.1); border-color: var(--accent-good); color: var(--accent-good);">🧠 NotebookLM (1,109 source)</a>
+</div>
+
+<!-- 카테고리 카드 -->
+<div class="grid">
+
+  <div class="card searchable" id="cat1">
+    <h3>01 Trading Psychology<span class="priority">1순위</span></h3>
+    <div class="desc">사용자 약점 처방 1순위. 모든 룰 (R29/R30/R31/R32) 의 effectiveness 가 결국 심리 기반.</div>
+    <ul>
+      <li><strong>Probabilistic thinking</strong> — Mark Douglas 5 truths</li>
+      <li><strong>Best Loser Wins</strong> — Tom Hougaard / tight loss, wide win</li>
+      <li><strong>Outcome Bias</strong> — 운으로 살아남은 룰 위반이 가장 위험</li>
+      <li><strong>Environmental setup</strong> — Steenbarger / 의지 X</li>
+      <li><strong>Rest is trading</strong> — 안 하는 것도 매매 (사용자 L41)</li>
+    </ul>
+    <details>
+      <summary>📚 Tier 1 자료</summary>
+      <ul>
+        <li>Mark Douglas — "Trading in the Zone" (한국어 번역본)</li>
+        <li>Tom Hougaard — Best Loser Wins (FREE PDF ↓)</li>
+        <li>Brett Steenbarger — TraderFeed Resource Center</li>
+        <li>Anton Kreil — Institute of Trading masterclass</li>
+        <li>Edwin Lefèvre — Reminiscences of a Stock Operator (1923)</li>
+      </ul>
+    </details>
+    <div class="links">
+      <a href="https://tradertom.com/wp-content/uploads/2021/03/BEST-LOSER-WINS-1.pdf" target="_blank">📄 Best Loser Wins PDF</a>
+      <a href="https://www.youtube.com/@Trading-o3s" target="_blank">▶ Mark Douglas Trading Zone</a>
+      <a href="https://www.youtube.com/@traderTomHougaard" target="_blank">▶ Tom Hougaard</a>
+      <a href="http://traderfeed.blogspot.com/" target="_blank">📰 TraderFeed</a>
+    </div>
+  </div>
+
+  <div class="card searchable" id="cat2">
+    <h3>02 Price Action 기본<span class="priority">2순위</span></h3>
+    <div class="desc">"흐름 읽기보다 희망적 추세지향" → Price Action = 캔들·구조 기반 객관적 흐름.</div>
+    <ul>
+      <li><strong>Bar-by-bar</strong> — Al Brooks "always-in"</li>
+      <li><strong>Market Structure</strong> — HH/HL/LH/LL, BOS, CHoCH</li>
+      <li><strong>VSA / Wyckoff</strong> — Anna Coulling / volume + price</li>
+      <li><strong>Context-driven entry</strong> — Lance Beggs HTF + Level + LTF + R:R</li>
+      <li><strong>Don't predict, react</strong> — if-then scenario</li>
+    </ul>
+    <details>
+      <summary>📚 Tier 1 자료</summary>
+      <ul>
+        <li>Al Brooks — "Trading Price Action TRENDS" (1500+ pages)</li>
+        <li>Anna Coulling — VSA Complete Guide</li>
+        <li>Lance Beggs — yourtradingcoach.com 무료 글 + Effective Session Review PDF</li>
+        <li>Steve Nison — Japanese Candlestick Charting (한국어 번역)</li>
+      </ul>
+    </details>
+    <div class="links">
+      <a href="https://www.youtube.com/@AlBrooksPriceAction" target="_blank">▶ Al Brooks YouTube</a>
+      <a href="https://www.youtube.com/@LanceBeggs" target="_blank">▶ Lance Beggs YT</a>
+      <a href="https://yourtradingcoach.com/" target="_blank">📰 YourTradingCoach</a>
+      <a href="https://www.youtube.com/@StaceyBurkeTrading" target="_blank">▶ Stacey Burke (NQ daily)</a>
+    </div>
+  </div>
+
+  <div class="card searchable" id="cat3">
+    <h3>03 Trend Following / Pullback<span class="priority">3순위</span></h3>
+    <div class="desc">pullback vs top buy 구분 + 추세 끝까지 타기.</div>
+    <ul>
+      <li><strong>Pullback Entry</strong> — first pullback after BOS = 가장 안전</li>
+      <li><strong>Linda Raschke</strong> — first hour, 80-20, Holy Grail</li>
+      <li><strong>Adam Grimes</strong> — measurable patterns</li>
+      <li><strong>Trail Stop</strong> — 단계별 ratchet (사용자 표준 ratchet 동일)</li>
+      <li><strong>Turtle Rules</strong> — "If signal then enter. No exceptions."</li>
+    </ul>
+    <details>
+      <summary>📚 Tier 1 자료</summary>
+      <ul>
+        <li>Adam Grimes — "The Art and Science of Technical Analysis"</li>
+        <li>Curtis Faith — Original Turtle Rules (FREE PDF)</li>
+        <li>Linda Raschke — "Street Smarts" (1996)</li>
+        <li>Stan Weinstein — "Secrets for Profiting" (Stage Analysis)</li>
+      </ul>
+    </details>
+    <div class="links">
+      <a href="https://bigpicture.typepad.com/comments/files/turtlerules.pdf" target="_blank">📄 Turtle Rules PDF</a>
+      <a href="https://www.youtube.com/@AdamHGrimes" target="_blank">▶ Adam Grimes YT</a>
+      <a href="https://adamhgrimes.com/" target="_blank">📰 adamhgrimes.com</a>
+      <a href="https://www.trendfollowing.com/" target="_blank">📰 TrendFollowing.com</a>
+    </div>
+  </div>
+
+  <div class="card searchable" id="cat4">
+    <h3>04 ICT / Smart Money Concepts</h3>
+    <div class="desc">사용자 차트의 OB/FVG indicator = ICT origin. ⚠️ caveat: cult content 무시, 컨셉만.</div>
+    <ul>
+      <li><strong>Order Block</strong> — institutional 진입 자리</li>
+      <li><strong>FVG / Imbalance</strong> — 3-candle gap pattern</li>
+      <li><strong>Liquidity Pool / Stop Hunt</strong> — Top buying 의 정확한 회피</li>
+      <li><strong>MSS / CHoCH</strong> — 추세 반전 신호</li>
+      <li><strong>Kill Zones / Power of 3</strong> — 시간 기반 + manipulation 인지</li>
+    </ul>
+    <details>
+      <summary>📚 Tier 1 자료</summary>
+      <ul>
+        <li>Inner Circle Trader — 본인 채널 (cult-light 영상 우선)</li>
+        <li>Quantum Algo — ICT Strategy Complete Guide 2026</li>
+        <li>Trading Concepts Explained — Smart Money 큐레이션</li>
+        <li>Wysetrade — 5-step entry</li>
+        <li>팔콘트레이딩 SMC/ICT 한국어 풀코스 ⭐</li>
+      </ul>
+    </details>
+    <div class="links">
+      <a href="https://www.youtube.com/@InnerCircleTrader" target="_blank">▶ ICT 본인</a>
+      <a href="https://www.quantum-algo.com/blog/guides/ict-trading-strategy-complete-guide/" target="_blank">📰 Quantum Algo Guide</a>
+      <a href="https://www.youtube.com/playlist?list=PLkOanxbURicsR4fOq8lAmhD6p0JTcFc-S" target="_blank">▶ 팔콘트레이딩 한국어</a>
+      <a href="https://www.youtube.com/channel/UCP_hOTEw12q8tdduG12kdnQ" target="_blank">▶ Trading Concepts Explained</a>
+    </div>
+  </div>
+
+  <div class="card searchable" id="cat5">
+    <h3>05 NQ 특화 / Index Futures</h3>
+    <div class="desc">사용자 검증 시간대 + SMB / Mancini / Brian Shannon 보강.</div>
+    <ul>
+      <li><strong>NY first hour</strong> — KST 22:30~23:30 핫스팟 (사용자 데이터 일치)</li>
+      <li><strong>Opening Range / ACD</strong> — Mark Fisher</li>
+      <li><strong>AVWAP</strong> — Brian Shannon, anchor 기반 institutional reference</li>
+      <li><strong>Internals (TICK / VOLD)</strong> — SMB Capital</li>
+      <li><strong>Macro context</strong> — VIX, DXY, Yield, economic calendar</li>
+    </ul>
+    <details>
+      <summary>📚 Tier 1 자료</summary>
+      <ul>
+        <li>Mike Bellafiore — "One Good Trade" + "The PlayBook"</li>
+        <li>Mark Fisher — "The Logical Trader" (ACD)</li>
+        <li>Brian Shannon — alphatrends.net</li>
+        <li>Adam Mancini Twitter — 매일 NQ levels</li>
+        <li>CME Group Educational Materials</li>
+      </ul>
+    </details>
+    <div class="links">
+      <a href="https://smbcap.com/" target="_blank">📰 SMB Capital</a>
+      <a href="https://www.alphatrends.net/" target="_blank">📰 alphatrends.net</a>
+      <a href="https://x.com/AdamMancini4" target="_blank">𝕏 Adam Mancini</a>
+      <a href="https://www.cmegroup.com/education.html" target="_blank">📰 CME Education</a>
+    </div>
+  </div>
+
+  <div class="card searchable" id="cat6">
+    <h3>06 Scalping 기법</h3>
+    <div class="desc">사용자 자가 정의 정확: "변동성·속도·힘 적절할 때만". 함정: sub-2min winner = 욕심 발화점.</div>
+    <ul>
+      <li><strong>VTR</strong> — Volman의 Volatility Trading Range 정량화</li>
+      <li><strong>Setup quality &gt; frequency</strong> — 1 cluster / 5+min 목표</li>
+      <li><strong>Round numbers + levels</strong> — pre-defined entry only</li>
+      <li><strong>Tight loss / quick cut</strong> — 2분 cut (R31 호환)</li>
+      <li><strong>Order Flow / Tape Reading</strong> — BookMap, DOM (advanced)</li>
+    </ul>
+    <details>
+      <summary>📚 Tier 1 자료</summary>
+      <ul>
+        <li>Bob Volman — "Forex Price Action Scalping" (방법론)</li>
+        <li>Tom Hougaard — short-term videos</li>
+        <li>SMB Capital — scalp playlist</li>
+        <li>BookMap — order flow</li>
+        <li>Joe Ross — Hook patterns</li>
+      </ul>
+    </details>
+    <div class="links">
+      <a href="https://www.youtube.com/@BookmapPro" target="_blank">▶ BookMap Pro</a>
+      <a href="https://bookmap.com/learn/" target="_blank">📰 BookMap learn</a>
+      <a href="https://www.youtube.com/@smbcapital" target="_blank">▶ SMB Capital</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- 사용자 약점 매핑 표 -->
+<section id="mapping">
+  <h2>🎯 사용자 약점 → 직접 처방 매핑</h2>
+  <table>
+    <thead>
+      <tr><th style="width:25%;">사용자 약점</th><th style="width:35%;">처방 컨셉</th><th>출처</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="priority-col">욕심 ("치고 더 갈까봐")</td><td>Probabilistic thinking — anything can happen</td><td>Mark Douglas Ch. 3 / Tom Hougaard</td></tr>
+      <tr><td class="priority-col">Top buying</td><td>Reversal bar / Liquidity sweep 회피</td><td>Al Brooks + ICT</td></tr>
+      <tr><td class="priority-col">물타기 (averaging down)</td><td>"Loss is information" — thesis 무효 = 즉시 cut</td><td>Hougaard + Volman</td></tr>
+      <tr><td class="priority-col">의지 cooldown 실패</td><td>Environmental setup, NOT willpower</td><td>Steenbarger Ch. 21+</td></tr>
+      <tr><td class="priority-col">LONG bias (희망적)</td><td>Confirmation bias awareness — "what would prove me wrong?"</td><td>Mark Douglas Ch. 5-7</td></tr>
+      <tr><td class="priority-col">Sub-2min winner trap</td><td>Edge = setup, not feeling. Same trade every time.</td><td>Volman + Hougaard</td></tr>
+      <tr><td class="priority-col">새 계좌 fresh start</td><td>Behavioral data persists at TRADER level</td><td>본인 L43</td></tr>
+      <tr><td class="priority-col">선택성 부족</td><td>Rest is trading. Best traders trade less.</td><td>Steenbarger + L41</td></tr>
+      <tr><td class="priority-col">추세 끝까지 못 봄</td><td>Trail stop ratchet, "best loser wins"</td><td>Hougaard + Adam Grimes</td></tr>
+      <tr><td class="priority-col">Hold > 2min loss</td><td>R31 cut + tight SL discipline</td><td>Volman + Hougaard</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 4주 학습 일정 -->
+<section id="schedule">
+  <h2>📅 추천 학습 일정 — 4주 + 강화</h2>
+
+  <div class="schedule-week">
+    <h4>Week 1 — 기초 / 1순위</h4>
+    <ul>
+      <li>Mark Douglas — Trading in the Zone (Ch. 3-7)</li>
+      <li>Tom Hougaard — Best Loser Wins (FREE PDF)</li>
+      <li>Curtis Faith — Original Turtle Rules (1.5h)</li>
+      <li>각 카테고리 sources.md 훑어보기</li>
+    </ul>
+  </div>
+
+  <div class="schedule-week">
+    <h4>Week 2 — Application / Process Design</h4>
+    <ul>
+      <li>Brett Steenbarger — TraderFeed Resource Center (5-10 글)</li>
+      <li>Steenbarger — Daily Trading Coach Ch. 21-30 (environmental)</li>
+      <li>Lance Beggs — Effective Session Review PDF</li>
+      <li>Al Brooks YouTube core videos</li>
+    </ul>
+  </div>
+
+  <div class="schedule-week">
+    <h4>Week 3 — Setup / Structure</h4>
+    <ul>
+      <li>Adam Grimes — measurable pullback patterns</li>
+      <li>Anna Coulling — VSA Complete Guide</li>
+      <li>ICT — core content videos (cult-light 영상 우선)</li>
+      <li>Mike Bellafiore — One Good Trade (Ch. 1-3)</li>
+    </ul>
+  </div>
+
+  <div class="schedule-week">
+    <h4>Week 4 — NQ 특화 + Scalp</h4>
+    <ul>
+      <li>Brian Shannon — AVWAP 영상 5-10개</li>
+      <li>Mark Fisher — The Logical Trader (ACD)</li>
+      <li>Bob Volman — Forex Price Action Scalping (VTR)</li>
+      <li>팔콘트레이딩 SMC/ICT 풀코스 (한국어)</li>
+    </ul>
+  </div>
+
+  <div class="schedule-week">
+    <h4>강화 / 매주 반복</h4>
+    <ul>
+      <li>매주 매매일지 weekly review (Steenbarger 5문항)</li>
+      <li>핵심 명언 50선 / 매일 1개씩 음미</li>
+      <li>Stacey Burke / Tanja Trades — daily NQ analysis live</li>
+      <li>Adam Mancini Twitter 매일 levels check</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 핵심 명언 -->
+<section>
+  <h2>💎 핵심 명언 — 틈만 나면 읽기</h2>
+  <div class="quote-grid">
+    <div class="quote-card">"Anything can happen." <div class="author">— Mark Douglas</div></div>
+    <div class="quote-card">"You don't need to know what will happen next to make money." <div class="author">— Mark Douglas</div></div>
+    <div class="quote-card">"The best loser wins. Tight loss, wide win." <div class="author">— Tom Hougaard</div></div>
+    <div class="quote-card">"If you can't take a small loss, sooner or later you will take a big loss." <div class="author">— Tom Hougaard</div></div>
+    <div class="quote-card">"Best practices, not willpower." <div class="author">— Brett Steenbarger</div></div>
+    <div class="quote-card">"Best traders trade less, not more." <div class="author">— Brett Steenbarger</div></div>
+    <div class="quote-card">"It never was my thinking that made the big money for me. It was always my sitting." <div class="author">— Jesse Livermore</div></div>
+    <div class="quote-card">"One good trade. That's all you need today." <div class="author">— Mike Bellafiore (SMB)</div></div>
+    <div class="quote-card">"If signal then enter. No exceptions." <div class="author">— Curtis Faith (Turtle)</div></div>
+    <div class="quote-card">"Wait for the second entry. The first one fails more often than not." <div class="author">— Al Brooks</div></div>
+    <div class="quote-card">"Context first. Setup second. Execution third." <div class="author">— Lance Beggs</div></div>
+    <div class="quote-card">"Volume precedes price." <div class="author">— Wyckoff</div></div>
+    <div class="quote-card">"Liquidity is taken before the move begins." <div class="author">— ICT</div></div>
+    <div class="quote-card">"Only money matters. Volume-weighted price = where money is." <div class="author">— Brian Shannon</div></div>
+    <div class="quote-card">"If the level isn't there, the trade isn't there." <div class="author">— Bob Volman</div></div>
+    <div class="quote-card">"안 하는 것도 매매" <div class="author">— 사용자 본인 (L41 + PRE_SESSION_CARD line 52)</div></div>
+  </div>
+</section>
+
+<!-- Source list -->
+<section id="sources">
+  <h2>📚 전체 Source List (Tier 1)</h2>
+  <table>
+    <thead><tr><th style="width:8%;">유형</th><th style="width:25%;">제목/채널</th><th style="width:20%;">저자</th><th>Link</th></tr></thead>
+    <tbody>
+      <tr><td>📚 Book</td><td>Trading in the Zone</td><td>Mark Douglas</td><td>한국어 번역본 "트레이딩 존" 존재</td></tr>
+      <tr><td>📚 Book</td><td>Best Loser Wins (FREE PDF)</td><td>Tom Hougaard</td><td><a href="https://tradertom.com/wp-content/uploads/2021/03/BEST-LOSER-WINS-1.pdf" target="_blank">PDF</a></td></tr>
+      <tr><td>📚 Book</td><td>Daily Trading Coach</td><td>Brett Steenbarger</td><td>Wiley</td></tr>
+      <tr><td>📚 Book</td><td>Trading Price Action TRENDS</td><td>Al Brooks</td><td>1500+ pages, reference</td></tr>
+      <tr><td>📚 Book</td><td>One Good Trade + The PlayBook</td><td>Mike Bellafiore</td><td><a href="https://smbcap.com/" target="_blank">SMB Capital</a></td></tr>
+      <tr><td>📚 Book</td><td>Forex Price Action Scalping</td><td>Bob Volman</td><td>방법론 표준</td></tr>
+      <tr><td>📚 Book</td><td>Reminiscences of a Stock Operator</td><td>Edwin Lefèvre (1923)</td><td>한국어 번역본 多</td></tr>
+      <tr><td>🎬 YT</td><td>Mark Douglas Trading Zone</td><td>큐레이션</td><td><a href="https://www.youtube.com/@Trading-o3s" target="_blank">@Trading-o3s</a></td></tr>
+      <tr><td>🎬 YT</td><td>Tom Hougaard</td><td>본인</td><td><a href="https://www.youtube.com/@traderTomHougaard" target="_blank">@traderTomHougaard</a></td></tr>
+      <tr><td>🎬 YT</td><td>SMB Capital</td><td>Mike Bellafiore</td><td><a href="https://www.youtube.com/@smbcapital" target="_blank">@smbcapital</a></td></tr>
+      <tr><td>🎬 YT</td><td>Anton Kreil</td><td>Institute of Trading</td><td><a href="https://www.youtube.com/@InstituteofTrading" target="_blank">@InstituteofTrading</a></td></tr>
+      <tr><td>🎬 YT</td><td>Al Brooks</td><td>본인</td><td><a href="https://www.youtube.com/@AlBrooksPriceAction" target="_blank">@AlBrooksPriceAction</a></td></tr>
+      <tr><td>🎬 YT</td><td>Lance Beggs</td><td>YourTradingCoach</td><td><a href="https://www.youtube.com/@LanceBeggs" target="_blank">@LanceBeggs</a></td></tr>
+      <tr><td>🎬 YT</td><td>Stacey Burke Trading</td><td>ICT mentee</td><td><a href="https://www.youtube.com/@StaceyBurkeTrading" target="_blank">@StaceyBurkeTrading</a></td></tr>
+      <tr><td>🎬 YT</td><td>The Trading Channel</td><td>Patrick Wieland</td><td><a href="https://www.youtube.com/channel/UCGL9ubdGcvZh_dvSV2z1hoQ" target="_blank">link</a></td></tr>
+      <tr><td>🎬 YT</td><td>Adam Grimes</td><td>본인</td><td><a href="https://www.youtube.com/@AdamHGrimes" target="_blank">@AdamHGrimes</a></td></tr>
+      <tr><td>🎬 YT</td><td>Inner Circle Trader (ICT)</td><td>Michael Huddleston</td><td><a href="https://www.youtube.com/@InnerCircleTrader" target="_blank">@InnerCircleTrader</a></td></tr>
+      <tr><td>🎬 YT</td><td>Wysetrade</td><td>SMC educator</td><td><a href="https://www.youtube.com/@Wysetrade" target="_blank">@Wysetrade</a></td></tr>
+      <tr><td>🎬 YT</td><td>Trading Concepts Explained</td><td>SMC 큐레이션</td><td><a href="https://www.youtube.com/channel/UCP_hOTEw12q8tdduG12kdnQ" target="_blank">link</a></td></tr>
+      <tr><td>🎬 YT</td><td>Brian Shannon (alphatrends)</td><td>AVWAP</td><td><a href="https://www.alphatrends.net/" target="_blank">site</a></td></tr>
+      <tr><td>🎬 YT</td><td>Convergent Trading</td><td>order flow</td><td><a href="https://www.youtube.com/@ConvergentTrading" target="_blank">@ConvergentTrading</a></td></tr>
+      <tr><td>🎬 YT</td><td>BookMap Pro</td><td>order flow scalp</td><td><a href="https://www.youtube.com/@BookmapPro" target="_blank">@BookmapPro</a></td></tr>
+      <tr><td>🇰🇷 KR</td><td>팔콘트레이딩 SMC/ICT</td><td>한국어 풀코스</td><td><a href="https://www.youtube.com/playlist?list=PLkOanxbURicsR4fOq8lAmhD6p0JTcFc-S" target="_blank">playlist</a></td></tr>
+      <tr><td>🇰🇷 KR</td><td>더트레이딩</td><td>교육 플랫폼</td><td><a href="https://thetrading.co.kr/" target="_blank">site</a></td></tr>
+      <tr><td>📰 Blog</td><td>TraderFeed</td><td>Brett Steenbarger</td><td><a href="http://traderfeed.blogspot.com/" target="_blank">blog</a></td></tr>
+      <tr><td>📰 Blog</td><td>YourTradingCoach</td><td>Lance Beggs</td><td><a href="https://yourtradingcoach.com/" target="_blank">site</a></td></tr>
+      <tr><td>📰 Blog</td><td>adamhgrimes.com</td><td>Adam Grimes</td><td><a href="https://adamhgrimes.com/" target="_blank">site</a></td></tr>
+      <tr><td>𝕏 X</td><td>Adam Mancini Twitter</td><td>NQ levels 매일</td><td><a href="https://x.com/AdamMancini4" target="_blank">@AdamMancini4</a></td></tr>
+      <tr><td>📰 Guide</td><td>Quantum Algo ICT Guide 2026</td><td>ICT complete</td><td><a href="https://www.quantum-algo.com/blog/guides/ict-trading-strategy-complete-guide/" target="_blank">guide</a></td></tr>
+      <tr><td>📄 PDF</td><td>Original Turtle Rules</td><td>Curtis Faith</td><td><a href="https://bigpicture.typepad.com/comments/files/turtlerules.pdf" target="_blank">PDF</a></td></tr>
+      <tr><td>📄 PDF</td><td>YTC Effective Session Review</td><td>Lance Beggs</td><td><a href="https://www.scribd.com/document/491988824/YTC-Effective-Session-Review" target="_blank">scribd</a></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- NotebookLM 통합 -->
+<section id="notebooklm">
+  <h2>🧠 NotebookLM 통합 — 1,109 source 활용</h2>
+  <div class="why-box" style="border-left-color: var(--accent-good);">
+    <h2 style="color: var(--accent-good);">🆕 NQ Study v1 — English Authorities (신규)</h2>
+    <p>2026-05-06 신규 생성. 19 source: Tom Hougaard / Mark Douglas / Best Loser Wins PDF / Turtle Rules / SMB Capital / Brett Steenbarger / Adam Grimes / Brian Shannon / ICT 2026 / Quantum Algo ICT Guide.</p>
+    <p style="margin-top: 12px;"><a href="https://notebooklm.google.com/notebook/81fe9110-dfe2-4b64-bcd6-c221c36d84c6" target="_blank" style="color: var(--accent); font-weight: 600;">→ Open NotebookLM (English Authorities)</a></p>
+  </div>
+
+  <h3 style="color: var(--text-bright); margin-top: 24px; margin-bottom: 12px;">📚 기존 NotebookLM 활용 (사용자 archive, 총 1,090 source)</h3>
+  <table>
+    <thead><tr><th style="width:18%;">카테고리</th><th>활용 notebook</th><th style="width:10%;">source</th><th style="width:8%;">link</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="priority-col">01 Psychology</td>
+        <td>차트프로 심리편 / 전략적 트레이더 리포트 / 월 4억 프로 7원칙 / 잃지 않는 투자 본질</td>
+        <td><strong>64</strong></td>
+        <td>
+          <a href="https://notebooklm.google.com/notebook/b187b828-b8e8-46ca-9c5e-e23a7ba51e33" target="_blank">심리편</a>
+          <a href="https://notebooklm.google.com/notebook/6b8fb50c-4df1-4049-8991-af3b8ad5e3ec" target="_blank">전략적</a>
+          <a href="https://notebooklm.google.com/notebook/fd3ff9e8-952d-417a-9a8f-5353f66ce9ad" target="_blank">월4억</a>
+          <a href="https://notebooklm.google.com/notebook/c42afa44-12cf-4577-aced-6cda1e1558c3" target="_blank">잃지않는</a>
+        </td>
+      </tr>
+      <tr>
+        <td class="priority-col">02 Price Action</td>
+        <td>차트프로 차트편 / 지지저항/이평선 4개 단편</td>
+        <td><strong>71</strong></td>
+        <td><a href="https://notebooklm.google.com/notebook/f1275286-c267-4b37-915c-bece964b6d7f" target="_blank">차트편</a></td>
+      </tr>
+      <tr>
+        <td class="priority-col">03 Trend Following</td>
+        <td>보조지표편 Strategies / 데이트레이딩편 / 리스크 관리 전문편</td>
+        <td><strong>109</strong></td>
+        <td>
+          <a href="https://notebooklm.google.com/notebook/672f3a3a-938e-4fd5-8383-c17a53e5f6c5" target="_blank">전략</a>
+          <a href="https://notebooklm.google.com/notebook/0452f90a-9c11-4e01-ba71-a17b85b030fa" target="_blank">데이트</a>
+          <a href="https://notebooklm.google.com/notebook/5a230c43-fb26-4827-b261-e7f9739b6642" target="_blank">리스크</a>
+        </td>
+      </tr>
+      <tr>
+        <td class="priority-col">04 ICT/SMC ⭐</td>
+        <td>ICT 유니버설 (197) / ICT Part 1+2+3 (156) / SMC 전략편 Courses+Crypto (95) / 단편 5개</td>
+        <td><strong>452</strong></td>
+        <td>
+          <a href="https://notebooklm.google.com/notebook/d7927a18-f200-48f9-b8d4-f6afcb249615" target="_blank">유니버설</a>
+          <a href="https://notebooklm.google.com/notebook/647a7748-1694-41fc-8b92-a8bbd9130dae" target="_blank">P1</a>
+          <a href="https://notebooklm.google.com/notebook/df592ee8-66b3-4bc2-a39f-7c8d2c14cb91" target="_blank">P2</a>
+          <a href="https://notebooklm.google.com/notebook/3a2c7b3e-41ce-45fc-8ee1-9b05ff9745d6" target="_blank">P3</a>
+          <a href="https://notebooklm.google.com/notebook/22a54816-9673-4cf5-a3dc-ad0b4def7306" target="_blank">SMC-C</a>
+          <a href="https://notebooklm.google.com/notebook/89ed2dc0-7bd3-4ef3-878b-668a0ee4cfb9" target="_blank">SMC-Crypto</a>
+        </td>
+      </tr>
+      <tr>
+        <td class="priority-col">05 NQ Specifics</td>
+        <td>김직선 100억 해외선물 (136) / 차트프로 해외선물 / 실전편 / 오더플로우 Part 1+2 / 김직선 초보</td>
+        <td><strong>276</strong></td>
+        <td>
+          <a href="https://notebooklm.google.com/notebook/fda61cc8-a17a-4654-a033-1eaf0a4c3d9b" target="_blank">김직선</a>
+          <a href="https://notebooklm.google.com/notebook/e3bdde4c-9100-4be4-9d73-242f96d48ced" target="_blank">해외선물편</a>
+          <a href="https://notebooklm.google.com/notebook/cd1d2a1f-544a-48bf-8b73-e4820dfe5313" target="_blank">실전편</a>
+          <a href="https://notebooklm.google.com/notebook/de683c91-1ad1-4f32-b3d2-a7bb57858e3a" target="_blank">OF P1</a>
+          <a href="https://notebooklm.google.com/notebook/e31ee244-a528-4d1c-b915-b81727bbc2c1" target="_blank">OF P2</a>
+        </td>
+      </tr>
+      <tr>
+        <td class="priority-col">06 Scalping</td>
+        <td>아시아 세션 유동성 스윕 스캘핑 (85) / 스캘핑 전략 (24) / 단타 4개 단편</td>
+        <td><strong>118</strong></td>
+        <td>
+          <a href="https://notebooklm.google.com/notebook/9f1f2d0e-d257-4001-b15c-3970f96d8dd3" target="_blank">아시아세션</a>
+          <a href="https://notebooklm.google.com/notebook/977292ae-bbd9-4888-b6f8-e2c3bce1938c" target="_blank">스캘핑전략</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="color: var(--text-bright); margin-top: 24px; margin-bottom: 12px;">🔍 권장 Cross-Notebook Query 예시</h3>
+  <div class="quote-grid">
+    <div class="quote-card">
+      <strong>욕심 / Top buying 처방</strong>
+      <div class="author" style="margin-top: 8px; color: var(--text);">"Top buying 욕심 패턴 처방 — Mark Douglas + Tom Hougaard + 차트프로 심리편 통합"<br><br>대상: 신규 + 차트프로 심리편 + 전략적 트레이더 + 월 4억 프로</div>
+    </div>
+    <div class="quote-card">
+      <strong>물타기 회피 룰</strong>
+      <div class="author" style="margin-top: 8px; color: var(--text);">"averaging-down 회피 룰 — 김직선 + Hougaard + 보조지표편 Strategies"<br><br>대상: 김직선 + 신규 + 보조지표편 + 리스크 관리</div>
+    </div>
+    <div class="quote-card">
+      <strong>NQ NY first hour 진입</strong>
+      <div class="author" style="margin-top: 8px; color: var(--text);">"22:30~23:30 KST 진입 setup 통합 — 차트프로 실전 + 김직선 + 신규 SMB"<br><br>대상: 김직선 + 차트프로 실전편 + 신규 (SMB Bellafiore)</div>
+    </div>
+    <div class="quote-card">
+      <strong>ICT OB/FVG 매매 정통</strong>
+      <div class="author" style="margin-top: 8px; color: var(--text);">"OB / FVG / Liquidity sweep 매매 — ICT 유니버설 + Part 1+2+3 + SMC 전략편"<br><br>대상: ICT 유니버설 + ICT Part 1+2+3 + SMC 전략편</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>NQ Study v1 · 2026-05-06 · 6 카테고리 · <strong>1,109 source 통합</strong> (신규 19 + 기존 1,090) · NotebookLM cross-query 활용 권장</p>
+  <p>출처: <a href="../README.md">README.md</a> · 카테고리별 detail: <a href="../01_psychology/summary.md">01</a> · <a href="../02_price_action/summary.md">02</a> · <a href="../03_trend_following/summary.md">03</a> · <a href="../04_ict_smc/summary.md">04</a> · <a href="../05_nq_specifics/summary.md">05</a> · <a href="../06_scalping/summary.md">06</a></p>
+</footer>
+
+</div>
+
+<script>
+  // 검색 (카드 단위 토글)
+  const searchBox = document.getElementById('searchBox');
+  const cards = document.querySelectorAll('.searchable');
+  searchBox.addEventListener('input', e => {
+    const q = e.target.value.toLowerCase().trim();
+    cards.forEach(c => {
+      const txt = c.textContent.toLowerCase();
+      c.style.display = (q === '' || txt.includes(q)) ? '' : 'none';
+    });
+  });
+</script>
+
+</body>
+</html>
