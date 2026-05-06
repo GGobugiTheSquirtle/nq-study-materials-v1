@@ -1,8 +1,10 @@
-# 자료 개요 v2 — 검증 데이터 기반 12주 (또는 14주) 재구성
+# 자료 개요 v3 — 검증 데이터 + Cost-adjusted Edge 14주 재구성
 
-> **Date**: 2026-05-06
-> **Source**: MASTER_REPORT.md (16 검증 결과)
+> **Date**: 2026-05-06 (v3 update)
+> **Source**: MASTER_REPORT.md (16 검증) + PHASE_E_REPORT.md (cost-adjusted 20 edges)
 > **Principle**: T1 (직접 backtest) 비율 60%+, T5 (권위) < 10%
+>
+> **v3 핵심 추가**: Phase E (cost-adjusted SL/TP sim) — 실전 trade-able edge 식별
 
 ---
 
@@ -427,11 +429,12 @@
 ## ⏭️ 다음 작업
 
 1. ✅ Master report 완료
-2. ✅ 자료 개요 v2 완료 (이 파일)
-3. ⏭️ 14주 markdown 재작성 (각 주 v2 컨텐츠 + 검증 수치 embed)
-4. ⏭️ HTML 교재 빌드 (single-page or multi-page)
-5. ⏭️ Visual assets (SVG + Chart.js charts for distributions)
-6. ⏭️ GitHub Pages 배포
+2. ✅ 자료 개요 v2 완료
+3. ✅ Phase E (cost-adjusted) 완료 → v3 update 반영
+4. ⏭️ 14주 markdown 재작성 (각 주 v3 + cost-adjusted edge 수치 embed)
+5. ⏭️ HTML 교재 빌드 (single-page or multi-page)
+6. ⏭️ Visual assets (SVG + Chart.js distributions)
+7. ⏭️ GitHub Pages 배포
 
 추정 시간:
 - 14주 markdown: 2일
@@ -440,6 +443,87 @@
 - 배포: 0.5일
 **합계 ~ 6일**
 
-다음 결정:
-- (A) Markdown 부터 갈지 / (B) HTML 통째로 갈지
-- 추천: **(A) markdown 먼저** → 검증 후 HTML 일괄 빌드 (테스트 용이)
+---
+
+## 🆕 v3 Update — Phase E Cost-adjusted 결과 반영
+
+### 14주 별 핵심 수치 (실전 trade-able)
+
+| Week | 컨셉 | Pre-cost | Cost-adj PF (TP 2.0) | P3 (recent) PF | 등급 |
+|---|---|---|---|---|---|
+| W1 | Multi-TF | d=+0.03 | - | - | small |
+| W2 | EMA 정배열 | d=+0.04 long-window | - | - | long-hold only |
+| W3 | SR zone vs line | Δ -0.62pp | - | - | edge X |
+| **W4** | **KST hour bias** | signed +0.21~+0.30 ATR | **KST14: 1.04** / KST19: 1.00 | **KST14: 1.14 ⭐** / KST19: 0.99 | **survivable** |
+| **W5** | Squeeze→Expansion | range +44% (48b) | SQ12 LONG: 1.02 | 0.99 | flat |
+| W6 | EMA touch # | REVERSE 통설 | - | - | rule reverse |
+| **W7** | Bull/Bear strong body | Δμ +0.24 ATR | **BULL_BODY: 1.02** | 0.99 | flat |
+| **W8** | Top buy 회피 (fib<23.6%) | HR 47% (lowest) | - | - | logical filter |
+| W9 | ATR z directional | high z LONG (48b) | - | - | reframe only |
+| W10 | ICT 인식만 | (BTC REJECTED) | - | - | unchanged |
+| **W11** | **04:30 BURN_X** | Sharpe 4.38 with trail | **simple SL/TP: 1.12** | 1.01 | **trail = game-changer** |
+| **W12** | **22:30 BURN_R** | Sharpe 4.72 with trail | **simple SL/TP: 1.01** | 0.97 | **trail critical** |
+| **W13** | **Monday LONG** | signed +0.30 (24b), +0.63 (48b) | **MON_LONG: 1.05** | **1.08 ⭐** | small consistent |
+| **W13** | Tuesday SHORT | -0.19 (24b) | TUE_SHORT: 0.94 | 1.04 flat | **REJECTED single** |
+| **W14** | **Confluence top** | - | **CONF_KST14_MON: 1.07** | **1.22 ⭐⭐** | **WINNER** |
+| **W14** | Confluence 2nd | - | **CONF_KST19_MON: 1.12** | 1.09 ⭐ | second |
+
+### 핵심 update 메시지
+
+1. **Single-factor edge 거의 marginal after cost** (PF 1.00-1.05 range)
+2. **Confluence (2-factor) 가 trade-able**: CONF_KST14_MON 가장 robust (P3 PF 1.22)
+3. **Trade management = 진짜 game-changer**: ATM Trail 효과 +220% (1.12 → 3.81)
+4. **KST20-22 SHORT 단독 trade 금지** (raw signal 강해도 SL 빈번 hit)
+5. **W14 NEW PRIMARY**: Confluence + Trade Management — 핵심 chapter
+
+### 14주 confluence "Top 3 trade plan" (sim 적용 권장)
+
+```yaml
+PLAN A (best confluence, low frequency):
+  trigger: KST 14:00 KST + Monday
+  direction: LONG
+  entry: 14:00 KST bar open + 1
+  SL: 1.5×ATR
+  TP: 2.0×ATR (or 1.5 for shorter hold)
+  expected_PF_recent: 1.22 (P3)
+  expected_freq: ~50/year
+
+PLAN B (NEW pre-NY):
+  trigger: KST 19:00 KST + Monday
+  direction: LONG
+  entry: 19:00 KST bar open + 1
+  SL: 1.5×ATR
+  TP: 2.0×ATR
+  expected_PF_recent: 1.09 (P3)
+  expected_freq: ~50/year
+
+PLAN C (BURN_X with Trail):
+  trigger: KST 04:30 (existing v3.5)
+  direction: LONG (skip if ATR z < -0.5 squeeze)
+  ATM: SL 60 / Pre-Trail 30 / Trail Step 2 (MNQ ticks)
+  expected_PF_with_trail: 3.81 (v3.5 검증)
+  expected_freq: ~250/year
+```
+
+→ 3개 plan 동시 운영 시 freq ~350/year, robust diversification.
+
+---
+
+## 🎯 14주 markdown 재작성 우선순위
+
+1. **W11 BURN_X + Trail effect demo** — 가장 가치
+2. **W14 Confluence + Trade Management** — NEW chapter
+3. **W4 KST hour data table** — RICH chart
+4. **W13 Day of Week + Mon LONG** — 큰 sample
+5. W2/W3/W5/W6 = REJECTED 1줄 + caveat 처리
+
+작성 순서: W11 → W14 → W4 → W13 → W12 → W1-W10 (요약 위주)
+
+---
+
+## 다음 결정
+
+- (A) **Markdown 부터** 갈지 (텍스트 검증 후 HTML 일괄 빌드)
+- (B) **HTML 통째로** (모든 시각자료 동시 디자인)
+
+**추천**: (A) markdown 먼저, 검증 후 HTML.
