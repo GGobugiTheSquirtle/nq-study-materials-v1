@@ -41,39 +41,53 @@ KST 04 시간대 (04:00-05:00 = NY 14:00 EST 마감 1.5h 전, EU close 후 3시�
 
 ---
 
-## 2. ATM #1 Setup (Tradovate)
+## 2. ATM Setup (Tradovate)
 
-### Template (BURN_X 60/30/2)
+### 🆕 ATM v2 (HE-001 Optimized) ⭐⭐⭐ PRIMARY
 
 ```yaml
-ATM Template name: MNQ_BURN_X
-Stop Loss:        60 ticks  (= -$30 per MNQ, -$300 per NQ)
-Pre-trail:        30 ticks  (활성화 시점)
-Trail step:        2 ticks  (ratchet 단위)
-Time-in-force:    DAY
+Template Name:   MNQ_BURN_X_v2
+Stop Loss:       30 ticks  (0.5 ATR)
+Auto Breakeven:  18 ticks  (Pre-Trail 활성, 0.3 ATR)
+Auto Trail:      18 ticks  (Trail dist, 0.3 ATR)
+Max Hold:        24 bars (~2h, manual close 권장)
+Squeeze Guard:   ON (z 12-bar max < -0.5 → SKIP)
 ```
 
-### Logic
+**Verified (Phase F grid search 800 combos, P3 2023+)**:
+- PF 1.516 / WR 59.4% / Sharpe 2.290 / Expectancy +0.103 ATR
+- N P3 = 798 (~250/year)
+- vs current v1: **+0.108 PF (+7.7% improvement)**
+
+### v1 (Original, current v3.5 baseline)
+
+```yaml
+Template Name:   MNQ_BURN_X_v1
+Stop Loss:       60 ticks  (1.0 ATR)
+Pre-trail:       30 ticks  (0.5 ATR)
+Trail step:       2 ticks
+Time-in-force:   DAY
+```
+
+**Verified**:
+- PF 1.408 (P3) / WR 70.7% / Sharpe ~2.0
+- v3.5 검증 — Sharpe_w 4.38 (10y, full pipeline)
+- Tick PF 3.81 (5w live sim)
+
+### Logic (ATM v2)
 
 ```
 Entry @ market 04:30:00 KST (open of 5m bar)
   ↓
-SL placed at entry - 60 ticks (initial)
+SL placed at entry - 30 ticks (initial)
   ↓
 Price moves up
-  ↓ At entry + 30 ticks → Trail activates
+  ↓ At entry + 18 ticks → Trail activates
   ↓
-SL = current price - 30 ticks (trails up by 2 ticks)
+SL = current high - 18 ticks (trails up dynamically)
   ↓
 SL hit OR session end → exit
 ```
-
-### 검증 데이터 (5주 sim, Tradovate 2026-03~04)
-
-- Tick PF: **3.81**
-- +$171 / 9 trades
-- Baseline (60/15/4): +271% Total improvement
-- Commission RT $2.18 already 차감
 
 ---
 
