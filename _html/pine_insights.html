@@ -335,6 +335,7 @@
     <li><span class="priority">⭐</span> <a href="#i9">Multi-TF alignment indicator</a> <span class="badge warn">⭐⭐</span></li>
     <li><span class="priority">📖</span> <a href="#i10">EMA touch # counter (REVERSE 학습)</a> <span class="badge dim">⭐</span></li>
     <li><span class="priority">⚙️</span> <a href="#i11">HE-001 ATM 권장값 HUD</a> <span class="badge dim">⭐⭐</span></li>
+    <li><span class="priority">🔥</span> <a href="#i12"><strong>R500 up + 전고점 → SHORT (NEW v5.1)</strong></a> <span class="badge">⭐⭐⭐⭐⭐</span></li>
   </ol>
 </div>
 
@@ -979,6 +980,88 @@ table.cell(sig_hud, <span class="pine-num">1</span>, <span class="pine-num">7</s
 </section>
 
 <!-- ==================== Compiled v5 Summary ==================== -->
+<!-- ==================== Insight 12 — Phase G2/G3 NEW ==================== -->
+<section class="insight" id="i12" style="border-left: 4px solid var(--good); background: linear-gradient(90deg, rgba(63, 185, 80, 0.04), transparent);">
+  <h2 class="priority-high"><span class="num">12</span>R500 up + 전고점 break → SHORT (Phase G2/G3 NEW v5.1) ⭐⭐⭐⭐⭐</h2>
+  <div class="source">출처: G2 (pivot-based round detection) + G3 (288 ATM grid) — research/PHASE_G2_REPORT.md + PHASE_G3_REPORT.md</div>
+
+  <div class="takeaway">
+    <span class="icon">🏆</span>
+    <span class="label">KEY</span>
+    <span class="value">R500 up + 전고점 break SHORT, ATM (18/12/12 ticks) → P3 PF <span class="key-pulse">4.559</span> · WR 63% · 1,197 trades P3</span>
+  </div>
+
+  <h3>📊 G2 Distribution Edge (signed return forward 24b)</h3>
+  <table>
+    <tr><th>Round</th><th>h2y signed</th><th>last_2y signed</th><th>P3 signed</th><th>N</th></tr>
+    <tr><td>R100 up + PH</td><td>-0.023</td><td>-0.047</td><td>+0.014</td><td>14,298</td></tr>
+    <tr><td>R250 up + PH</td><td>+0.025</td><td>-0.048</td><td>-0.020</td><td>5,711</td></tr>
+    <tr style="background:rgba(63,185,80,0.06);"><td><strong>R500 up + PH ⭐</strong></td><td class="danger">−0.127</td><td class="danger">−0.191</td><td class="danger">−0.109</td><td>2,741</td></tr>
+    <tr><td>R1000 up + PH</td><td>-0.085</td><td>+0.047</td><td class="danger">−0.223</td><td>1,469</td></tr>
+  </table>
+
+  <h3>🏆 G3 ATM Grid Result (Top 5, P3 PF rank)</h3>
+  <table>
+    <tr><th>Rank</th><th>SL</th><th>PT</th><th>TD</th><th>Hold</th><th>P3 PF</th><th>WR</th><th>Expectancy</th></tr>
+    <tr style="background:rgba(63,185,80,0.06);"><td>1 ⭐</td><td><strong>0.3</strong></td><td><strong>0.2</strong></td><td><strong>0.2</strong></td><td>12-48</td><td class="good"><strong>4.559</strong></td><td>63.2%</td><td class="good">+0.41 ATR</td></tr>
+    <tr><td>5</td><td>0.3</td><td>0.3</td><td>0.2</td><td>12-48</td><td>3.997</td><td>59.2%</td><td>+0.39</td></tr>
+    <tr><td>9</td><td>0.3</td><td>0.2</td><td>0.3</td><td>12-48</td><td>3.913</td><td>57.6%</td><td>+0.35</td></tr>
+  </table>
+
+  <h3>⚙️ ATM v5.1 Spec (R500 SHORT 전용)</h3>
+  <pre><code><span class="pine-comment">// G3 verified — TIGHTER SL = better PF (counter-intuitive but data-driven)</span>
+Stop Loss:       <span class="pine-num">18</span> ticks  (<span class="pine-num">0.3</span> × ATR)
+Pre-Trail:       <span class="pine-num">12</span> ticks  (<span class="pine-num">0.2</span> × ATR)
+Trail Distance:  <span class="pine-num">12</span> ticks  (<span class="pine-num">0.2</span> × ATR)
+Max Hold:        <span class="pine-num">12</span> bars (~1h)
+Direction:       SHORT (auto, mean revert from round resistance)</code></pre>
+
+  <details class="fold" open>
+    <summary>🔍 G's K-Bounce LONG REJECTED (G2 correction)</summary>
+    <div class="fold-body">
+      <div class="warn-box">
+        <strong>G의 첫 발견 (R1000 down + 전저점 LONG bounce +0.208 ATR)</strong> = rolling-max 좌측 context 없는 swing detection artifact 였음.<br>
+        <strong>G2 (pivot fractal 5-5)</strong> 정확한 swing 사용 시: signed h2y <strong>−0.074</strong> (mild SHORT continuation), NOT bounce. → REJECTED
+      </div>
+      <table>
+        <tr><th>Setup</th><th>G (rolling max)</th><th>G2 (pivot 5-5)</th><th>판정</th></tr>
+        <tr><td>R1000 down + 전저점 (LONG bounce 가설)</td><td class="good">+0.208 ⭐</td><td class="danger">−0.074</td><td>❌ REJECTED</td></tr>
+        <tr><td>R1000 up + 전고점 (SHORT 가설)</td><td>-0.097</td><td>-0.085</td><td>✓ 일치</td></tr>
+      </table>
+    </div>
+  </details>
+
+  <h3>⚙️ Pine v5.1 통합 완료 (in MNQ_All_v5.pine 980 lines)</h3>
+  <pre><code><span class="pine-comment">// Phase G2/G3 — Section 2.6 (이미 통합됨)</span>
+<span class="pine-keyword">prev_close</span> = close[<span class="pine-num">1</span>]
+<span class="pine-keyword">r500_above</span> = math.floor(prev_close / <span class="pine-num">500</span>) * <span class="pine-num">500</span> + <span class="pine-num">500</span>
+<span class="pine-keyword">crossed_500_up</span> = high &gt;= r500_above <span class="pine-keyword">and</span> prev_close &lt; r500_above
+
+<span class="pine-comment">// Reuse last_sh_price from Phase 2 Top Buy detection</span>
+<span class="pine-keyword">broke_pivot_high</span> = <span class="pine-keyword">not</span> na(last_sh_price) <span class="pine-keyword">and</span> high &gt; last_sh_price
+
+<span class="pine-comment">// 🔴 G3 best signal</span>
+<span class="pine-keyword">v51_r500_up_PH_short</span> = is_tf_5m <span class="pine-keyword">and</span> crossed_500_up <span class="pine-keyword">and</span> broke_pivot_high
+
+<span class="pine-comment">// ATM v5.1 동적 ticks (5m ATR 기반)</span>
+<span class="pine-keyword">sl_ticks_r500</span>    = math.round(<span class="pine-num">0.3</span> * atr14 * <span class="pine-num">4</span>)  <span class="pine-comment">// ~18 ticks</span>
+<span class="pine-keyword">trail_ticks_r500</span> = math.round(<span class="pine-num">0.2</span> * atr14 * <span class="pine-num">4</span>)  <span class="pine-comment">// ~12 ticks</span></code></pre>
+
+  <div class="integration">
+    <strong>운영</strong>: 차트에 🔴 R500↑PH 라벨 + ATM ticks 자동 표시 + Alert.<br>
+    Tradovate Template 생성: <code>MNQ_R500_PH_SHORT</code> (SL 18 / PT 12 / TD 12). Manual SHORT entry @ next bar open + ATM 적용.
+  </div>
+
+  <h3>⚠️ Caveats</h3>
+  <ul style="font-size:13px; color:var(--text-dim); padding-left:18px; margin:8px 0;">
+    <li><strong>Live ≠ backtest</strong> — sim PF 4.5 → live 1.5-3.0 추정 (cost / slippage / regime)</li>
+    <li><strong>288 grid cherry-pick</strong> — Best params 선택 효과. 다른 SL 도 1.9-2.9 (acceptable)</li>
+    <li><strong>Recent regime 의존</strong> — bear 전환 시 효과 변화 가능</li>
+    <li><strong>PF &lt; 1.5 시 즉시 중단</strong> — Sim 4주 GO threshold (P3 PF 4.56의 1/3)</li>
+    <li><strong>Bonus G2 confluence</strong>: KST 21 + R1000 down + PL → l2y -2.6 ATR (rare N=150, 별도 marker)</li>
+  </ul>
+</section>
+
 <section class="insight" id="compiled" style="border-color: var(--good); border-width: 2px;">
   <h2><span class="num" style="background: var(--good);">✓</span>Pine v5 Compiled — 통합 우선순위</h2>
 
@@ -987,7 +1070,12 @@ table.cell(sig_hud, <span class="pine-num">1</span>, <span class="pine-num">7</s
     <li><strong>Phase 1 (필수, ~1h)</strong>: Insight 1 (KST 19) + 2 (Day of Week) + 3 (Squeeze + 04:30 GUARD) + 4 (Top Buy alert) + 5 (Confluence HUD)</li>
     <li><strong>Phase 2 (보조, ~30분)</strong>: Insight 6 (KST 14) + 7 (KST 20-22 SHORT 경고) + 11 (ATM HUD)</li>
     <li><strong>Phase 3 (선택)</strong>: Insight 8 (Strong body) + 9 (Multi-TF) + 10 (Touch counter)</li>
+    <li style="background:rgba(63,185,80,0.08); padding:6px 10px; border-radius:4px;"><strong>Phase 4 (NEW v5.1) ⭐⭐⭐⭐⭐</strong>: Insight 12 (R500 up+PH SHORT, P3 PF 4.56) — <strong>이미 v5.1 통합 완료</strong></li>
   </ol>
+  <div style="margin-top:14px; padding:12px 16px; background:rgba(0,137,123,0.08); border-left:3px solid var(--pine); border-radius:4px;">
+    <strong style="color:var(--pine);">📜 Pine v5.1 단일 파일 통합 완료</strong><br>
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/pine/MNQ_All_v5.pine" target="_blank" style="color:#4db6ac;">MNQ_All_v5.pine</a> (980 lines, +312 vs v4) — 전체 12 insights + Phase G2/G3 round figure section 통합. v4 100% 호환 (toggle 로 v5/v5.1 ON/OFF).
+  </div>
 
   <h3>📦 Phase 1 적용 시 추가 라인 (~120 lines)</h3>
   <ul style="padding-left: 20px; line-height: 1.7; font-size: 14px;">
