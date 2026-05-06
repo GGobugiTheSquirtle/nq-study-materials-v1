@@ -258,6 +258,9 @@
     <tr><td>fwd 48b (4h)</td><td>-0.077</td><td>-0.030</td></tr>
   </table>
 
+  <h3>📈 24-hour KST × Forward 24b Signed Return</h3>
+  <div class="chart-wrapper"><canvas id="chart_kst24" height="260"></canvas></div>
+
   <div class="data-box">
     <strong>핵심</strong>: KST 19 (NY pre-open 3시간 전, 미장 마감 직전 대기) — <strong>2시간 forward LONG bias 가장 큰 시간대</strong>. last_2y +0.62 ATR = 최근 강화. 단일 KST hour 중 signed return 1위.
   </div>
@@ -332,12 +335,59 @@ dow_col  = is_mon_kst ? color.lime :
     <tr><td>48b (4h)</td><td>11.22</td><td>7.76</td><td class="good">+44%</td></tr>
   </table>
 
+  <h3>📈 Squeeze → Expansion 시각화</h3>
+  <div class="chart-wrapper"><canvas id="chart_squeeze_i3" height="240"></canvas></div>
+
   <p><strong>D6 — KST 04 + Squeeze GUARD (LARGE effect)</strong>:</p>
   <div class="danger-box">
     KST 04:30 + ATR z 12-bar max &lt; -0.5 (squeeze):<br>
     forward 24b signed return = <strong>-3.54 ATR</strong> (Cohen d = -0.85 LARGE).<br>
     N=80 small but extreme effect — 정상 04:30 BURN_X LONG bias REVERSE.<br>
     <strong>Recommendation</strong>: 04:30 시 squeeze 활성 → SKIP (또는 reverse SHORT, careful).
+  </div>
+
+  <h3>🎨 04:30 BURN_X 의사결정 흐름</h3>
+  <div style="background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:20px; margin:12px 0;">
+    <svg viewBox="0 0 700 280" style="width:100%; max-width:700px; display:block; margin:0 auto;">
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#8b949e"/>
+        </marker>
+      </defs>
+      <!-- Trigger -->
+      <rect x="280" y="10" width="140" height="44" rx="6" fill="#161b22" stroke="#00897b" stroke-width="2"/>
+      <text x="350" y="32" fill="#f0f6fc" text-anchor="middle" font-size="13" font-weight="bold">KST 04:30 trigger</text>
+      <text x="350" y="48" fill="#8b949e" text-anchor="middle" font-size="11">5m bar open</text>
+
+      <!-- Decision -->
+      <polygon points="350,75 460,135 350,195 240,135" fill="#161b22" stroke="#d29922" stroke-width="2"/>
+      <text x="350" y="125" fill="#f0f6fc" text-anchor="middle" font-size="12" font-weight="bold">ATR z 12-bar max</text>
+      <text x="350" y="142" fill="#f0f6fc" text-anchor="middle" font-size="12" font-weight="bold">&lt; -0.5 ?</text>
+
+      <!-- No-squeeze branch -->
+      <line x1="240" y1="135" x2="120" y2="135" stroke="#8b949e" stroke-width="2" marker-end="url(#arr)"/>
+      <text x="180" y="125" fill="#3fb950" text-anchor="middle" font-size="11">NO (normal)</text>
+      <rect x="20" y="115" width="100" height="44" rx="6" fill="#0c2d22" stroke="#3fb950" stroke-width="2"/>
+      <text x="70" y="137" fill="#3fb950" text-anchor="middle" font-size="12" font-weight="bold">⚡ LONG</text>
+      <text x="70" y="151" fill="#8b949e" text-anchor="middle" font-size="10">ATM v2</text>
+
+      <!-- Squeeze branch -->
+      <line x1="460" y1="135" x2="580" y2="135" stroke="#8b949e" stroke-width="2" marker-end="url(#arr)"/>
+      <text x="520" y="125" fill="#f85149" text-anchor="middle" font-size="11">YES (squeeze)</text>
+      <rect x="580" y="115" width="100" height="44" rx="6" fill="#2d0e0e" stroke="#f85149" stroke-width="2"/>
+      <text x="630" y="137" fill="#f85149" text-anchor="middle" font-size="12" font-weight="bold">🚫 SKIP</text>
+      <text x="630" y="151" fill="#8b949e" text-anchor="middle" font-size="10">또는 reverse</text>
+
+      <!-- Performance labels -->
+      <text x="70" y="195" fill="#8b949e" text-anchor="middle" font-size="10">PF 1.516 (P3)</text>
+      <text x="70" y="210" fill="#8b949e" text-anchor="middle" font-size="10">N 798 (~250/y)</text>
+
+      <text x="630" y="195" fill="#8b949e" text-anchor="middle" font-size="10">avoid -3.54 ATR</text>
+      <text x="630" y="210" fill="#8b949e" text-anchor="middle" font-size="10">d=-0.85 LARGE</text>
+
+      <!-- Trigger arrow -->
+      <line x1="350" y1="56" x2="350" y2="73" stroke="#8b949e" stroke-width="2" marker-end="url(#arr)"/>
+    </svg>
   </div>
 
   <h3>⚙️ Pine 통합 코드</h3>
@@ -377,6 +427,55 @@ plotshape(burn_x_0430_skip, title=<span class="pine-string">"04:30 SKIP (squeeze
 
   <h3>📊 검증 데이터 (Fib retrace level × forward MFE 1×ATR HR)</h3>
   <div class="chart-wrapper"><canvas id="chart_fib" height="240"></canvas></div>
+
+  <h3>🎨 Top Buy Zone 시각화 (진입 금지 영역)</h3>
+  <div style="background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:20px; margin:12px 0;">
+    <svg viewBox="0 0 700 320" style="width:100%; max-width:700px; display:block; margin:0 auto;">
+      <!-- Y axis -->
+      <line x1="80" y1="20" x2="80" y2="290" stroke="#30363d" stroke-width="1"/>
+
+      <!-- Swing high -->
+      <line x1="60" y1="20" x2="660" y2="20" stroke="#3fb950" stroke-width="1" stroke-dasharray="4 2"/>
+      <text x="664" y="24" fill="#3fb950" font-size="11">Swing High (0%)</text>
+
+      <!-- Top Buy zone (red) -->
+      <rect x="80" y="20" width="580" height="50" fill="#f85149" fill-opacity="0.15" stroke="#f85149" stroke-width="2"/>
+      <text x="370" y="50" fill="#f85149" text-anchor="middle" font-size="13" font-weight="bold">🚫 Top Buy Zone (47% HR — LOWEST)</text>
+      <text x="370" y="65" fill="#8b949e" text-anchor="middle" font-size="11">retrace &lt; 23.6%</text>
+
+      <!-- 23.6% line -->
+      <line x1="60" y1="70" x2="660" y2="70" stroke="#f85149" stroke-width="1" stroke-dasharray="3 2"/>
+      <text x="664" y="74" fill="#f85149" font-size="11">23.6%</text>
+
+      <!-- 38.2% -->
+      <rect x="80" y="70" width="580" height="40" fill="#d29922" fill-opacity="0.10"/>
+      <text x="370" y="92" fill="#d29922" text-anchor="middle" font-size="12">⚠️ Shallow (53% HR)</text>
+      <line x1="60" y1="110" x2="660" y2="110" stroke="#d29922" stroke-width="1" stroke-dasharray="3 2"/>
+      <text x="664" y="114" fill="#d29922" font-size="11">38.2%</text>
+
+      <!-- Sweet spot 38.2-61.8 -->
+      <rect x="80" y="110" width="580" height="60" fill="#3fb950" fill-opacity="0.12" stroke="#3fb950" stroke-width="1.5"/>
+      <text x="370" y="138" fill="#3fb950" text-anchor="middle" font-size="13" font-weight="bold">✓ Sweet Spot (55-58% HR)</text>
+      <text x="370" y="155" fill="#8b949e" text-anchor="middle" font-size="11">38.2 - 61.8% (전통 fib zone)</text>
+      <line x1="60" y1="170" x2="660" y2="170" stroke="#3fb950" stroke-width="1" stroke-dasharray="3 2"/>
+      <text x="664" y="174" fill="#3fb950" font-size="11">61.8%</text>
+
+      <!-- Deep zone 61.8-100% -->
+      <rect x="80" y="170" width="580" height="60" fill="#3fb950" fill-opacity="0.20"/>
+      <text x="370" y="195" fill="#3fb950" text-anchor="middle" font-size="13" font-weight="bold">⭐ Deep (60-62% HR — BETTER!)</text>
+      <text x="370" y="212" fill="#8b949e" text-anchor="middle" font-size="11">통설 "78.6+ 위험" REJECTED</text>
+
+      <line x1="60" y1="230" x2="660" y2="230" stroke="#8b949e" stroke-width="1" stroke-dasharray="3 2"/>
+      <text x="664" y="234" fill="#8b949e" font-size="11">100% (swing low)</text>
+
+      <!-- Broken zone -->
+      <rect x="80" y="230" width="580" height="50" fill="#3fb950" fill-opacity="0.30"/>
+      <text x="370" y="258" fill="#3fb950" text-anchor="middle" font-size="13" font-weight="bold">⭐⭐ Broken (62.65% HR — HIGHEST)</text>
+      <text x="370" y="273" fill="#8b949e" text-anchor="middle" font-size="11">&gt; 100% retrace (단, 추세 전환 위험 context 필수)</text>
+
+      <text x="40" y="155" fill="#c9d1d9" font-size="11" transform="rotate(-90, 40, 155)">Retrace Depth →</text>
+    </svg>
+  </div>
 
   <div class="data-box">
     <strong>&lt;23.6% retrace = 47% HR (lowest)</strong> = Top Buy 진입의 hit rate 데이터 검증.<br>
@@ -441,6 +540,9 @@ alertcondition(top_buy_risk <span class="pine-keyword">and</span> ema_up,
     <tr><td>04:30 BURN_X (no squeeze) + ATM Trail</td><td class="good">3.81</td><td>tick PF</td><td>⭐⭐⭐ Trail</td></tr>
     <tr><td>CONF_KST21_TUE SHORT</td><td>1.04 (recent)</td><td>171</td><td>(SHORT only conf)</td></tr>
   </table>
+
+  <h3>📈 Confluence ranking (horizontal bar)</h3>
+  <div class="chart-wrapper"><canvas id="chart_conf_rank" height="280"></canvas></div>
 
   <h3>⚙️ Pine 통합 코드 (HUD row)</h3>
   <pre><code><span class="pine-comment">// NEW: Confluence detection + HUD row (D6 + Phase E verified)</span>
@@ -516,6 +618,9 @@ plotshape(kst_14_long, title=<span class="pine-string">"KST 14 LONG"</span>,
     <tr><td>22</td><td>-0.286</td><td>-0.335</td><td>1.01 flat</td><td>0.97</td></tr>
   </table>
 
+  <h3>📈 Raw signal vs Trade Sim PF gap</h3>
+  <div class="chart-wrapper"><canvas id="chart_kst2022_gap" height="240"></canvas></div>
+
   <div class="warn-box">
     <strong>경고</strong>: Raw signed return SHORT 강해 보이지만 simple SL/TP 만으로는 LOSE. 변동성 큰 시간 = SL 빈번 hit. <strong>단독 SHORT 진입 X</strong>. Confluence 필수 (KST 21 + Tue).
   </div>
@@ -546,6 +651,9 @@ bgcolor(kst_2022_short_warn ? color.new(color.orange, <span class="pine-num">92<
     <tr><td>Hammer (lower wick ≥0.5)</td><td class="danger">-0.200 (REVERSE 통설)</td><td>-0.385</td></tr>
     <tr><td>Shooting Star</td><td>+0.093</td><td>+0.033</td></tr>
   </table>
+
+  <h3>📈 Candle pattern × forward signed return</h3>
+  <div class="chart-wrapper"><canvas id="chart_candle" height="240"></canvas></div>
 
   <div class="data-box">
     Strong body = continuation small bias. Hammer/Star single rule REVERSE 통설 (단순 wick ratio 만 측정 시).
@@ -578,6 +686,9 @@ plotshape(bear_strong, title=<span class="pine-string">"Bear strong body"</span>
     <tr><td>fwd 24b</td><td class="good">+0.079</td><td class="danger">-0.061</td><td class="good">+0.080</td></tr>
   </table>
 
+  <h3>📈 Multi-TF alignment effect (h2y vs last_2y)</h3>
+  <div class="chart-wrapper"><canvas id="chart_mtf" height="220"></canvas></div>
+
   <div class="data-box">Δμ ≈ 0.20 ATR last_2y (24b). Single-factor 작지만 confluence factor 로 가치.</div>
 
   <h3>⚙️ Pine 통합 코드</h3>
@@ -608,6 +719,9 @@ mtf_col  = all_up_mtf ? color.lime : all_down_mtf ? color.red : color.gray</code
     <tr><td>3rd</td><td>64.72%</td><td>65.83%</td></tr>
     <tr><td><strong>4th+</strong></td><td class="good">66.52%</td><td class="good">68.60% ⭐</td></tr>
   </table>
+
+  <h3>📈 EMA20 Touch # × Hit Rate (REVERSE 통설)</h3>
+  <div class="chart-wrapper"><canvas id="chart_touch" height="240"></canvas></div>
 
   <div class="warn-box">
     "1st touch best" 통설 NQ 5m 데이터 REVERSE. <strong>Touch # 와 hit rate 거의 무관</strong> (~65%). 단순 인지용 marker.
@@ -644,6 +758,42 @@ mtf_col  = all_up_mtf ? color.lime : all_down_mtf ? color.red : color.gray</code
   <div class="data-box">
     <strong>Optimal v2 (P3 PF 1.516, vs current v1 PF 1.408)</strong>:<br>
     SL = 0.5 × ATR / Pre-Trail = 0.3 × ATR / Trail dist = 0.3 × ATR / Hold 24 bars
+  </div>
+
+  <h3>📈 SL Grid 비교 (Phase F 800 combos)</h3>
+  <div class="chart-wrapper"><canvas id="chart_sl_phase_f" height="240"></canvas></div>
+
+  <h3>🎨 ATM v1 vs v2 Trade Outcome Comparison</h3>
+  <div style="background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:20px; margin:12px 0;">
+    <svg viewBox="0 0 700 200" style="width:100%; max-width:700px; display:block; margin:0 auto;">
+      <!-- v1 row -->
+      <text x="20" y="35" fill="#c9d1d9" font-size="13" font-weight="bold">v1 (현재)</text>
+      <text x="20" y="50" fill="#8b949e" font-size="10">SL 60 / PT 30 / Trail 2</text>
+      <rect x="160" y="20" width="200" height="36" fill="#d29922" fill-opacity="0.30" stroke="#d29922"/>
+      <text x="260" y="42" fill="#f0f6fc" text-anchor="middle" font-size="13" font-weight="bold">PF 1.408</text>
+      <text x="380" y="42" fill="#8b949e" font-size="11">WR 70.7% · Sharpe ~2.0</text>
+
+      <!-- v2 row -->
+      <text x="20" y="115" fill="#c9d1d9" font-size="13" font-weight="bold">v2 (HE-001) ⭐</text>
+      <text x="20" y="130" fill="#8b949e" font-size="10">SL 30 / PT 18 / Trail 18</text>
+      <rect x="160" y="100" width="280" height="36" fill="#3fb950" fill-opacity="0.40" stroke="#3fb950"/>
+      <text x="300" y="122" fill="#f0f6fc" text-anchor="middle" font-size="13" font-weight="bold">PF 1.516 (+7.7%)</text>
+      <text x="460" y="122" fill="#3fb950" font-size="11" font-weight="bold">WR 59.4% · Sharpe 2.290</text>
+
+      <!-- Improvement arrow -->
+      <line x1="380" y1="56" x2="440" y2="100" stroke="#3fb950" stroke-width="2"
+            stroke-dasharray="3 2" marker-end="url(#arr2)"/>
+      <text x="500" y="80" fill="#3fb950" font-size="14" font-weight="bold">+0.108 PF</text>
+
+      <defs>
+        <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#3fb950"/>
+        </marker>
+      </defs>
+
+      <!-- Trade-off note -->
+      <text x="350" y="180" fill="#8b949e" text-anchor="middle" font-size="11">v2 = tighter SL (30 ticks) + more frequent stop-outs but better PF/expectancy</text>
+    </svg>
   </div>
 
   <h3>⚙️ Pine 통합 코드 (HUD display, ATM 직접 X)</h3>
@@ -748,6 +898,175 @@ new Chart(document.getElementById('chart_fib'), {
     scales: {
       y: { min: 40, max: 70, title: { display: true, text: 'Hit Rate %' } }
     },
+    plugins: { legend: { display: false } }
+  }
+});
+
+// ====== I1: KST 24-hour signed return (h2y vs last_2y) ======
+const hrs = ['00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23'];
+const sigH2y = [-0.004,+0.068,+0.132,+0.167,+0.210,-0.098,-0.047,+0.034,+0.055,+0.184,-0.013,+0.048,+0.016,+0.024,+0.063,+0.213,-0.042,+0.047,+0.100,+0.301,-0.181,-0.153,-0.286,-0.012];
+const sigL2y = [-0.045,+0.043,-0.029,+0.113,-0.060,-0.209,-0.142,+0.166,+0.174,+0.291,-0.047,+0.063,+0.093,-0.203,-0.010,-0.079,+0.082,+0.139,+0.133,+0.618,-0.078,-0.378,-0.496,-0.044];
+new Chart(document.getElementById('chart_kst24'), {
+  type: 'bar',
+  data: {
+    labels: hrs,
+    datasets: [
+      { label: 'w_h2y (10y weighted)', data: sigH2y,
+        backgroundColor: sigH2y.map(v => v >= 0 ? cGood + '99' : cDanger + '99') },
+      { label: 'last_2y (recent)', data: sigL2y,
+        backgroundColor: sigL2y.map((v, i) => i === 19 ? cAccent : (v >= 0 ? cGood + '55' : cDanger + '55')),
+        borderColor: sigL2y.map((v, i) => i === 19 ? cAccent : 'transparent'),
+        borderWidth: sigL2y.map((v, i) => i === 19 ? 3 : 0) }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: { y: { title: { display: true, text: 'Signed Return / ATR (24b fwd)' } },
+              x: { title: { display: true, text: 'KST Hour (KST 19 highlighted)' } } }
+  }
+});
+
+// ====== I3: Squeeze → Expansion ======
+new Chart(document.getElementById('chart_squeeze_i3'), {
+  type: 'bar',
+  data: {
+    labels: ['12 bars (1h)', '24 bars (2h)', '48 bars (4h)'],
+    datasets: [
+      { label: 'Squeeze (z<-0.5 12-bar)', data: [4.36, 6.93, 11.22],
+        backgroundColor: cGood + 'cc', borderColor: cGood, borderWidth: 2 },
+      { label: 'No Squeeze (baseline)', data: [3.64, 5.25, 7.76],
+        backgroundColor: cDim + '88', borderColor: cDim, borderWidth: 2 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: { y: { title: { display: true, text: 'Forward Range / ATR' } } }
+  }
+});
+
+// ====== I5: Confluence ranking ======
+new Chart(document.getElementById('chart_conf_rank'), {
+  type: 'bar',
+  data: {
+    labels: [
+      'CONF_KST14+Mon LONG ⭐⭐',
+      'KST14 LONG (single)',
+      'CONF_KST19+Mon LONG ⭐',
+      'MON_LONG (single)',
+      'KST15 LONG',
+      'CONF_SQ12+Mon LONG',
+      'CONF_KST21+Tue SHORT',
+      'KST04 BURN_X (simple)',
+      '04:30 BURN_X + Trail v3.5'
+    ],
+    datasets: [{
+      label: 'P3 PF (cost-adjusted)',
+      data: [1.22, 1.14, 1.09, 1.08, 1.08, 1.07, 1.04, 1.01, 3.81],
+      backgroundColor: ['#3fb950', '#3fb950', '#3fb950', '#58a6ff', '#58a6ff', '#58a6ff', '#d29922', '#8b949e', '#00897b'],
+      borderColor: '#0d1117', borderWidth: 2
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    indexAxis: 'y',
+    scales: { x: { title: { display: true, text: 'P3 PF' }, type: 'logarithmic', min: 0.95, max: 4.5 } },
+    plugins: { legend: { display: false } }
+  }
+});
+
+// ====== I7: KST 20-22 raw vs trade sim gap ======
+new Chart(document.getElementById('chart_kst2022_gap'), {
+  type: 'bar',
+  data: {
+    labels: ['KST 20', 'KST 21', 'KST 22'],
+    datasets: [
+      { label: 'Raw signed (24b, |×100|)', data: [18.1, 15.3, 28.6],
+        backgroundColor: cWarn + 'aa', yAxisID: 'y1' },
+      { label: 'Trade Sim PF (TP 2.0)', data: [0.93, 0.89, 1.01],
+        backgroundColor: cDanger + 'aa', yAxisID: 'y2' }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: {
+      y1: { type: 'linear', position: 'left', title: { display: true, text: 'Raw signed bias |×100|' } },
+      y2: { type: 'linear', position: 'right', title: { display: true, text: 'Trade Sim PF' }, min: 0.7, max: 1.2,
+            grid: { drawOnChartArea: false } }
+    }
+  }
+});
+
+// ====== I8: Candle pattern ======
+new Chart(document.getElementById('chart_candle'), {
+  type: 'bar',
+  data: {
+    labels: ['Bull strong\nbody', 'Bear strong\nbody', 'Hammer\n(REVERSE 통설!)', 'Shooting Star\n(REVERSE)', 'Doji'],
+    datasets: [
+      { label: 'h2y signed (24b fwd)', data: [+0.156, -0.085, -0.200, +0.093, -0.106],
+        backgroundColor: [cGood + 'cc', cDanger + '88', cDanger + 'cc', cAccent + '88', cDim + '88'] },
+      { label: 'last_2y signed', data: [+0.257, -0.155, -0.385, +0.033, -0.238],
+        backgroundColor: [cGood + 'aa', cDanger + 'aa', cDanger + 'aa', cAccent + 'aa', cDim + 'aa'] }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: { y: { title: { display: true, text: 'Forward signed return / ATR' } } }
+  }
+});
+
+// ====== I9: Multi-TF ======
+new Chart(document.getElementById('chart_mtf'), {
+  type: 'bar',
+  data: {
+    labels: ['fwd 12b', 'fwd 24b'],
+    datasets: [
+      { label: 'all-up (h2y)', data: [+0.026, +0.079], backgroundColor: cGood + '88' },
+      { label: 'all-down (h2y)', data: [-0.050, -0.061], backgroundColor: cDanger + '88' },
+      { label: 'all-up (last_2y)', data: [-0.001, +0.080], backgroundColor: cGood + 'cc' },
+      { label: 'all-down (last_2y)', data: [-0.082, -0.118], backgroundColor: cDanger + 'cc' }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: { y: { title: { display: true, text: 'mu signed / ATR' } } }
+  }
+});
+
+// ====== I10: EMA touch # ======
+new Chart(document.getElementById('chart_touch'), {
+  type: 'bar',
+  data: {
+    labels: ['1st', '2nd', '3rd', '4th+ ⭐'],
+    datasets: [
+      { label: 'w_h2y HR %', data: [64.84, 65.01, 64.72, 66.52],
+        backgroundColor: [cAccent + '88', cAccent + '88', cAccent + '88', cGood + 'cc'],
+        borderColor: cAccent, borderWidth: 1 },
+      { label: 'last_1y HR %', data: [64.81, 66.92, 65.83, 68.60],
+        backgroundColor: [cAccent + '55', cAccent + '55', cAccent + '55', cGood + 'aa'] }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: { y: { min: 60, max: 72, title: { display: true, text: 'Hit Rate %' } } }
+  }
+});
+
+// ====== I11: Phase F SL grid (PF per SL) ======
+new Chart(document.getElementById('chart_sl_phase_f'), {
+  type: 'bar',
+  data: {
+    labels: ['0.5 ATR\n(30 ticks) ⭐', '0.75 ATR', '1.0 ATR\n(v1 current)', '1.25 ATR', '1.5 ATR'],
+    datasets: [{
+      label: 'Best P3 PF',
+      data: [1.516, 1.423, 1.408, 1.428, 1.383],
+      backgroundColor: ['#3fb950cc', '#58a6ff99', '#d2992299', '#58a6ff99', '#8b949e88'],
+      borderColor: ['#3fb950', '#58a6ff', '#d29922', '#58a6ff', '#8b949e'],
+      borderWidth: 2
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: { y: { min: 1.30, max: 1.55, title: { display: true, text: 'P3 PF (cost-adjusted)' } } },
     plugins: { legend: { display: false } }
   }
 });
