@@ -1,4 +1,4 @@
-# NQ 매매 공부 자료 통합 (v1.1)
+# NQ 매매 공부 자료 통합 (v1.2)
 
 > **목적**: NQ (나스닥 100 선물) 단기·스캘프 매매에 통용되는 검증된 개념·기법·분석도구를 유튜브/책/블로그에서 망라 → 사용자 본인 약점 처방으로 활용.
 >
@@ -6,7 +6,29 @@
 >
 > **방향**: 매매 시간 ↓, 공부 시간 ↑. 틈만 나면 읽을 수 있는 자료.
 >
-> **시작**: 2026-05-06 · **v1.1 갱신**: 2026-05-06 late (풀데이 분석 + L46-L50 + R33-R35 + Apex 매트릭스)
+> **시작**: 2026-05-06 · **v1.2 갱신**: 2026-05-06 late late (12주 점진적 체화 커리큘럼 신규 추가)
+
+---
+
+## 🎓 v1.2 NEW: 점진적 체화 커리큘럼 (00_curriculum/)
+
+> **이론적 도서관 (01-06) → 시간축 진도 (00_curriculum)**. 매주 1개 주제, 12주 체화.
+
+### 빠른 시작
+1. **[00_curriculum/README.md](00_curriculum/README.md)** — 커리큘럼 개요
+2. **[PROGRESSION_MAP.md](00_curriculum/PROGRESSION_MAP.md)** — 12주 스킬 트리
+3. **[Week 1: 추세 인식](00_curriculum/tier_1_foundation/week_01_trend.md)** ← START HERE
+4. 매주 self-test → [progression_log.md](00_curriculum/_logs/progression_log.md)
+
+### 12주 진도
+
+| Tier | 주차 | 핵심 주제 |
+|---|---|---|
+| **Tier 1: Foundation** (Month 1) | W1-W4 | 추세 / EMA / SR zone / 시간대 |
+| **Tier 2: Setup Building** (Month 2) | W5-W8 | BB / EMA SR / PA candle / **Pullback vs Top Buy** ⭐ |
+| **Tier 3: Research Integration** (Month 3) | W9-W12 | Momentum / ICT 인식 / **04:30 BURN_X** / **22:30 BURN_R + Regime** |
+
+→ Tier 4 (Mastery) = 모라토리엄 해제 + Apex Eval 진입 (Month 4+)
 
 ---
 
