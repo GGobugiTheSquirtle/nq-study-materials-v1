@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pine v5 Chart Mockup — TDV 스타일 시각화</title>
+<style>
+  :root {
+    --bg-tv: #131722;
+    --bg-panel: #1e222d;
+    --bg-card: #161b22;
+    --grid: #2a2e39;
+    --text: #d1d4dc;
+    --text-dim: #787b86;
+    --text-bright: #f0f6fc;
+    --bull: #26a69a;
+    --bear: #ef5350;
+    --ema20: #f1c40f;
+    --ema50: #f39c12;
+    --ema200: #e74c3c;
+    --vwap: #00bcd4;
+    --bb: #7c8290;
+    --good: #3fb950;
+    --warn: #d29922;
+    --danger: #f85149;
+    --accent: #58a6ff;
+    --pine: #00897b;
+    --border: #2a2e39;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Pretendard", "Noto Sans KR", sans-serif;
+    background: var(--bg-tv);
+    color: var(--text);
+    line-height: 1.5;
+    padding: 20px 16px;
+  }
+  .container { max-width: 1280px; margin: 0 auto; }
+  header {
+    border-bottom: 1px solid var(--grid);
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+  }
+  header h1 { color: var(--text-bright); font-size: 22px; }
+  header .sub { color: var(--text-dim); font-size: 13px; margin-top: 6px; }
+  header a {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 12px;
+    margin-right: 12px;
+  }
+
+  /* Chart wrapper */
+  .chart-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--grid);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .chart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--grid);
+    background: var(--bg-card);
+  }
+  .chart-title {
+    font-size: 13px;
+    color: var(--text-bright);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .chart-title .symbol {
+    background: var(--pine);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-weight: 700;
+    font-size: 12px;
+  }
+  .chart-title .tf { color: var(--text-dim); font-weight: 600; }
+  .chart-title .price { color: var(--bull); font-weight: 700; }
+
+  .chart-body {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 0;
+  }
+
+  .chart-svg-wrap {
+    position: relative;
+    background: var(--bg-tv);
+    overflow: hidden;
+  }
+  .chart-svg { display: block; width: 100%; height: auto; }
+
+  /* HUD panel */
+  .hud {
+    background: var(--bg-card);
+    border-left: 1px solid var(--grid);
+    padding: 12px 14px;
+    font-size: 11px;
+  }
+  .hud h4 {
+    font-size: 10px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    margin: 12px 0 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--grid);
+  }
+  .hud h4:first-child { margin-top: 0; }
+  .hud .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 0;
+    font-size: 11px;
+  }
+  .hud .row .label { color: var(--text-dim); }
+  .hud .row .val { color: var(--text); font-weight: 600; }
+  .hud .row .val.good { color: var(--good); }
+  .hud .row .val.warn { color: var(--warn); }
+  .hud .row .val.danger { color: var(--danger); }
+  .hud .row .val.fire {
+    background: rgba(63, 185, 80, 0.18);
+    padding: 1px 6px;
+    border-radius: 3px;
+    animation: pulse-fire 2s infinite;
+  }
+  @keyframes pulse-fire {
+    0%, 100% { background: rgba(63, 185, 80, 0.18); }
+    50% { background: rgba(63, 185, 80, 0.40); }
+  }
+
+  /* Legend */
+  .legend {
+    background: var(--bg-card);
+    border: 1px solid var(--grid);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+  }
+  .legend h3 {
+    font-size: 14px;
+    color: var(--text-bright);
+    margin-bottom: 10px;
+  }
+  .legend-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 8px 20px;
+    font-size: 12px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+  }
+  .legend-marker {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    font-size: 14px;
+  }
+  .legend-text { color: var(--text); }
+  .legend-desc { color: var(--text-dim); font-size: 11px; margin-left: 4px; }
+
+  /* Annotation callouts */
+  .callouts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .callout {
+    background: var(--bg-card);
+    border: 1px solid var(--grid);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+  .callout.good { border-left-color: var(--good); }
+  .callout.warn { border-left-color: var(--warn); }
+  .callout.danger { border-left-color: var(--danger); }
+  .callout .num {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 18px;
+    font-size: 10px;
+    font-weight: 700;
+    margin-right: 6px;
+  }
+  .callout.good .num { background: var(--good); }
+  .callout.warn .num { background: var(--warn); }
+  .callout.danger .num { background: var(--danger); }
+  .callout strong { color: var(--text-bright); }
+
+  .nav-back {
+    display: inline-block;
+    padding: 6px 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--grid);
+    border-radius: 4px;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 12px;
+    margin-bottom: 16px;
+  }
+
+  /* Pulse for live signals */
+  @keyframes signal-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+  .live-pulse { animation: signal-pulse 1.8s infinite; }
+
+  @media (max-width: 900px) {
+    .chart-body { grid-template-columns: 1fr; }
+    .hud { border-left: none; border-top: 1px solid var(--grid); }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<a href="pine_insights.html" class="nav-back">← Pine v5 통찰 교재</a>
+
+<header>
+  <h1>📊 Pine v5 Chart Mockup — 실제 캔들차트 표현</h1>
+  <div class="sub">
+    11 insights 가 TradingView 5m 차트에서 어떻게 보일지 시뮬레이션. 가상 NQ 5m 데이터 (KST 04:00 ~ 05:30, Monday).
+  </div>
+  <div style="margin-top:10px;">
+    <a href="index.html">← 메인</a>
+    <a href="pine_insights.html">← 통찰 교재</a>
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/" target="_blank">📦 GitHub Repo</a>
+  </div>
+</header>
+
+<!-- ==================== Chart 1: BURN_X session ==================== -->
+<div class="chart-card">
+  <div class="chart-header">
+    <div class="chart-title">
+      <span class="symbol">MNQ</span>
+      <span>NQ 5m · Monday · KST 04:00 - 05:30</span>
+      <span class="tf">5m</span>
+      <span class="price">21,425.50</span>
+      <span style="color:var(--text-dim); font-size:11px;">+18.25 (+0.09%)</span>
+    </div>
+    <div style="font-size:11px; color:var(--text-dim);">Pine v5 indicators ON</div>
+  </div>
+
+  <div class="chart-body">
+    <div class="chart-svg-wrap">
+      <svg viewBox="0 0 900 500" class="chart-svg" preserveAspectRatio="xMidYMid meet">
+        <!-- Background bands -->
+        <!-- Squeeze active (early bars 1-3) — gray bg -->
+        <rect x="20" y="20" width="120" height="380" fill="#7c8290" fill-opacity="0.06"/>
+        <text x="80" y="34" fill="#7c8290" text-anchor="middle" font-size="9" font-style="italic">💤 Squeeze active (z &lt; -0.5)</text>
+
+        <!-- Edge time KST 04:30 - 05:00 — green bg subtle -->
+        <rect x="160" y="20" width="200" height="380" fill="#3fb950" fill-opacity="0.04"/>
+        <text x="260" y="34" fill="#3fb950" text-anchor="middle" font-size="9">⚡ BURN_X edge time (KST 04:30)</text>
+
+        <!-- Grid -->
+        <g stroke="#2a2e39" stroke-width="0.5">
+          <line x1="20" y1="100" x2="800" y2="100"/>
+          <line x1="20" y1="180" x2="800" y2="180"/>
+          <line x1="20" y1="260" x2="800" y2="260"/>
+          <line x1="20" y1="340" x2="800" y2="340"/>
+          <line x1="20" y1="400" x2="800" y2="400"/>
+        </g>
+
+        <!-- Y-axis labels (price) -->
+        <g fill="#787b86" font-size="9" text-anchor="end">
+          <text x="797" y="103">21,440</text>
+          <text x="797" y="183">21,430</text>
+          <text x="797" y="263">21,420</text>
+          <text x="797" y="343">21,410</text>
+          <text x="797" y="403">21,400</text>
+        </g>
+
+        <!-- X-axis time labels (KST) -->
+        <g fill="#787b86" font-size="9" text-anchor="middle">
+          <text x="50" y="495">04:00</text>
+          <text x="170" y="495">04:30 ⚡</text>
+          <text x="290" y="495">05:00</text>
+          <text x="410" y="495">05:30</text>
+          <text x="530" y="495">06:00</text>
+          <text x="650" y="495">06:30</text>
+          <text x="770" y="495">07:00</text>
+        </g>
+
+        <!-- Vertical line at 04:30 -->
+        <line x1="160" y1="20" x2="160" y2="475" stroke="#f1c40f" stroke-width="1" stroke-dasharray="4 3" opacity="0.4"/>
+
+        <!-- Bollinger Bands (background) -->
+        <path d="M 30 180 Q 100 200 150 240 T 280 220 Q 350 200 420 230 T 560 210 Q 630 200 770 180"
+              stroke="#7c8290" stroke-width="0.7" fill="none" opacity="0.5"/>
+        <path d="M 30 320 Q 100 280 150 240 T 280 280 Q 350 300 420 270 T 560 290 Q 630 300 770 320"
+              stroke="#7c8290" stroke-width="0.7" fill="none" opacity="0.5"/>
+
+        <!-- VWAP -->
+        <path d="M 30 270 L 80 268 L 130 265 L 170 240 L 210 230 L 250 225 L 290 222 L 330 220 L 370 218 L 410 215 L 450 215 L 490 218 L 530 220 L 570 222 L 610 224 L 650 226 L 690 228 L 730 230 L 770 232"
+              stroke="#00bcd4" stroke-width="1.2" fill="none" opacity="0.7"/>
+
+        <!-- EMA200 -->
+        <path d="M 30 285 L 770 250"
+              stroke="#e74c3c" stroke-width="1" fill="none" opacity="0.6"/>
+
+        <!-- EMA50 -->
+        <path d="M 30 270 Q 200 250 380 230 T 770 220"
+              stroke="#f39c12" stroke-width="1.4" fill="none" opacity="0.75"/>
+
+        <!-- EMA20 (most prominent) -->
+        <path d="M 30 250 L 90 245 L 150 240 L 175 230 L 220 215 L 280 200 L 340 195 L 400 190 L 460 195 L 520 200 L 580 205 L 640 215 L 700 220 L 770 225"
+              stroke="#f1c40f" stroke-width="1.8" fill="none"/>
+
+        <!-- ===== CANDLES (5m bars) ===== -->
+        <!-- Pre-04:30 (squeeze, small bars) -->
+        <g>
+          <line x1="30" y1="265" x2="30" y2="278" stroke="#787b86" stroke-width="1"/>
+          <rect x="27" y="270" width="6" height="6" fill="#787b86"/>
+        </g>
+        <g>
+          <line x1="50" y1="262" x2="50" y2="275" stroke="#787b86" stroke-width="1"/>
+          <rect x="47" y="266" width="6" height="6" fill="#787b86"/>
+        </g>
+        <g>
+          <line x1="70" y1="265" x2="70" y2="278" stroke="#787b86" stroke-width="1"/>
+          <rect x="67" y="270" width="6" height="5" fill="#787b86"/>
+        </g>
+        <g>
+          <line x1="90" y1="263" x2="90" y2="275" stroke="#787b86" stroke-width="1"/>
+          <rect x="87" y="267" width="6" height="5" fill="#787b86"/>
+        </g>
+        <g>
+          <line x1="110" y1="262" x2="110" y2="276" stroke="#787b86" stroke-width="1"/>
+          <rect x="107" y="265" width="6" height="6" fill="#787b86"/>
+        </g>
+        <g>
+          <line x1="130" y1="258" x2="130" y2="272" stroke="#787b86" stroke-width="1"/>
+          <rect x="127" y="263" width="6" height="6" fill="#787b86"/>
+        </g>
+
+        <!-- 04:30 BURN_X trigger (bar 7) — small bullish base -->
+        <g>
+          <line x1="150" y1="245" x2="150" y2="262" stroke="#26a69a" stroke-width="1"/>
+          <rect x="147" y="248" width="6" height="11" fill="#26a69a"/>
+        </g>
+
+        <!-- 04:35 strong bull candle (BURN_X enters here) -->
+        <g>
+          <line x1="170" y1="225" x2="170" y2="252" stroke="#26a69a" stroke-width="1"/>
+          <rect x="166" y="228" width="8" height="20" fill="#26a69a"/>
+          <!-- Strong body indicator -->
+          <circle cx="170" cy="270" r="2" fill="#3fb950" opacity="0.7"/>
+        </g>
+
+        <!-- bars 04:40 - 04:55 ride up, EMA up -->
+        <g>
+          <line x1="190" y1="220" x2="190" y2="235" stroke="#26a69a" stroke-width="1"/>
+          <rect x="186" y="222" width="8" height="11" fill="#26a69a"/>
+        </g>
+        <g>
+          <line x1="210" y1="208" x2="210" y2="225" stroke="#26a69a" stroke-width="1"/>
+          <rect x="206" y="212" width="8" height="11" fill="#26a69a"/>
+          <circle cx="210" cy="260" r="2" fill="#3fb950" opacity="0.7"/>
+        </g>
+        <g>
+          <line x1="230" y1="205" x2="230" y2="218" stroke="#787b86" stroke-width="1"/>
+          <rect x="226" y="208" width="8" height="6" fill="#787b86"/>
+        </g>
+        <g>
+          <line x1="250" y1="200" x2="250" y2="215" stroke="#26a69a" stroke-width="1"/>
+          <rect x="246" y="202" width="8" height="11" fill="#26a69a"/>
+        </g>
+
+        <!-- 05:00 - 05:15 small pullback to EMA20 (touch event) -->
+        <g>
+          <line x1="270" y1="198" x2="270" y2="220" stroke="#ef5350" stroke-width="1"/>
+          <rect x="266" y="205" width="8" height="13" fill="#ef5350"/>
+        </g>
+        <g>
+          <line x1="290" y1="195" x2="290" y2="218" stroke="#ef5350" stroke-width="1"/>
+          <rect x="286" y="200" width="8" height="15" fill="#ef5350"/>
+        </g>
+        <g>
+          <line x1="310" y1="200" x2="310" y2="215" stroke="#26a69a" stroke-width="1"/>
+          <rect x="306" y="202" width="8" height="11" fill="#26a69a"/>
+          <!-- EMA20 touch event #1 -->
+        </g>
+
+        <!-- 05:20 - 05:35 trail running, slow grind up -->
+        <g>
+          <line x1="330" y1="194" x2="330" y2="210" stroke="#26a69a" stroke-width="1"/>
+          <rect x="326" y="196" width="8" height="11" fill="#26a69a"/>
+        </g>
+        <g>
+          <line x1="350" y1="190" x2="350" y2="205" stroke="#26a69a" stroke-width="1"/>
+          <rect x="346" y="192" width="8" height="11" fill="#26a69a"/>
+        </g>
+        <g>
+          <line x1="370" y1="188" x2="370" y2="200" stroke="#26a69a" stroke-width="1"/>
+          <rect x="366" y="190" width="8" height="9" fill="#26a69a"/>
+        </g>
+
+        <!-- 05:40 - 05:55 climax then pullback -->
+        <g>
+          <line x1="390" y1="186" x2="390" y2="202" stroke="#26a69a" stroke-width="1"/>
+          <rect x="386" y="188" width="8" height="13" fill="#26a69a"/>
+          <circle cx="390" cy="240" r="2" fill="#3fb950" opacity="0.7"/>
+        </g>
+
+        <!-- TOP BUY RISK candle (price spike, swing high) -->
+        <g>
+          <line x1="410" y1="180" x2="410" y2="200" stroke="#26a69a" stroke-width="1"/>
+          <rect x="406" y="182" width="8" height="13" fill="#26a69a"/>
+          <!-- This is the swing high marker -->
+          <text x="410" y="172" fill="#3fb950" text-anchor="middle" font-size="9">SH</text>
+        </g>
+
+        <!-- 06:00 - 06:30 slight pullback (would be top buy if entered) -->
+        <g>
+          <line x1="430" y1="190" x2="430" y2="210" stroke="#ef5350" stroke-width="1"/>
+          <rect x="426" y="195" width="8" height="13" fill="#ef5350"/>
+        </g>
+        <g>
+          <line x1="450" y1="195" x2="450" y2="215" stroke="#ef5350" stroke-width="1"/>
+          <rect x="446" y="198" width="8" height="14" fill="#ef5350"/>
+        </g>
+        <g>
+          <line x1="470" y1="200" x2="470" y2="220" stroke="#26a69a" stroke-width="1"/>
+          <rect x="466" y="205" width="8" height="11" fill="#26a69a"/>
+        </g>
+        <g>
+          <line x1="490" y1="198" x2="490" y2="216" stroke="#26a69a" stroke-width="1"/>
+          <rect x="486" y="202" width="8" height="11" fill="#26a69a"/>
+        </g>
+
+        <!-- 06:30 - 07:00 EMA20 retest #2 -->
+        <g>
+          <line x1="510" y1="200" x2="510" y2="220" stroke="#ef5350" stroke-width="1"/>
+          <rect x="506" y="208" width="8" height="11" fill="#ef5350"/>
+        </g>
+        <g>
+          <line x1="530" y1="205" x2="530" y2="225" stroke="#26a69a" stroke-width="1"/>
+          <rect x="526" y="210" width="8" height="13" fill="#26a69a"/>
+        </g>
+        <g>
+          <line x1="550" y1="207" x2="550" y2="223" stroke="#26a69a" stroke-width="1"/>
+          <rect x="546" y="210" width="8" height="11" fill="#26a69a"/>
+        </g>
+        <g>
+          <line x1="570" y1="210" x2="570" y2="226" stroke="#26a69a" stroke-width="1"/>
+          <rect x="566" y="213" width="8" height="11" fill="#26a69a"/>
+        </g>
+        <g>
+          <line x1="590" y1="212" x2="590" y2="232" stroke="#ef5350" stroke-width="1"/>
+          <rect x="586" y="217" width="8" height="13" fill="#ef5350"/>
+        </g>
+        <g>
+          <line x1="610" y1="218" x2="610" y2="240" stroke="#ef5350" stroke-width="1"/>
+          <rect x="606" y="223" width="8" height="14" fill="#ef5350"/>
+        </g>
+        <g>
+          <line x1="630" y1="220" x2="630" y2="244" stroke="#26a69a" stroke-width="1"/>
+          <rect x="626" y="225" width="8" height="13" fill="#26a69a"/>
+        </g>
+        <g>
+          <line x1="650" y1="220" x2="650" y2="238" stroke="#26a69a" stroke-width="1"/>
+          <rect x="646" y="222" width="8" height="13" fill="#26a69a"/>
+        </g>
+        <g>
+          <line x1="670" y1="222" x2="670" y2="238" stroke="#787b86" stroke-width="1"/>
+          <rect x="666" y="225" width="8" height="9" fill="#787b86"/>
+        </g>
+        <g>
+          <line x1="690" y1="225" x2="690" y2="240" stroke="#26a69a" stroke-width="1"/>
+          <rect x="686" y="227" width="8" height="11" fill="#26a69a"/>
+        </g>
+        <g>
+          <line x1="710" y1="222" x2="710" y2="240" stroke="#26a69a" stroke-width="1"/>
+          <rect x="706" y="225" width="8" height="13" fill="#26a69a"/>
+        </g>
+        <g>
+          <line x1="730" y1="220" x2="730" y2="238" stroke="#26a69a" stroke-width="1"/>
+          <rect x="726" y="223" width="8" height="11" fill="#26a69a"/>
+        </g>
+        <g>
+          <line x1="750" y1="222" x2="750" y2="240" stroke="#ef5350" stroke-width="1"/>
+          <rect x="746" y="225" width="8" height="13" fill="#ef5350"/>
+        </g>
+        <g>
+          <line x1="770" y1="220" x2="770" y2="238" stroke="#26a69a" stroke-width="1"/>
+          <rect x="766" y="225" width="8" height="11" fill="#26a69a"/>
+        </g>
+
+        <!-- ===== PINE V5 SIGNALS ===== -->
+
+        <!-- 1️⃣ 04:30 BURN_X LONG (clean entry, no squeeze) - bar 7 -->
+        <g class="live-pulse">
+          <polygon points="170,290 165,300 175,300" fill="#3fb950" stroke="#3fb950" stroke-width="1.5"/>
+          <text x="170" y="313" fill="#3fb950" text-anchor="middle" font-size="11" font-weight="bold">⚡</text>
+        </g>
+        <text x="170" y="328" fill="#3fb950" text-anchor="middle" font-size="9" font-weight="600">BURN_X</text>
+
+        <!-- 2️⃣ Confluence flag (Mon + 04:30 + no squeeze) -->
+        <rect x="148" y="338" width="44" height="16" fill="#00897b" rx="2"/>
+        <text x="170" y="350" fill="white" text-anchor="middle" font-size="10" font-weight="700">🔥 CONF</text>
+        <text x="170" y="368" fill="#4db6ac" text-anchor="middle" font-size="8">Mon + clean</text>
+
+        <!-- 3️⃣ ATM v2 SL marker (entry @ bar 7 = bar at 170) -->
+        <line x1="170" y1="248" x2="180" y2="248" stroke="#3fb950" stroke-width="2"/>
+        <line x1="170" y1="278" x2="180" y2="278" stroke="#ef5350" stroke-width="2" stroke-dasharray="3 2"/>
+        <text x="183" y="251" fill="#3fb950" font-size="8">Entry 21,425</text>
+        <text x="183" y="281" fill="#ef5350" font-size="8">SL 30 ticks (0.5×ATR)</text>
+
+        <!-- 4️⃣ Trail line (dynamic) — moves up with price -->
+        <path d="M 170 278 L 200 273 L 240 264 L 280 240 L 330 215 L 380 209 L 410 207"
+              stroke="#ef5350" stroke-width="1.5" fill="none" stroke-dasharray="3 2" opacity="0.7"/>
+        <text x="290" y="232" fill="#ef5350" font-size="8" opacity="0.8">Trail SL</text>
+
+        <!-- 5️⃣ EMA20 touch markers -->
+        <text x="270" y="190" fill="#f1c40f" text-anchor="middle" font-size="10">●</text>
+        <text x="270" y="178" fill="#f1c40f" text-anchor="middle" font-size="8">1st</text>
+        <text x="510" y="195" fill="#f1c40f" text-anchor="middle" font-size="10">●</text>
+        <text x="510" y="183" fill="#f1c40f" text-anchor="middle" font-size="8">2nd</text>
+
+        <!-- 6️⃣ Top Buy Risk marker — at swing high (bar at 410) -->
+        <g>
+          <rect x="394" y="155" width="32" height="14" fill="#f85149" rx="2"/>
+          <text x="410" y="166" fill="white" text-anchor="middle" font-size="9" font-weight="700">🚨 TOP</text>
+          <line x1="410" y1="170" x2="410" y2="178" stroke="#f85149" stroke-width="1"/>
+        </g>
+
+        <!-- 7️⃣ Trail exit (bar at 410, +18 ticks profit) -->
+        <text x="395" y="207" fill="#3fb950" text-anchor="end" font-size="10">⬇ Exit</text>
+        <text x="395" y="218" fill="#3fb950" text-anchor="end" font-size="9">+15 ticks ✓</text>
+
+        <!-- 8️⃣ EMA labels (right side) -->
+        <text x="775" y="225" fill="#f1c40f" font-size="9">EMA20</text>
+        <text x="775" y="218" fill="#f39c12" font-size="9">EMA50</text>
+        <text x="775" y="248" fill="#e74c3c" font-size="9">EMA200</text>
+        <text x="775" y="232" fill="#00bcd4" font-size="9">VWAP</text>
+
+        <!-- 9️⃣ Live now indicator -->
+        <circle cx="770" cy="225" r="4" fill="#3fb950" class="live-pulse"/>
+        <text x="772" y="217" fill="#3fb950" font-size="8" font-weight="700">LIVE</text>
+
+      </svg>
+    </div>
+
+    <!-- HUD Panel -->
+    <div class="hud">
+      <h4>Reference</h4>
+      <div class="row"><span class="label">KST</span><span class="val">04:35</span></div>
+      <div class="row"><span class="label">Session</span><span class="val" style="color:#f59e0b;">NY late</span></div>
+      <div class="row"><span class="label">DOW</span><span class="val good">Mon LONG</span></div>
+      <div class="row"><span class="label">EMA</span><span class="val good">UP ↑↑↑</span></div>
+      <div class="row"><span class="label">Multi-TF</span><span class="val good">all-up</span></div>
+      <div class="row"><span class="label">vol_tier</span><span class="val">MED (0.21%)</span></div>
+      <div class="row"><span class="label">ATR z</span><span class="val">+0.4</span></div>
+      <div class="row"><span class="label">Squeeze_12</span><span class="val">— (clear)</span></div>
+
+      <h4>v3.4 Signals (5m)</h4>
+      <div class="row"><span class="label">L3</span><span class="val">-</span></div>
+      <div class="row"><span class="label">S2</span><span class="val">-</span></div>
+      <div class="row"><span class="label">CONT</span><span class="val">-</span></div>
+      <div class="row"><span class="label">REV</span><span class="val">-</span></div>
+
+      <h4>🆕 v5 Signals</h4>
+      <div class="row"><span class="label">04:30 BURN_X</span><span class="val fire">⚡ FIRE</span></div>
+      <div class="row"><span class="label">KST 19/14</span><span class="val">- (KST 04)</span></div>
+      <div class="row"><span class="label">EMA20 touch</span><span class="val">2nd</span></div>
+      <div class="row"><span class="label">Strong body</span><span class="val good">3 bars</span></div>
+      <div class="row"><span class="label">Fib retrace</span><span class="val good">42% (sweet)</span></div>
+      <div class="row"><span class="label">Top Buy Risk</span><span class="val">- (now)</span></div>
+
+      <h4>🔥 Confluence</h4>
+      <div class="row"><span class="label">Active</span><span class="val fire">04:30+Mon+clean</span></div>
+
+      <h4>⚙️ ATM v2</h4>
+      <div class="row"><span class="label">SL</span><span class="val">30 ticks</span></div>
+      <div class="row"><span class="label">Pre-Trail</span><span class="val">18 ticks</span></div>
+      <div class="row"><span class="label">Trail</span><span class="val good">Active +18</span></div>
+      <div class="row"><span class="label">P/L</span><span class="val good">+15 ticks</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== Annotation Callouts ==================== -->
+<div class="callouts">
+  <div class="callout good">
+    <div><span class="num">1</span><strong>⚡ BURN_X 04:30 LONG</strong></div>
+    <div style="color:var(--text-dim);">04:30 KST 시점 + ATR z 12-bar &gt; -0.5 (squeeze 아님) + Monday 결합 → CONF 🔥 자동 fire. ATM v2 (30/18/18) 적용.</div>
+  </div>
+
+  <div class="callout">
+    <div><span class="num">2</span><strong>🔥 Confluence flag</strong></div>
+    <div style="color:var(--text-dim);">2-factor 이상 결합 시 자동 표시. 본 chart = 04:30 + Mon + no-squeeze (3-factor). HUD 에 활성 confluence 표시.</div>
+  </div>
+
+  <div class="callout good">
+    <div><span class="num">3</span><strong>⚙️ ATM v2 (HE-001)</strong></div>
+    <div style="color:var(--text-dim);">SL = 30 ticks (0.5×ATR), Pre-trail 18 ticks, Trail dist 18 ticks. Trail 이 entry → +15 ticks lock 까지 동적 따라감.</div>
+  </div>
+
+  <div class="callout">
+    <div><span class="num">4</span><strong>● EMA20 Touch counter</strong></div>
+    <div style="color:var(--text-dim);">정배열 구간 내 EMA20 retest 카운트. 1st/2nd/3rd/4th+ 표시. (REVERSE 통설 — 4th+ 도 valid, 단순 인지용)</div>
+  </div>
+
+  <div class="callout danger">
+    <div><span class="num">5</span><strong>🚨 Top Buy Risk</strong></div>
+    <div style="color:var(--text-dim);">Swing high (SH) 직후 5봉 안 또는 retrace &lt; 23.6% LONG entry → 자동 빨간 라벨 + Alert. 사용자 약점 L5 직접 처방.</div>
+  </div>
+
+  <div class="callout warn">
+    <div><span class="num">6</span><strong>SH (Swing High)</strong></div>
+    <div style="color:var(--text-dim);">Pivot high (좌우 5캔들). Top Buy 위험 판정용 reference + Fib retrace level 계산 base.</div>
+  </div>
+
+  <div class="callout">
+    <div><span class="num">7</span><strong>● Strong Body Dot</strong></div>
+    <div style="color:var(--text-dim);">Body ≥ 70% range bullish/bearish candle. 작은 dot 으로 표시 (continuation small bias 인지용). 단독 진입 X.</div>
+  </div>
+
+  <div class="callout">
+    <div><span class="num">8</span><strong>💤 Squeeze Background</strong></div>
+    <div style="color:var(--text-dim);">ATR z 12-bar max &lt; -0.5 활성 시 회색 배경. Expansion 대기 + 04:30 GUARD (squeeze 시 SKIP).</div>
+  </div>
+</div>
+
+<!-- ==================== Chart 2: KST 19 + Mon Confluence ==================== -->
+<div class="chart-card">
+  <div class="chart-header">
+    <div class="chart-title">
+      <span class="symbol">MNQ</span>
+      <span>NQ 5m · Monday · KST 18:55 - 20:30 (KST 19 + Mon Confluence)</span>
+      <span class="tf">5m</span>
+      <span class="price">21,512.25</span>
+      <span style="color:var(--bull); font-size:11px;">+24.50 (+0.11%)</span>
+    </div>
+    <div style="font-size:11px; color:var(--good);">🆕 NEW edge — last_2y +0.62 ATR</div>
+  </div>
+
+  <div class="chart-body">
+    <div class="chart-svg-wrap">
+      <svg viewBox="0 0 900 450" class="chart-svg" preserveAspectRatio="xMidYMid meet">
+
+        <!-- Edge time KST 19:00 - 19:30 -->
+        <rect x="80" y="20" width="180" height="350" fill="#3fb950" fill-opacity="0.05"/>
+        <text x="170" y="34" fill="#3fb950" text-anchor="middle" font-size="9">⭐ KST 19 LONG bias edge time</text>
+
+        <!-- Grid -->
+        <g stroke="#2a2e39" stroke-width="0.5">
+          <line x1="20" y1="80" x2="800" y2="80"/>
+          <line x1="20" y1="160" x2="800" y2="160"/>
+          <line x1="20" y1="240" x2="800" y2="240"/>
+          <line x1="20" y1="320" x2="800" y2="320"/>
+        </g>
+
+        <!-- Y-axis -->
+        <g fill="#787b86" font-size="9" text-anchor="end">
+          <text x="797" y="83">21,520</text>
+          <text x="797" y="163">21,510</text>
+          <text x="797" y="243">21,500</text>
+          <text x="797" y="323">21,490</text>
+        </g>
+
+        <!-- X-axis time -->
+        <g fill="#787b86" font-size="9" text-anchor="middle">
+          <text x="50" y="395">18:55</text>
+          <text x="170" y="395">19:00 ⭐</text>
+          <text x="290" y="395">19:30</text>
+          <text x="410" y="395">20:00</text>
+          <text x="530" y="395">20:30 ⚠️</text>
+          <text x="650" y="395">21:00 ⚠️</text>
+          <text x="770" y="395">21:30 ⚠️</text>
+        </g>
+
+        <!-- KST 19:00 vertical line -->
+        <line x1="80" y1="20" x2="80" y2="370" stroke="#3fb950" stroke-width="1" stroke-dasharray="4 3" opacity="0.5"/>
+
+        <!-- KST 20-22 SHORT warning band (yellow) -->
+        <rect x="440" y="20" width="360" height="350" fill="#d29922" fill-opacity="0.04"/>
+        <text x="620" y="34" fill="#d29922" text-anchor="middle" font-size="9">⚠️ KST 20-22 SHORT cluster (단독 trade X)</text>
+
+        <!-- BB -->
+        <path d="M 30 170 L 770 130" stroke="#7c8290" stroke-width="0.7" fill="none" opacity="0.5"/>
+        <path d="M 30 290 L 770 230" stroke="#7c8290" stroke-width="0.7" fill="none" opacity="0.5"/>
+
+        <!-- VWAP -->
+        <path d="M 30 230 L 770 200" stroke="#00bcd4" stroke-width="1.2" fill="none" opacity="0.7"/>
+
+        <!-- EMA200 -->
+        <path d="M 30 240 L 770 210" stroke="#e74c3c" stroke-width="1" fill="none" opacity="0.6"/>
+
+        <!-- EMA50 -->
+        <path d="M 30 220 Q 200 200 380 195 T 770 180" stroke="#f39c12" stroke-width="1.4" fill="none" opacity="0.75"/>
+
+        <!-- EMA20 -->
+        <path d="M 30 215 L 80 205 L 130 175 L 200 150 L 280 145 L 360 150 L 440 160 L 520 175 L 600 195 L 680 215 L 770 220"
+              stroke="#f1c40f" stroke-width="1.8" fill="none"/>
+
+        <!-- Candles (simplified) -->
+        <!-- Pre-19 (bars 1-3): consolidation -->
+        <g><line x1="40" y1="225" x2="40" y2="240" stroke="#787b86"/><rect x="37" y="228" width="6" height="9" fill="#787b86"/></g>
+        <g><line x1="60" y1="222" x2="60" y2="238" stroke="#787b86"/><rect x="57" y="225" width="6" height="11" fill="#787b86"/></g>
+
+        <!-- 19:00 trigger bar (CONF fire!) -->
+        <g><line x1="80" y1="200" x2="80" y2="232" stroke="#26a69a" stroke-width="1.5"/>
+           <rect x="76" y="205" width="8" height="22" fill="#26a69a"/></g>
+
+        <!-- 19:05 - 19:30 strong rally (LONG winner) -->
+        <g><line x1="100" y1="180" x2="100" y2="205" stroke="#26a69a"/><rect x="96" y="185" width="8" height="18" fill="#26a69a"/>
+           <circle cx="100" cy="245" r="2" fill="#3fb950"/></g>
+        <g><line x1="120" y1="170" x2="120" y2="185" stroke="#26a69a"/><rect x="116" y="172" width="8" height="11" fill="#26a69a"/></g>
+        <g><line x1="140" y1="160" x2="140" y2="178" stroke="#26a69a"/><rect x="136" y="163" width="8" height="13" fill="#26a69a"/>
+           <circle cx="140" cy="240" r="2" fill="#3fb950"/></g>
+        <g><line x1="160" y1="155" x2="160" y2="172" stroke="#26a69a"/><rect x="156" y="158" width="8" height="11" fill="#26a69a"/></g>
+        <g><line x1="180" y1="150" x2="180" y2="166" stroke="#26a69a"/><rect x="176" y="152" width="8" height="11" fill="#26a69a"/></g>
+        <g><line x1="200" y1="148" x2="200" y2="162" stroke="#787b86"/><rect x="196" y="151" width="8" height="8" fill="#787b86"/></g>
+
+        <!-- 19:30 - 20:00 small pullback to EMA20 + push higher -->
+        <g><line x1="220" y1="148" x2="220" y2="168" stroke="#ef5350"/><rect x="216" y="153" width="8" height="11" fill="#ef5350"/></g>
+        <g><line x1="240" y1="150" x2="240" y2="170" stroke="#ef5350"/><rect x="236" y="155" width="8" height="11" fill="#ef5350"/></g>
+        <g><line x1="260" y1="148" x2="260" y2="165" stroke="#26a69a"/><rect x="256" y="150" width="8" height="11" fill="#26a69a"/></g>
+        <g><line x1="280" y1="143" x2="280" y2="160" stroke="#26a69a"/><rect x="276" y="145" width="8" height="13" fill="#26a69a"/></g>
+        <g><line x1="300" y1="142" x2="300" y2="158" stroke="#26a69a"/><rect x="296" y="145" width="8" height="11" fill="#26a69a"/></g>
+        <g><line x1="320" y1="142" x2="320" y2="160" stroke="#26a69a"/><rect x="316" y="144" width="8" height="13" fill="#26a69a"/></g>
+        <g><line x1="340" y1="145" x2="340" y2="162" stroke="#26a69a"/><rect x="336" y="148" width="8" height="11" fill="#26a69a"/></g>
+
+        <!-- 20:00 - 20:30 climax + start to drop -->
+        <g><line x1="360" y1="148" x2="360" y2="165" stroke="#ef5350"/><rect x="356" y="152" width="8" height="11" fill="#ef5350"/></g>
+        <g><line x1="380" y1="155" x2="380" y2="172" stroke="#ef5350"/><rect x="376" y="158" width="8" height="11" fill="#ef5350"/></g>
+        <g><line x1="400" y1="160" x2="400" y2="180" stroke="#ef5350"/><rect x="396" y="165" width="8" height="11" fill="#ef5350"/></g>
+        <g><line x1="420" y1="165" x2="420" y2="185" stroke="#ef5350"/><rect x="416" y="170" width="8" height="11" fill="#ef5350"/></g>
+
+        <!-- 20:30 - 21:30 SHORT cluster (warning, no entry) -->
+        <g><line x1="450" y1="170" x2="450" y2="200" stroke="#ef5350"/><rect x="446" y="178" width="8" height="18" fill="#ef5350"/>
+           <circle cx="450" cy="245" r="2" fill="#ef5350"/></g>
+        <g><line x1="470" y1="180" x2="470" y2="210" stroke="#ef5350"/><rect x="466" y="185" width="8" height="20" fill="#ef5350"/></g>
+        <g><line x1="490" y1="190" x2="490" y2="215" stroke="#ef5350"/><rect x="486" y="195" width="8" height="18" fill="#ef5350"/></g>
+        <g><line x1="510" y1="195" x2="510" y2="220" stroke="#ef5350"/><rect x="506" y="200" width="8" height="18" fill="#ef5350"/></g>
+        <g><line x1="530" y1="200" x2="530" y2="225" stroke="#ef5350"/><rect x="526" y="205" width="8" height="18" fill="#ef5350"/></g>
+        <g><line x1="550" y1="205" x2="550" y2="230" stroke="#787b86"/><rect x="546" y="210" width="8" height="13" fill="#787b86"/></g>
+        <g><line x1="570" y1="210" x2="570" y2="232" stroke="#26a69a"/><rect x="566" y="213" width="8" height="13" fill="#26a69a"/></g>
+        <g><line x1="590" y1="208" x2="590" y2="228" stroke="#26a69a"/><rect x="586" y="210" width="8" height="13" fill="#26a69a"/></g>
+        <g><line x1="610" y1="212" x2="610" y2="234" stroke="#ef5350"/><rect x="606" y="218" width="8" height="13" fill="#ef5350"/></g>
+        <g><line x1="630" y1="218" x2="630" y2="240" stroke="#ef5350"/><rect x="626" y="222" width="8" height="13" fill="#ef5350"/></g>
+        <g><line x1="650" y1="222" x2="650" y2="245" stroke="#ef5350"/><rect x="646" y="225" width="8" height="16" fill="#ef5350"/></g>
+        <g><line x1="670" y1="225" x2="670" y2="248" stroke="#26a69a"/><rect x="666" y="227" width="8" height="13" fill="#26a69a"/></g>
+        <g><line x1="690" y1="222" x2="690" y2="245" stroke="#26a69a"/><rect x="686" y="225" width="8" height="13" fill="#26a69a"/></g>
+        <g><line x1="710" y1="225" x2="710" y2="246" stroke="#787b86"/><rect x="706" y="228" width="8" height="11" fill="#787b86"/></g>
+        <g><line x1="730" y1="222" x2="730" y2="244" stroke="#26a69a"/><rect x="726" y="226" width="8" height="11" fill="#26a69a"/></g>
+        <g><line x1="750" y1="220" x2="750" y2="240" stroke="#26a69a"/><rect x="746" y="223" width="8" height="11" fill="#26a69a"/></g>
+        <g><line x1="770" y1="222" x2="770" y2="240" stroke="#26a69a"/><rect x="766" y="225" width="8" height="9" fill="#26a69a"/></g>
+
+        <!-- ===== Pine v5 SIGNALS ===== -->
+
+        <!-- KST 19 LONG signal (bar at x=80) -->
+        <g class="live-pulse">
+          <polygon points="80,250 75,260 85,260" fill="#00bcd4" stroke="#00bcd4" stroke-width="1.5"/>
+          <text x="80" y="273" fill="#00bcd4" text-anchor="middle" font-size="10" font-weight="bold">19</text>
+        </g>
+        <text x="80" y="285" fill="#00bcd4" text-anchor="middle" font-size="9" font-weight="600">KST 19 ⭐</text>
+
+        <!-- 🔥 CONFLUENCE flag (KST 19 + Mon) -->
+        <rect x="60" y="295" width="44" height="16" fill="#00897b" rx="2"/>
+        <text x="82" y="307" fill="white" text-anchor="middle" font-size="10" font-weight="700">🔥 CONF</text>
+        <text x="82" y="324" fill="#4db6ac" text-anchor="middle" font-size="8">KST19+Mon</text>
+
+        <!-- Entry/Exit -->
+        <line x1="80" y1="227" x2="95" y2="227" stroke="#3fb950" stroke-width="2"/>
+        <text x="98" y="230" fill="#3fb950" font-size="8">Entry</text>
+
+        <line x1="200" y1="148" x2="215" y2="148" stroke="#3fb950" stroke-width="2"/>
+        <text x="218" y="151" fill="#3fb950" font-size="8">Exit (trail) +75 ticks ✓</text>
+
+        <!-- KST 20-22 warning markers -->
+        <text x="440" y="50" fill="#d29922" font-size="11">⚠️</text>
+        <text x="440" y="62" fill="#d29922" font-size="9" font-weight="600">KST 20</text>
+        <text x="440" y="73" fill="#d29922" font-size="8">conf only</text>
+
+        <text x="560" y="50" fill="#d29922" font-size="11">⚠️</text>
+        <text x="560" y="62" fill="#d29922" font-size="9" font-weight="600">KST 21</text>
+
+        <text x="680" y="50" fill="#d29922" font-size="11">⚠️</text>
+        <text x="680" y="62" fill="#d29922" font-size="9" font-weight="600">KST 22</text>
+
+        <!-- EMA labels -->
+        <text x="775" y="220" fill="#f1c40f" font-size="9">EMA20</text>
+        <text x="775" y="180" fill="#f39c12" font-size="9">EMA50</text>
+        <text x="775" y="200" fill="#00bcd4" font-size="9">VWAP</text>
+
+      </svg>
+    </div>
+
+    <!-- HUD Panel for Chart 2 -->
+    <div class="hud">
+      <h4>Reference</h4>
+      <div class="row"><span class="label">KST</span><span class="val">19:00</span></div>
+      <div class="row"><span class="label">Session</span><span class="val" style="color:#f59e0b;">EU close</span></div>
+      <div class="row"><span class="label">DOW</span><span class="val good">Mon LONG ⭐</span></div>
+      <div class="row"><span class="label">EMA</span><span class="val good">UP ↑↑↑</span></div>
+      <div class="row"><span class="label">Multi-TF</span><span class="val good">all-up</span></div>
+      <div class="row"><span class="label">vol_tier</span><span class="val">MED</span></div>
+      <div class="row"><span class="label">ATR z</span><span class="val">+0.7</span></div>
+
+      <h4>v3.4 Signals</h4>
+      <div class="row"><span class="label">L3</span><span class="val">-</span></div>
+      <div class="row"><span class="label">CONT</span><span class="val">-</span></div>
+
+      <h4>🆕 v5 Signals</h4>
+      <div class="row"><span class="label">KST 19 LONG</span><span class="val fire" style="color:#00bcd4;">⭐ FIRE</span></div>
+      <div class="row"><span class="label">KST 14</span><span class="val">- (KST 19)</span></div>
+      <div class="row"><span class="label">04:30 BURN_X</span><span class="val">-</span></div>
+      <div class="row"><span class="label">Top Buy Risk</span><span class="val">-</span></div>
+      <div class="row"><span class="label">Squeeze_12</span><span class="val">-</span></div>
+
+      <h4>🔥 Confluence</h4>
+      <div class="row"><span class="label">Active</span><span class="val fire" style="color:#4db6ac;">KST19 + Mon</span></div>
+      <div class="row"><span class="label">P3 PF</span><span class="val good">1.09 ⭐</span></div>
+
+      <h4>⚙️ ATM v2</h4>
+      <div class="row"><span class="label">Entry</span><span class="val">21,488</span></div>
+      <div class="row"><span class="label">SL</span><span class="val">30 ticks</span></div>
+      <div class="row"><span class="label">P/L</span><span class="val good">+75 ticks ✓</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== Legend ==================== -->
+<div class="legend">
+  <h3>📋 Pine v5 Marker Legend</h3>
+  <div class="legend-grid">
+    <div class="legend-item">
+      <span class="legend-marker" style="color:#3fb950;">⚡</span>
+      <span class="legend-text"><strong>BURN_X 04:30 LONG</strong></span>
+      <span class="legend-desc">— 큰 ▲ + ⚡ icon (squeeze 통과 시만)</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-marker" style="color:#00bcd4;">▲ 19</span>
+      <span class="legend-text"><strong>KST 19 LONG</strong></span>
+      <span class="legend-desc">— aqua ▲, last_2y +0.62 ATR</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-marker" style="color:#00bcd4;">▲ 14</span>
+      <span class="legend-text"><strong>KST 14 LONG</strong></span>
+      <span class="legend-desc">— aqua ▲, US lunch (P3 PF 1.14)</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-marker">🔥</span>
+      <span class="legend-text"><strong>Confluence Flag</strong></span>
+      <span class="legend-desc">— 2+ factor 결합 (e.g., KST19+Mon)</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-marker" style="color:#f85149;">🚨</span>
+      <span class="legend-text"><strong>Top Buy Risk</strong></span>
+      <span class="legend-desc">— swing high 직후 5봉 / fib&lt;23.6%</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-marker" style="color:#d29922;">⚠️</span>
+      <span class="legend-text"><strong>SHORT Solo Risk</strong></span>
+      <span class="legend-desc">— KST 20-22, 단독 진입 X (yellow band)</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-marker" style="color:#f1c40f;">●</span>
+      <span class="legend-text"><strong>EMA20 Touch</strong></span>
+      <span class="legend-desc">— 1st/2nd/3rd/4th+ counter</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-marker" style="color:#3fb950;">●</span>
+      <span class="legend-text"><strong>Strong Body</strong></span>
+      <span class="legend-desc">— 작은 dot, body ≥ 70% range</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-marker" style="background:#7c8290; opacity:0.4; width:24px;"></span>
+      <span class="legend-text"><strong>Squeeze BG</strong></span>
+      <span class="legend-desc">— ATR z 12-bar &lt; -0.5 (gray)</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-marker" style="background:#3fb950; opacity:0.2; width:24px;"></span>
+      <span class="legend-text"><strong>Edge Time BG</strong></span>
+      <span class="legend-desc">— KST 04:30 / 14 / 19 (subtle green)</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-marker" style="background:#d29922; opacity:0.2; width:24px;"></span>
+      <span class="legend-text"><strong>SHORT Solo BG</strong></span>
+      <span class="legend-desc">— KST 20-22 (subtle yellow)</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-marker" style="color:#ef5350;">⌐⌐</span>
+      <span class="legend-text"><strong>Trail SL</strong></span>
+      <span class="legend-desc">— ATM v2 dynamic trailing line</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== Visual Density Note ==================== -->
+<div class="legend">
+  <h3>💡 시각 디자인 원칙</h3>
+  <p style="font-size:12px; color:var(--text-dim);">
+    <strong style="color:var(--text-bright);">깔끔 우선</strong>: 차트 노이즈 최소. Background band 옅게 (4-6% opacity), candle 그대로 보임.<br>
+    <strong style="color:var(--text-bright);">강한 signal 만 큰 marker</strong>: BURN_X (⚡ + 큰 ▲), CONF (🔥), Top Buy Risk (🚨).<br>
+    <strong style="color:var(--text-bright);">정보 시각 거리 분리</strong>: 차트 내부 = trigger 만, HUD = 상태/수치 (clear separation).<br>
+    <strong style="color:var(--text-bright);">Live pulse 단 한곳만</strong>: 활성 신호 (FIRE) 만 부드러운 깜빡임. Static 마커는 그대로.<br>
+    <strong style="color:var(--text-bright);">Color discipline</strong>: green = LONG/edge, red = danger/SHORT-warn, yellow = caution, aqua = NEW v5, teal = CONF.
+  </p>
+</div>
+
+<footer style="margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--grid); text-align: center; color: var(--text-dim); font-size: 11px;">
+  <p>Pine v5 Chart Mockup — 가상 데이터 기반 시각화</p>
+  <p>실제 TradingView 통합 후 모습 = 위와 유사하나 candle 데이터는 실시간</p>
+  <p>
+    <a href="index.html" style="color:var(--accent); margin: 0 8px;">메인</a>
+    <a href="pine_insights.html" style="color:var(--accent); margin: 0 8px;">통찰 교재</a>
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/" target="_blank" style="color:var(--accent); margin: 0 8px;">GitHub</a>
+  </p>
+</footer>
+
+</div>
+</body>
+</html>
