@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pine v5 통찰 교재 — 11 Missing Insights from Research</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg-card: #161b22;
+    --border: #30363d;
+    --text: #c9d1d9;
+    --text-dim: #8b949e;
+    --text-bright: #f0f6fc;
+    --accent: #58a6ff;
+    --warn: #d29922;
+    --danger: #f85149;
+    --good: #3fb950;
+    --pine: #00897b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Pretendard", "Noto Sans KR", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 24px 16px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  header {
+    border-bottom: 2px solid var(--pine);
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+  }
+  header h1 { color: var(--text-bright); font-size: 28px; }
+  header .sub { color: var(--text-dim); font-size: 14px; margin-top: 6px; }
+  header .meta { color: var(--pine); font-size: 13px; margin-top: 10px; font-weight: 600; }
+
+  .toc {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--pine);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 32px;
+  }
+  .toc h3 { color: var(--pine); margin-bottom: 12px; }
+  .toc ol { padding-left: 20px; font-size: 13px; }
+  .toc li { padding: 3px 0; }
+  .toc a { color: var(--accent); text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  .toc .priority {
+    display: inline-block;
+    width: 22px;
+    text-align: center;
+  }
+  .toc .badge {
+    display: inline-block;
+    padding: 1px 6px;
+    background: rgba(63, 185, 80, 0.2);
+    color: var(--good);
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 600;
+    margin-left: 6px;
+  }
+  .toc .badge.warn { background: rgba(210, 153, 34, 0.2); color: var(--warn); }
+  .toc .badge.dim  { background: rgba(139, 148, 158, 0.2); color: var(--text-dim); }
+
+  /* Insight section */
+  .insight {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px 28px 32px;
+    margin-bottom: 28px;
+  }
+  .insight h2 {
+    color: var(--text-bright);
+    font-size: 22px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .insight .num {
+    background: var(--pine);
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .insight h2.priority-high .num { background: var(--good); }
+  .insight h2.priority-mid .num { background: var(--warn); }
+  .insight h2.priority-low .num { background: var(--text-dim); }
+
+  .insight .source {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+    font-style: italic;
+  }
+  .insight h3 { font-size: 14px; color: var(--accent); margin: 20px 0 8px; }
+  .insight p { margin-bottom: 8px; font-size: 14px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 13px;
+  }
+  th, td {
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  th { color: var(--text-bright); background: rgba(0, 137, 123, 0.1); }
+  td.good { color: var(--good); font-weight: 600; }
+  td.danger { color: var(--danger); }
+
+  pre {
+    background: #010409;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px 20px;
+    overflow-x: auto;
+    font-family: "JetBrains Mono", "Consolas", monospace;
+    font-size: 12.5px;
+    line-height: 1.55;
+    margin: 12px 0;
+  }
+  pre code { color: #d4d4d4; }
+  .pine-keyword { color: #c586c0; }
+  .pine-string  { color: #ce9178; }
+  .pine-num     { color: #b5cea8; }
+  .pine-comment { color: #6a9955; font-style: italic; }
+  .pine-fn      { color: #dcdcaa; }
+
+  .data-box {
+    background: rgba(0, 137, 123, 0.05);
+    border-left: 3px solid var(--pine);
+    padding: 12px 16px;
+    border-radius: 4px;
+    margin: 12px 0;
+    font-size: 13px;
+  }
+  .data-box strong { color: var(--pine); }
+  .warn-box {
+    background: rgba(210, 153, 34, 0.05);
+    border-left: 3px solid var(--warn);
+    padding: 12px 16px;
+    border-radius: 4px;
+    margin: 12px 0;
+    font-size: 13px;
+  }
+  .danger-box {
+    background: rgba(248, 81, 73, 0.05);
+    border-left: 3px solid var(--danger);
+    padding: 12px 16px;
+    border-radius: 4px;
+    margin: 12px 0;
+    font-size: 13px;
+  }
+  .integration {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: rgba(88, 166, 255, 0.05);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    font-size: 13px;
+  }
+  .integration strong { color: var(--accent); }
+
+  canvas { max-width: 100%; }
+  .chart-wrapper {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+    margin: 12px 0;
+  }
+
+  footer {
+    margin-top: 60px;
+    padding: 24px 0;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  .nav-back {
+    display: inline-block;
+    padding: 8px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+  .nav-back:hover { border-color: var(--accent); }
+
+  @media (max-width: 768px) {
+    body { padding: 16px 12px; }
+    header h1 { font-size: 22px; }
+    .insight { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<a href="index.html" class="nav-back">← 메인 페이지</a>
+
+<header>
+  <h1>📊 Pine v5 통찰 교재 — 11 Missing Insights from Research</h1>
+  <div class="sub">현재 <strong>MNQ_All_v4.pine</strong> (668 라인) 에 빠진 11 가지 검증된 통찰. 각 통찰 = 검증 데이터 + Pine 통합 코드 + 운영 가이드.</div>
+  <div class="meta">📦 Source: 36 hypothesis tests + 800 grid search (research/MASTER_REPORT + PHASE_E + PHASE_F)</div>
+</header>
+
+<div class="toc" id="toc">
+  <h3>📋 목차 (우선순위 순)</h3>
+  <ol>
+    <li><span class="priority">🔥</span> <a href="#i1">KST 19 LONG bias (NEW best edge)</a> <span class="badge">⭐⭐⭐⭐⭐</span></li>
+    <li><span class="priority">🔥</span> <a href="#i2">Monday LONG / Tuesday SHORT 필터</a> <span class="badge">⭐⭐⭐⭐⭐</span></li>
+    <li><span class="priority">🔥</span> <a href="#i3">ATR z Squeeze + 04:30 BURN_X GUARD</a> <span class="badge">⭐⭐⭐⭐</span></li>
+    <li><span class="priority">🔥</span> <a href="#i4">Top Buy 회피 alert</a> <span class="badge">⭐⭐⭐⭐</span></li>
+    <li><span class="priority">🔥</span> <a href="#i5">Confluence display HUD</a> <span class="badge">⭐⭐⭐⭐</span></li>
+    <li><span class="priority">⭐</span> <a href="#i6">KST 14 LONG (US lunch)</a> <span class="badge warn">⭐⭐⭐</span></li>
+    <li><span class="priority">⭐</span> <a href="#i7">KST 20-22 SHORT 위험 marker</a> <span class="badge warn">⭐⭐⭐</span></li>
+    <li><span class="priority">⭐</span> <a href="#i8">Strong body candle marker</a> <span class="badge warn">⭐⭐</span></li>
+    <li><span class="priority">⭐</span> <a href="#i9">Multi-TF alignment indicator</a> <span class="badge warn">⭐⭐</span></li>
+    <li><span class="priority">📖</span> <a href="#i10">EMA touch # counter (REVERSE 학습)</a> <span class="badge dim">⭐</span></li>
+    <li><span class="priority">⚙️</span> <a href="#i11">HE-001 ATM 권장값 HUD</a> <span class="badge dim">⭐⭐</span></li>
+  </ol>
+</div>
+
+<!-- ==================== Insight 1 ==================== -->
+<section class="insight" id="i1">
+  <h2 class="priority-high"><span class="num">1</span>KST 19 LONG bias — NEW Best Edge</h2>
+  <div class="source">출처: D1 (KST hour × forward signed return) — research/results/D1_time_of_day/results.json</div>
+
+  <h3>📊 검증 데이터 (NQ 5m 10y)</h3>
+  <table>
+    <tr><th>Window</th><th>Signed return / ATR (h2y)</th><th>last_2y</th></tr>
+    <tr><td>fwd 12b (1h)</td><td class="good">+0.230</td><td class="good">+0.286</td></tr>
+    <tr><td>fwd 24b (2h)</td><td class="good">+0.301</td><td class="good">+0.618 ⭐</td></tr>
+    <tr><td>fwd 48b (4h)</td><td>-0.077</td><td>-0.030</td></tr>
+  </table>
+
+  <div class="data-box">
+    <strong>핵심</strong>: KST 19 (NY pre-open 3시간 전, 미장 마감 직전 대기) — <strong>2시간 forward LONG bias 가장 큰 시간대</strong>. last_2y +0.62 ATR = 최근 강화. 단일 KST hour 중 signed return 1위.
+  </div>
+
+  <h3>⚙️ Pine 통합 코드</h3>
+  <pre><code><span class="pine-comment">// NEW: KST 19 LONG bias signal (D1 verified, last_2y +0.62 ATR fwd 24b)</span>
+<span class="pine-keyword">kst_19_long</span> = is_tf_5m <span class="pine-keyword">and</span> kst_h == <span class="pine-num">19</span> <span class="pine-keyword">and</span> kst_m &lt; <span class="pine-num">5</span> <span class="pine-keyword">and</span> ema_up
+
+<span class="pine-comment">// 시각화 (작은 ⭐ 마커)</span>
+plotshape(kst_19_long, title=<span class="pine-string">"KST 19 LONG"</span>,
+          style=shape.triangleup, location=location.belowbar,
+          color=color.new(color.aqua, <span class="pine-num">10</span>), size=size.small,
+          text=<span class="pine-string">"19"</span>, textcolor=color.aqua)</code></pre>
+
+  <div class="integration">
+    <strong>운영 가이드</strong>: 19:00 KST 5m 봉 시작 시 LONG entry (Mon 결합 시 best). SL 1.5×ATR / TP 2.0×ATR / 2시간 hold.
+  </div>
+</section>
+
+<!-- ==================== Insight 2 ==================== -->
+<section class="insight" id="i2">
+  <h2 class="priority-high"><span class="num">2</span>Monday LONG / Tuesday SHORT 필터</h2>
+  <div class="source">출처: D5 (Day of Week effect) — 검증 N=37,239 Mon / 35,890 Tue</div>
+
+  <h3>📊 Forward 48b signed return / ATR</h3>
+  <div class="chart-wrapper"><canvas id="chart_dow_2" height="240"></canvas></div>
+
+  <table>
+    <tr><th>Day</th><th>fwd 12b</th><th>fwd 24b</th><th>fwd 48b</th><th>Phase E PF</th></tr>
+    <tr><td><strong>Mon</strong></td><td class="good">+0.198</td><td class="good">+0.299</td><td class="good">+0.630 ⭐⭐⭐</td><td class="good">1.05 (P3 1.08)</td></tr>
+    <tr><td>Tue</td><td>-0.024</td><td class="danger">-0.193</td><td class="danger">-0.266</td><td>0.94 (단독 X)</td></tr>
+    <tr><td>Wed</td><td>+0.098</td><td>+0.106</td><td>+0.211</td><td>flat</td></tr>
+    <tr><td>Thu</td><td>+0.007</td><td>+0.011</td><td>-0.087</td><td>flat</td></tr>
+    <tr><td>Fri</td><td>-0.065</td><td>-0.082</td><td>-0.189</td><td>flat</td></tr>
+  </table>
+
+  <div class="data-box">
+    <strong>Mon LONG</strong>: 48b forward +0.63 ATR = 가장 큰 single day effect (~4시간 hold 시).<br>
+    <strong>Tue SHORT</strong>: 단독 simple SL/TP PF 0.94 → 단독 trade X. Confluence (KST 21 + Tue) 시 P3 PF 1.04.
+  </div>
+
+  <h3>⚙️ Pine 통합 코드</h3>
+  <pre><code><span class="pine-comment">// NEW: Day of Week (D5 verified)</span>
+<span class="pine-comment">// kst_wday: Sun=1 ... Sat=7 → Mon=2, Tue=3</span>
+<span class="pine-keyword">is_mon_kst</span> = kst_wday == <span class="pine-num">2</span>      <span class="pine-comment">// Mon LONG bias (+0.63 ATR 48b)</span>
+<span class="pine-keyword">is_tue_kst</span> = kst_wday == <span class="pine-num">3</span>      <span class="pine-comment">// Tue SHORT (단독 X, confluence only)</span>
+
+<span class="pine-comment">// HUD row 추가</span>
+dow_text = is_mon_kst ? <span class="pine-string">"Mon LONG"</span> :
+           is_tue_kst ? <span class="pine-string">"Tue SHORT (conf only)"</span> :
+           is_thu_kst ? <span class="pine-string">"Thu (L3 SKIP)"</span> : <span class="pine-string">"-"</span>
+dow_col  = is_mon_kst ? color.lime :
+           is_tue_kst ? color.orange :
+           is_thu_kst ? color.purple : color.gray</code></pre>
+
+  <div class="integration">
+    <strong>운영</strong>: Mon LONG entry 우선. Tue SHORT 는 confluence (KST 21 + Tue) 시만. Mid-week (Wed/Thu/Fri) day filter 무시 OK.
+  </div>
+</section>
+
+<!-- ==================== Insight 3 ==================== -->
+<section class="insight" id="i3">
+  <h2 class="priority-high"><span class="num">3</span>ATR z Squeeze + 04:30 BURN_X GUARD</h2>
+  <div class="source">출처: D3 (volatility expansion) + D6 (confluence guard discovery) + Phase F (HE-001)</div>
+
+  <h3>📊 검증 데이터</h3>
+  <p><strong>D3 — squeeze_12 (12 consecutive bars z &lt; -0.5) → forward range expansion</strong>:</p>
+  <table>
+    <tr><th>fwd window</th><th>range/ATR (squeeze)</th><th>range/ATR (no squeeze)</th><th>Δ %</th></tr>
+    <tr><td>12b (1h)</td><td>4.36</td><td>3.64</td><td class="good">+20%</td></tr>
+    <tr><td>24b (2h)</td><td>6.93</td><td>5.25</td><td class="good">+32%</td></tr>
+    <tr><td>48b (4h)</td><td>11.22</td><td>7.76</td><td class="good">+44%</td></tr>
+  </table>
+
+  <p><strong>D6 — KST 04 + Squeeze GUARD (LARGE effect)</strong>:</p>
+  <div class="danger-box">
+    KST 04:30 + ATR z 12-bar max &lt; -0.5 (squeeze):<br>
+    forward 24b signed return = <strong>-3.54 ATR</strong> (Cohen d = -0.85 LARGE).<br>
+    N=80 small but extreme effect — 정상 04:30 BURN_X LONG bias REVERSE.<br>
+    <strong>Recommendation</strong>: 04:30 시 squeeze 활성 → SKIP (또는 reverse SHORT, careful).
+  </div>
+
+  <h3>⚙️ Pine 통합 코드</h3>
+  <pre><code><span class="pine-comment">// NEW: ATR z 60-day rolling + Squeeze detector (D3 + D6 verified)</span>
+<span class="pine-comment">// 60 days × 24h × 12 bars/h = 17,280 bars (5m)</span>
+<span class="pine-keyword">atr_lookback</span> = is_tf_5m ? <span class="pine-num">17280</span> : <span class="pine-num">3600</span>      <span class="pine-comment">// 1m: 60 × 24 × 60 / 24 → adapt</span>
+<span class="pine-keyword">atr_mean60d</span> = ta.sma(atr14, atr_lookback)
+<span class="pine-keyword">atr_std60d</span>  = ta.stdev(atr14, atr_lookback)
+<span class="pine-keyword">atr_z</span>       = atr_std60d &gt; <span class="pine-num">0</span> ? (atr14 - atr_mean60d) / atr_std60d : <span class="pine-num">0.0</span>
+<span class="pine-keyword">squeeze_12</span>  = ta.highest(atr_z, <span class="pine-num">12</span>) &lt; <span class="pine-num">-0.5</span>      <span class="pine-comment">// 12-bar squeeze active</span>
+
+<span class="pine-comment">// 04:30 BURN_X with GUARD</span>
+<span class="pine-keyword">burn_x_0430_long</span>  = is_tf_5m <span class="pine-keyword">and</span> kst_h == <span class="pine-num">4</span> <span class="pine-keyword">and</span> kst_m == <span class="pine-num">30</span> <span class="pine-keyword">and not</span> squeeze_12
+<span class="pine-keyword">burn_x_0430_skip</span>  = is_tf_5m <span class="pine-keyword">and</span> kst_h == <span class="pine-num">4</span> <span class="pine-keyword">and</span> kst_m == <span class="pine-num">30</span> <span class="pine-keyword">and</span> squeeze_12
+
+<span class="pine-comment">// Squeeze 활성 배경색</span>
+bgcolor(squeeze_12 ? color.new(color.gray, <span class="pine-num">90</span>) : na, title=<span class="pine-string">"Squeeze BG"</span>)
+
+plotshape(burn_x_0430_long, title=<span class="pine-string">"04:30 BURN_X LONG"</span>,
+          style=shape.triangleup, location=location.belowbar,
+          color=color.new(color.lime, <span class="pine-num">0</span>), size=size.normal,
+          text=<span class="pine-string">"⚡"</span>)
+plotshape(burn_x_0430_skip, title=<span class="pine-string">"04:30 SKIP (squeeze)"</span>,
+          style=shape.xcross, location=location.abovebar,
+          color=color.new(color.red, <span class="pine-num">10</span>), size=size.small,
+          text=<span class="pine-string">"SKIP"</span>)</code></pre>
+
+  <div class="integration">
+    <strong>운영</strong>: 04:30 KST 시점 squeeze 체크. Active → SKIP (또는 sim only reverse SHORT 검토). Squeeze 후 directional break = setup (W5 conf).
+  </div>
+</section>
+
+<!-- ==================== Insight 4 ==================== -->
+<section class="insight" id="i4">
+  <h2 class="priority-high"><span class="num">4</span>Top Buy 회피 Alert</h2>
+  <div class="source">출처: A3 (Fib pullback hit rate) — 사용자 핵심 약점 L5 처방</div>
+
+  <h3>📊 검증 데이터 (Fib retrace level × forward MFE 1×ATR HR)</h3>
+  <div class="chart-wrapper"><canvas id="chart_fib" height="240"></canvas></div>
+
+  <div class="data-box">
+    <strong>&lt;23.6% retrace = 47% HR (lowest)</strong> = Top Buy 진입의 hit rate 데이터 검증.<br>
+    Deeper pullback = HR ↑ (78.6%+ broken trend 까지 62% HR).<br>
+    "신고가 직진입 위험" 통설 NQ 5m 데이터로 강하게 confirmed.
+  </div>
+
+  <h3>⚙️ Pine 통합 코드</h3>
+  <pre><code><span class="pine-comment">// NEW: Top Buy alert (A3 verified — 사용자 약점 L5 처방)</span>
+
+<span class="pine-comment">// Swing high (좌우 5캔들 fractal)</span>
+<span class="pine-keyword">swing_high</span> = ta.pivothigh(high, <span class="pine-num">5</span>, <span class="pine-num">5</span>)
+<span class="pine-keyword">var float</span> last_swing_high = na
+<span class="pine-keyword">var float</span> last_swing_low  = na
+<span class="pine-keyword">var int</span>   last_sh_idx = na
+
+<span class="pine-keyword">if not</span> na(swing_high)
+    last_swing_high := high[<span class="pine-num">5</span>]
+    last_sh_idx := bar_index - <span class="pine-num">5</span>
+
+<span class="pine-keyword">swing_low</span>  = ta.pivotlow(low, <span class="pine-num">5</span>, <span class="pine-num">5</span>)
+<span class="pine-keyword">if not</span> na(swing_low)
+    last_swing_low := low[<span class="pine-num">5</span>]
+
+<span class="pine-comment">// Fib retrace from current price to last swing</span>
+<span class="pine-keyword">leg_size</span>     = not na(last_swing_high) <span class="pine-keyword">and not</span> na(last_swing_low) ?
+                last_swing_high - last_swing_low : <span class="pine-num">0.0</span>
+<span class="pine-keyword">retrace_pct</span>  = leg_size &gt; <span class="pine-num">0</span> ? (last_swing_high - close) / leg_size : <span class="pine-num">0.0</span>
+<span class="pine-keyword">bars_since_sh</span> = bar_index - last_sh_idx
+
+<span class="pine-comment">// Top Buy 위험 = swing high 직후 5봉 안 OR fib retrace &lt; 23.6%</span>
+<span class="pine-keyword">top_buy_risk</span> = bars_since_sh &lt; <span class="pine-num">5</span> <span class="pine-keyword">or</span>
+               (retrace_pct &gt;= <span class="pine-num">0</span> <span class="pine-keyword">and</span> retrace_pct &lt; <span class="pine-num">0.236</span>)
+
+<span class="pine-comment">// Visual: 빨간 ▲ (LONG 진입 시 위험 알림)</span>
+plotshape(top_buy_risk <span class="pine-keyword">and</span> ema_up, title=<span class="pine-string">"🚨 Top Buy Risk"</span>,
+          style=shape.labeldown, location=location.abovebar,
+          color=color.new(color.red, <span class="pine-num">20</span>), size=size.tiny,
+          text=<span class="pine-string">"TOP"</span>, textcolor=color.white)
+
+<span class="pine-comment">// Alert</span>
+alertcondition(top_buy_risk <span class="pine-keyword">and</span> ema_up,
+   title=<span class="pine-string">"Top Buy Risk Alert"</span>,
+   message=<span class="pine-string">"⚠️ Top Buy Risk: swing high &lt; 5b ago OR fib retrace &lt; 23.6% — entry 금지"</span>)</code></pre>
+
+  <div class="integration">
+    <strong>운영</strong>: HUD 에 retrace_pct 표시 + LONG entry 시점 자동 alert. 사용자 약점 L5 직접 처방 — 신고가 직진입 시점 자동 차단.
+  </div>
+</section>
+
+<!-- ==================== Insight 5 ==================== -->
+<section class="insight" id="i5">
+  <h2 class="priority-high"><span class="num">5</span>Confluence Display in HUD</h2>
+  <div class="source">출처: D6 + Phase E — 2-factor confluence PF 1.07-1.22 (single 1.05 보다 trade-able)</div>
+
+  <h3>📊 Top Confluence rules (P3 cost-adjusted)</h3>
+  <table>
+    <tr><th>Confluence</th><th>P3 PF</th><th>P3 N</th><th>등급</th></tr>
+    <tr><td>CONF_KST14_MON LONG</td><td class="good">1.22</td><td>169</td><td>🏆 best</td></tr>
+    <tr><td>KST14 LONG (single)</td><td class="good">1.14</td><td>846</td><td>⭐ larger N</td></tr>
+    <tr><td>CONF_KST19_MON LONG</td><td class="good">1.09</td><td>169</td><td>⭐</td></tr>
+    <tr><td>04:30 BURN_X (no squeeze) + ATM Trail</td><td class="good">3.81</td><td>tick PF</td><td>⭐⭐⭐ Trail</td></tr>
+    <tr><td>CONF_KST21_TUE SHORT</td><td>1.04 (recent)</td><td>171</td><td>(SHORT only conf)</td></tr>
+  </table>
+
+  <h3>⚙️ Pine 통합 코드 (HUD row)</h3>
+  <pre><code><span class="pine-comment">// NEW: Confluence detection + HUD row (D6 + Phase E verified)</span>
+
+<span class="pine-keyword">conf_kst14_mon</span> = is_tf_5m <span class="pine-keyword">and</span> kst_h == <span class="pine-num">14</span> <span class="pine-keyword">and</span> kst_m &lt; <span class="pine-num">5</span> <span class="pine-keyword">and</span> is_mon_kst
+<span class="pine-keyword">conf_kst19_mon</span> = is_tf_5m <span class="pine-keyword">and</span> kst_h == <span class="pine-num">19</span> <span class="pine-keyword">and</span> kst_m &lt; <span class="pine-num">5</span> <span class="pine-keyword">and</span> is_mon_kst
+<span class="pine-keyword">conf_kst21_tue</span> = is_tf_5m <span class="pine-keyword">and</span> kst_h == <span class="pine-num">21</span> <span class="pine-keyword">and</span> kst_m &lt; <span class="pine-num">5</span> <span class="pine-keyword">and</span> is_tue_kst
+<span class="pine-keyword">conf_burnx_clean</span> = burn_x_0430_long           <span class="pine-comment">// 04:30 + no squeeze (Insight 3)</span>
+
+<span class="pine-comment">// Add to Signal HUD (row 6)</span>
+table.cell(sig_hud, <span class="pine-num">0</span>, <span class="pine-num">6</span>, <span class="pine-string">"Confluence"</span>, bgcolor=cell_bg, text_color=color.silver, text_size=size.tiny)
+conf_text = conf_burnx_clean   ? <span class="pine-string">"🔥 04:30 +noSq"</span> :
+            conf_kst19_mon     ? <span class="pine-string">"🔥 KST19+Mon"</span> :
+            conf_kst14_mon     ? <span class="pine-string">"🔥 KST14+Mon"</span> :
+            conf_kst21_tue     ? <span class="pine-string">"⚠️ KST21+Tue (Trail)"</span> :
+            top_buy_risk       ? <span class="pine-string">"🚨 Top Buy Risk"</span> :
+            squeeze_12         ? <span class="pine-string">"💤 Squeeze (wait)"</span> : <span class="pine-string">"-"</span>
+conf_col  = (conf_burnx_clean <span class="pine-keyword">or</span> conf_kst19_mon <span class="pine-keyword">or</span> conf_kst14_mon) ? color.lime :
+            top_buy_risk ? color.red :
+            squeeze_12 ? color.silver : color.gray
+table.cell(sig_hud, <span class="pine-num">1</span>, <span class="pine-num">6</span>, conf_text, bgcolor=cell_bg, text_color=conf_col, text_size=size.tiny)
+
+<span class="pine-comment">// Visual marker</span>
+plotshape(conf_kst14_mon <span class="pine-keyword">or</span> conf_kst19_mon, title=<span class="pine-string">"🔥 Top Conf"</span>,
+          style=shape.flag, location=location.belowbar,
+          color=color.new(color.green, <span class="pine-num">0</span>), size=size.normal,
+          text=<span class="pine-string">"CONF"</span>, textcolor=color.white)</code></pre>
+
+  <div class="integration">
+    <strong>운영</strong>: HUD row 6 = 즉시 confluence 식별. Top conf 발생 시 size up 가능. 사용자 자율 시간/매매 효율 ↑.
+  </div>
+</section>
+
+<!-- ==================== Insight 6 ==================== -->
+<section class="insight" id="i6">
+  <h2 class="priority-mid"><span class="num">6</span>KST 14 LONG (US Lunch Recovery)</h2>
+  <div class="source">출처: D1 + Phase E — KST 14 LONG single 가장 큰 N P3 (846)</div>
+
+  <h3>📊 검증</h3>
+  <table>
+    <tr><th>Window</th><th>signed h2y</th><th>last_2y</th><th>Phase E PF</th></tr>
+    <tr><td>fwd 12b</td><td>+0.084</td><td>+0.118</td><td>-</td></tr>
+    <tr><td>fwd 24b</td><td>+0.063</td><td>-0.044</td><td>1.04 (P3 1.14 ⭐)</td></tr>
+    <tr><td>fwd 48b</td><td class="good">+0.375</td><td>+0.194</td><td>-</td></tr>
+  </table>
+
+  <div class="data-box">
+    <strong>가장 trade-able 단일 KST hour edge</strong>. P3 PF 1.14 + N=846 = 큰 표본. CONF KST14+Mon 시 P3 PF 1.22 (best).
+  </div>
+
+  <h3>⚙️ Pine 통합 코드</h3>
+  <pre><code><span class="pine-comment">// NEW: KST 14 LONG (US lunch end, P3 PF 1.14 simple SL/TP)</span>
+<span class="pine-keyword">kst_14_long</span> = is_tf_5m <span class="pine-keyword">and</span> kst_h == <span class="pine-num">14</span> <span class="pine-keyword">and</span> kst_m &lt; <span class="pine-num">5</span>
+
+plotshape(kst_14_long, title=<span class="pine-string">"KST 14 LONG"</span>,
+          style=shape.triangleup, location=location.belowbar,
+          color=color.new(color.aqua, <span class="pine-num">20</span>), size=size.small,
+          text=<span class="pine-string">"14"</span>, textcolor=color.aqua)</code></pre>
+
+  <div class="integration"><strong>운영</strong>: 14:00 KST 5m 봉 시작 시 LONG entry. Mon 결합 시 size up.</div>
+</section>
+
+<!-- ==================== Insight 7 ==================== -->
+<section class="insight" id="i7">
+  <h2 class="priority-mid"><span class="num">7</span>KST 20-22 SHORT 위험 Marker (단독 trade X)</h2>
+  <div class="source">출처: D1 + Phase E — raw signed strong but trade sim LOSE (SL hit 빈번)</div>
+
+  <h3>📊 Raw vs Trade Sim 괴리</h3>
+  <table>
+    <tr><th>KST hour</th><th>raw signed (24b)</th><th>raw signed (48b)</th><th>trade sim PF (TP 2.0)</th><th>P3 PF</th></tr>
+    <tr><td>20</td><td>-0.181</td><td>-0.448</td><td class="danger">0.93 LOSE</td><td>0.84</td></tr>
+    <tr><td>21</td><td>-0.153</td><td>-0.507</td><td class="danger">0.89 LOSE</td><td>0.90</td></tr>
+    <tr><td>22</td><td>-0.286</td><td>-0.335</td><td>1.01 flat</td><td>0.97</td></tr>
+  </table>
+
+  <div class="warn-box">
+    <strong>경고</strong>: Raw signed return SHORT 강해 보이지만 simple SL/TP 만으로는 LOSE. 변동성 큰 시간 = SL 빈번 hit. <strong>단독 SHORT 진입 X</strong>. Confluence 필수 (KST 21 + Tue).
+  </div>
+
+  <h3>⚙️ Pine 통합 코드</h3>
+  <pre><code><span class="pine-comment">// NEW: KST 20-22 SHORT 위험 marker (raw signal strong but SL hit 빈번)</span>
+<span class="pine-keyword">kst_2022_short_warn</span> = is_tf_5m <span class="pine-keyword">and</span> kst_h &gt;= <span class="pine-num">20</span> <span class="pine-keyword">and</span> kst_h &lt;= <span class="pine-num">22</span> <span class="pine-keyword">and</span> kst_m &lt; <span class="pine-num">5</span>
+
+bgcolor(kst_2022_short_warn ? color.new(color.orange, <span class="pine-num">92</span>) : na,
+        title=<span class="pine-string">"⚠️ SHORT Solo Risk Window"</span>)
+
+<span class="pine-comment">// HUD 알림 (단독 SHORT 진입 금지)</span>
+<span class="pine-comment">// (Insight 5 confluence row 에서 자동 표시)</span></code></pre>
+
+  <div class="integration"><strong>운영</strong>: 20-22 KST 시간대 SHORT entry → confluence 필수 (Tue / bear_strong / Trail). 단독 SHORT 진입 lock.</div>
+</section>
+
+<!-- ==================== Insight 8 ==================== -->
+<section class="insight" id="i8">
+  <h2 class="priority-mid"><span class="num">8</span>Strong Body Continuation Marker</h2>
+  <div class="source">출처: D4 (candle structure) — body ≥ 70% range</div>
+
+  <h3>📊 검증 데이터</h3>
+  <table>
+    <tr><th>Pattern</th><th>fwd 24b signed (h2y)</th><th>last_2y</th></tr>
+    <tr><td>Bull strong body (≥0.7 + bullish)</td><td class="good">+0.156</td><td class="good">+0.257</td></tr>
+    <tr><td>Bear strong body (≥0.7 + bearish)</td><td class="danger">-0.085</td><td class="danger">-0.155</td></tr>
+    <tr><td>Hammer (lower wick ≥0.5)</td><td class="danger">-0.200 (REVERSE 통설)</td><td>-0.385</td></tr>
+    <tr><td>Shooting Star</td><td>+0.093</td><td>+0.033</td></tr>
+  </table>
+
+  <div class="data-box">
+    Strong body = continuation small bias. Hammer/Star single rule REVERSE 통설 (단순 wick ratio 만 측정 시).
+  </div>
+
+  <h3>⚙️ Pine 통합 코드</h3>
+  <pre><code><span class="pine-comment">// NEW: Strong body continuation marker (D4 verified)</span>
+<span class="pine-keyword">body_pct</span>    = rng &gt; <span class="pine-num">0</span> ? body_abs / rng : <span class="pine-num">0</span>
+<span class="pine-keyword">bull_strong</span> = body_pct &gt;= <span class="pine-num">0.7</span> <span class="pine-keyword">and</span> close &gt; open
+<span class="pine-keyword">bear_strong</span> = body_pct &gt;= <span class="pine-num">0.7</span> <span class="pine-keyword">and</span> close &lt; open
+
+<span class="pine-comment">// Visual: 작은 dot</span>
+plotshape(bull_strong, title=<span class="pine-string">"Bull strong body"</span>,
+          style=shape.circle, location=location.belowbar,
+          color=color.new(color.lime, <span class="pine-num">40</span>), size=size.tiny)
+plotshape(bear_strong, title=<span class="pine-string">"Bear strong body"</span>,
+          style=shape.circle, location=location.abovebar,
+          color=color.new(color.red, <span class="pine-num">40</span>), size=size.tiny)</code></pre>
+</section>
+
+<!-- ==================== Insight 9 ==================== -->
+<section class="insight" id="i9">
+  <h2 class="priority-mid"><span class="num">9</span>Multi-TF Alignment (5m + 15m + 1h)</h2>
+  <div class="source">출처: B4 (Multi-TF) — d=+0.03 small but real</div>
+
+  <h3>📊 검증</h3>
+  <table>
+    <tr><th>Window</th><th>all-up mu (h2y)</th><th>all-down mu (h2y)</th><th>last_2y all-up</th></tr>
+    <tr><td>fwd 12b</td><td>+0.026</td><td>-0.050</td><td>-0.001</td></tr>
+    <tr><td>fwd 24b</td><td class="good">+0.079</td><td class="danger">-0.061</td><td class="good">+0.080</td></tr>
+  </table>
+
+  <div class="data-box">Δμ ≈ 0.20 ATR last_2y (24b). Single-factor 작지만 confluence factor 로 가치.</div>
+
+  <h3>⚙️ Pine 통합 코드</h3>
+  <pre><code><span class="pine-comment">// NEW: Multi-TF alignment (B4 verified, small confluence factor)</span>
+<span class="pine-keyword">close_15m</span> = request.security(syminfo.tickerid, <span class="pine-string">"15"</span>, close)
+<span class="pine-keyword">ema20_15m</span> = request.security(syminfo.tickerid, <span class="pine-string">"15"</span>, ta.ema(close, <span class="pine-num">20</span>))
+<span class="pine-keyword">close_1h</span>  = request.security(syminfo.tickerid, <span class="pine-string">"60"</span>, close)
+<span class="pine-keyword">ema20_1h</span>  = request.security(syminfo.tickerid, <span class="pine-string">"60"</span>, ta.ema(close, <span class="pine-num">20</span>))
+
+<span class="pine-keyword">all_up_mtf</span>   = close &gt; ema20 <span class="pine-keyword">and</span> close_15m &gt; ema20_15m <span class="pine-keyword">and</span> close_1h &gt; ema20_1h
+<span class="pine-keyword">all_down_mtf</span> = close &lt; ema20 <span class="pine-keyword">and</span> close_15m &lt; ema20_15m <span class="pine-keyword">and</span> close_1h &lt; ema20_1h
+
+<span class="pine-comment">// HUD row 추가: MTF 정렬 상태</span>
+mtf_text = all_up_mtf ? <span class="pine-string">"ALL UP ↑↑↑"</span> : all_down_mtf ? <span class="pine-string">"ALL DOWN ↓↓↓"</span> : <span class="pine-string">"MIXED"</span>
+mtf_col  = all_up_mtf ? color.lime : all_down_mtf ? color.red : color.gray</code></pre>
+</section>
+
+<!-- ==================== Insight 10 ==================== -->
+<section class="insight" id="i10">
+  <h2 class="priority-low"><span class="num">10</span>EMA Touch # Counter (REVERSE 통설 학습)</h2>
+  <div class="source">출처: A2 — Linda Holy Grail / Adam Grimes paraphrase NQ 5m REJECTED</div>
+
+  <h3>📊 검증 (HR by touch # in uptrend)</h3>
+  <table>
+    <tr><th>Touch #</th><th>w_h2y HR</th><th>last_1y HR</th></tr>
+    <tr><td>1st</td><td>64.84%</td><td>64.81%</td></tr>
+    <tr><td>2nd</td><td>65.01%</td><td>66.92%</td></tr>
+    <tr><td>3rd</td><td>64.72%</td><td>65.83%</td></tr>
+    <tr><td><strong>4th+</strong></td><td class="good">66.52%</td><td class="good">68.60% ⭐</td></tr>
+  </table>
+
+  <div class="warn-box">
+    "1st touch best" 통설 NQ 5m 데이터 REVERSE. <strong>Touch # 와 hit rate 거의 무관</strong> (~65%). 단순 인지용 marker.
+  </div>
+
+  <h3>⚙️ Pine 통합 코드 (인지용, trigger X)</h3>
+  <pre><code><span class="pine-comment">// EMA20 touch # counter (인지용 — A2 REVERSE finding 학습)</span>
+<span class="pine-keyword">prev_above</span> = close[<span class="pine-num">1</span>] &gt; ema20[<span class="pine-num">1</span>]
+<span class="pine-keyword">cur_below</span>  = close &lt;= ema20
+<span class="pine-keyword">touch_event</span> = ema_up <span class="pine-keyword">and</span> prev_above <span class="pine-keyword">and</span> cur_below
+
+<span class="pine-keyword">var int</span> touch_count = <span class="pine-num">0</span>
+<span class="pine-keyword">var int</span> above_clear = <span class="pine-num">0</span>
+
+<span class="pine-keyword">if</span> close &gt; ema20 + <span class="pine-num">0.5</span> * atr14
+    above_clear := above_clear + <span class="pine-num">1</span>
+    <span class="pine-keyword">if</span> above_clear &gt;= <span class="pine-num">3</span>
+        touch_count := <span class="pine-num">0</span>     <span class="pine-comment">// reset on clear above</span>
+<span class="pine-keyword">else</span>
+    above_clear := <span class="pine-num">0</span>
+
+<span class="pine-keyword">if</span> touch_event
+    touch_count := touch_count + <span class="pine-num">1</span>
+
+<span class="pine-comment">// Display in HUD only (rule X)</span></code></pre>
+</section>
+
+<!-- ==================== Insight 11 ==================== -->
+<section class="insight" id="i11">
+  <h2 class="priority-mid"><span class="num">11</span>HE-001 ATM 권장값 HUD</h2>
+  <div class="source">출처: Phase F (800 grid search) — Optimal ATM 운영 정보</div>
+
+  <h3>📊 권장 ATM (HE-001 verified)</h3>
+  <div class="data-box">
+    <strong>Optimal v2 (P3 PF 1.516, vs current v1 PF 1.408)</strong>:<br>
+    SL = 0.5 × ATR / Pre-Trail = 0.3 × ATR / Trail dist = 0.3 × ATR / Hold 24 bars
+  </div>
+
+  <h3>⚙️ Pine 통합 코드 (HUD display, ATM 직접 X)</h3>
+  <pre><code><span class="pine-comment">// HE-001 ATM 권장값 (HUD display)</span>
+<span class="pine-keyword">sl_ticks_v2</span>      = math.round(<span class="pine-num">0.5</span> * atr14 * <span class="pine-num">4</span>)      <span class="pine-comment">// NQ 0.25/tick → 4 ticks/pt</span>
+<span class="pine-keyword">trail_ticks_v2</span>   = math.round(<span class="pine-num">0.3</span> * atr14 * <span class="pine-num">4</span>)
+<span class="pine-keyword">sl_ticks_v1</span>      = math.round(<span class="pine-num">1.0</span> * atr14 * <span class="pine-num">4</span>)      <span class="pine-comment">// current</span>
+
+<span class="pine-comment">// HUD row 추가</span>
+table.cell(sig_hud, <span class="pine-num">0</span>, <span class="pine-num">7</span>, <span class="pine-string">"ATM v2"</span>, bgcolor=cell_bg, text_color=color.silver, text_size=size.tiny)
+atm_text = str.tostring(sl_ticks_v2) + <span class="pine-string">"/"</span> + str.tostring(trail_ticks_v2) + <span class="pine-string">"/"</span> + str.tostring(trail_ticks_v2) + <span class="pine-string">" ticks"</span>
+table.cell(sig_hud, <span class="pine-num">1</span>, <span class="pine-num">7</span>, atm_text, bgcolor=cell_bg, text_color=color.lime, text_size=size.tiny)</code></pre>
+
+  <div class="integration"><strong>운영</strong>: HUD 에 실시간 ATR 기반 권장 ATM ticks 표시. Tradovate ATM Template 매일 ATR 따라 조정 가능.</div>
+</section>
+
+<!-- ==================== Compiled v5 Summary ==================== -->
+<section class="insight" id="compiled" style="border-color: var(--good); border-width: 2px;">
+  <h2><span class="num" style="background: var(--good);">✓</span>Pine v5 Compiled — 통합 우선순위</h2>
+
+  <h3>🎯 적용 권장 순서</h3>
+  <ol style="padding-left: 22px; line-height: 1.8;">
+    <li><strong>Phase 1 (필수, ~1h)</strong>: Insight 1 (KST 19) + 2 (Day of Week) + 3 (Squeeze + 04:30 GUARD) + 4 (Top Buy alert) + 5 (Confluence HUD)</li>
+    <li><strong>Phase 2 (보조, ~30분)</strong>: Insight 6 (KST 14) + 7 (KST 20-22 SHORT 경고) + 11 (ATM HUD)</li>
+    <li><strong>Phase 3 (선택)</strong>: Insight 8 (Strong body) + 9 (Multi-TF) + 10 (Touch counter)</li>
+  </ol>
+
+  <h3>📦 Phase 1 적용 시 추가 라인 (~120 lines)</h3>
+  <ul style="padding-left: 20px; line-height: 1.7; font-size: 14px;">
+    <li>KST hour signals (kst_19_long, kst_14_long, kst_04_long): 5 lines</li>
+    <li>Day of Week (is_mon/tue): 4 lines</li>
+    <li>ATR z + Squeeze: 8 lines</li>
+    <li>Swing high tracking + Top Buy detect: 15 lines</li>
+    <li>Confluence detection + HUD row 6: 12 lines</li>
+    <li>Visualizations (plotshape × 6): 30 lines</li>
+    <li>Alerts: 10 lines</li>
+    <li>주석/spacing: ~30 lines</li>
+  </ul>
+
+  <h3>🚀 다음 단계</h3>
+  <p>이 교재 검토 후 → <strong>Pine v5 코드 통합</strong> → Tradovate sim 적용 → 4주 성능 측정 → Live PA 진입.</p>
+</section>
+
+<footer>
+  <p>Pine v5 Insights — 36 hypothesis tests + 800 grid search 검증</p>
+  <p>
+    <a href="index.html">← 메인 페이지</a> ·
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/research/MASTER_REPORT.md" target="_blank">📊 Master Report</a> ·
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/research/PHASE_E_REPORT.md" target="_blank">📊 Phase E</a> ·
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/research/PHASE_F_REPORT.md" target="_blank">📊 Phase F</a>
+  </p>
+  <p>Source: research/ raw data (16 results.json + 800 grid)</p>
+</footer>
+
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+Chart.defaults.color = '#c9d1d9';
+Chart.defaults.borderColor = '#30363d';
+const cGood = '#3fb950', cDanger = '#f85149', cWarn = '#d29922', cAccent = '#58a6ff', cDim = '#8b949e';
+
+// Day of Week chart
+const dowSigned = [+0.630, -0.266, +0.211, -0.087, -0.189];
+new Chart(document.getElementById('chart_dow_2'), {
+  type: 'bar',
+  data: {
+    labels: ['Mon ⭐', 'Tue', 'Wed', 'Thu', 'Fri'],
+    datasets: [{
+      label: 'fwd 48b signed return / ATR (h2y)',
+      data: dowSigned,
+      backgroundColor: dowSigned.map(v => v >= 0 ? cGood + 'cc' : cDanger + 'cc'),
+      borderColor: dowSigned.map(v => v >= 0 ? cGood : cDanger),
+      borderWidth: 2
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: { y: { title: { display: true, text: 'Signed Return / ATR (48b)' } } },
+    plugins: { legend: { display: false } }
+  }
+});
+
+// Fib retrace HR chart
+const fibLabels = ['<23.6%\n(top buy)', '23.6-38.2%', '38.2-50%', '50-61.8%', '61.8-78.6%', '78.6-100%', '>100%\n(broken)'];
+const fibHR = [47.35, 53.29, 55.29, 57.65, 59.91, 60.38, 62.65];
+new Chart(document.getElementById('chart_fib'), {
+  type: 'bar',
+  data: {
+    labels: fibLabels,
+    datasets: [{
+      label: 'MFE 1×ATR Hit Rate (h2y) %',
+      data: fibHR,
+      backgroundColor: fibHR.map((v, i) => i === 0 ? cDanger + 'cc' : (i >= 5 ? cGood + 'cc' : cAccent + '99')),
+      borderColor: fibHR.map((v, i) => i === 0 ? cDanger : (i >= 5 ? cGood : cAccent)),
+      borderWidth: 2
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: {
+      y: { min: 40, max: 70, title: { display: true, text: 'Hit Rate %' } }
+    },
+    plugins: { legend: { display: false } }
+  }
+});
+</script>
+
+</body>
+</html>
