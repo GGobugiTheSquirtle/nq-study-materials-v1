@@ -1,0 +1,83 @@
+{
+  "fwd_3": {
+    "bull_strong_body": {
+      "n": 3372,
+      "mu_signed_h2y": 0.025001978487802855,
+      "mu_signed_l2y": 0.025169720299800625
+    },
+    "bear_strong_body": {
+      "n": 3120,
+      "mu_signed_h2y": -0.07308023247962968,
+      "mu_signed_l2y": -0.09549575099773333
+    },
+    "bull_pin_hammer": {
+      "n": 4670,
+      "mu_signed_h2y": 0.025288075462184496,
+      "mu_signed_l2y": 0.02609491196700621
+    },
+    "bear_pin_shoot_star": {
+      "n": 4345,
+      "mu_signed_h2y": 0.01026704642333392,
+      "mu_signed_l2y": 0.022096760200911447
+    },
+    "doji": {
+      "n": 4669,
+      "mu_signed_h2y": 0.04809810303715783,
+      "mu_signed_l2y": 0.06889897699694317
+    }
+  },
+  "fwd_12": {
+    "bull_strong_body": {
+      "n": 3456,
+      "mu_signed_h2y": -0.0017826414472908102,
+      "mu_signed_l2y": -0.04767315450722369
+    },
+    "bear_strong_body": {
+      "n": 3167,
+      "mu_signed_h2y": -0.11690776513555652,
+      "mu_signed_l2y": -0.21392469303743863
+    },
+    "bull_pin_hammer": {
+      "n": 4683,
+      "mu_signed_h2y": -0.028773130734346175,
+      "mu_signed_l2y": -0.08670643639073072
+    },
+    "bear_pin_shoot_star": {
+      "n": 4489,
+      "mu_signed_h2y": 0.04777933289092726,
+      "mu_signed_l2y": 0.08194159327097311
+    },
+    "doji": {
+      "n": 4659,
+      "mu_signed_h2y": -0.02479902945402387,
+      "mu_signed_l2y": -0.0704993806090021
+    }
+  },
+  "fwd_24": {
+    "bull_strong_body": {
+      "n": 3437,
+      "mu_signed_h2y": 0.15634693312484918,
+      "mu_signed_l2y": 0.25702761655808337
+    },
+    "bear_strong_body": {
+      "n": 3108,
+      "mu_signed_h2y": -0.08514071076910303,
+      "mu_signed_l2y": -0.15532050319629748
+    },
+    "bull_pin_hammer": {
+      "n": 4551,
+      "mu_signed_h2y": -0.19983841267403737,
+      "mu_signed_l2y": -0.3848041127977284
+    },
+    "bear_pin_shoot_star": {
+      "n": 4382,
+      "mu_signed_h2y": 0.09278200731476276,
+      "mu_signed_l2y": 0.03290921537661037
+    },
+    "doji": {
+      "n": 4584,
+      "mu_signed_h2y": -0.10612489251783791,
+      "mu_signed_l2y": -0.23758505593935075
+    }
+  }
+}
