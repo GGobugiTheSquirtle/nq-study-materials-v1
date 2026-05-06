@@ -511,11 +511,11 @@
 <div class="container">
 
 <header>
-  <h1>📈 NQ 매매 공부 자료 — v1.2 (Curriculum Added)</h1>
-  <div class="sub">나스닥 100 선물 (E-mini NQ) 단기·스캘프 매매 — 검증된 컨셉·기법·분석도구 망라 · 사용자 약점 처방 중심</div>
-  <div class="sub" style="margin-top:6px;">최종 갱신: 2026-05-06 (late late) · 6 카테고리 + 12주 커리큘럼 · 1,109 source · 영어 + 한국어</div>
+  <h1>📈 NQ 매매 공부 자료 — v2.0 (Research-backed Curriculum)</h1>
+  <div class="sub">나스닥 100 선물 (E-mini NQ) 단기·스캘프 매매 — <strong>16 검증 + 20 cost-adjusted edge sim</strong> 기반 14주 교재</div>
+  <div class="sub" style="margin-top:6px;">최종 갱신: 2026-05-06 v2.0 · 14주 curriculum_v2 + research/ raw data · 1,109 source NotebookLM</div>
   <div class="sub" style="margin-top:6px;color:var(--accent-good);">
-    🆕 v1.2 변경: <strong>00_curriculum/ 신규 — 12주 점진적 체화 커리큘럼 (Tier 1+2+3, 사용자 약점 직접 처방 sequence)</strong>
+    🆕 v2.0 변경: <strong>NQ 5m 10y backtest 기반 통설 4 REJECTED + 7 NEW edge 발견 + Cost-adjusted Top 3 Trade Plans</strong>
   </div>
 </header>
 
@@ -545,146 +545,217 @@
 </div>
 
 <!-- ============================================ -->
-<!-- 🎓 v1.2 CURRICULUM HERO (메인 진입점) -->
+<!-- 🎓 v2.0 RESEARCH-BACKED CURRICULUM (14주) -->
 <!-- ============================================ -->
 <section class="curriculum-hero" id="curriculum-box">
-  <h2>🎓 12주 점진적 체화 커리큘럼 (메인 진입점)</h2>
-  <div class="subtitle">매주 1개 주제 → 차트 관찰 (5분/day) → 일지 마킹 → 다음 주 누적. 사용자 약점 직접 처방 sequence. <strong style="color:var(--accent-good);">각 주차 = 원본 소스 (YouTube/책/PDF/NotebookLM) 직접 link 포함.</strong></div>
+  <h2>🎓 14주 검증 기반 교재 (Research-backed v2.0)</h2>
+  <div class="subtitle">
+    NQ 5m 10y backtest <strong>16 검증 + 20 cost-adjusted edge sim</strong> 기반 재구성.
+    <strong style="color:var(--accent-good);">통설 REJECTED 4종 + NEW edge 7종 + Cost-adj Top 3 Trade Plans</strong>.
+    각 주차 = 데이터 수치 + 원본 소스 직접 link.
+  </div>
+
+  <!-- v2 변경 요약 -->
+  <div style="margin:16px 0; padding:14px 16px; background:rgba(248, 81, 73, 0.05); border-left:3px solid var(--accent-danger); border-radius:4px;">
+    <strong style="color:var(--accent-danger);">🔴 검증으로 REJECTED 통설:</strong>
+    EMA 정배열 short-window / EMA20 1st touch / SR zone vs line / BB 95% rule / Hammer-Star reversal
+  </div>
+  <div style="margin:8px 0 16px; padding:14px 16px; background:rgba(63, 185, 80, 0.05); border-left:3px solid var(--accent-good); border-radius:4px;">
+    <strong style="color:var(--accent-good);">🟢 NEW Discovery (검증된 edge):</strong>
+    KST 19 LONG / KST 14 LONG / Monday LONG / Squeeze→Expansion / 04:30 Squeeze GUARD / Confluence 2-factor / Trade Management Trail
+  </div>
 
   <!-- Tier strip -->
   <div class="tier-strip">
     <div class="tier-card tier-1">
       <h4>🟡 Tier 1: Foundation</h4>
-      <div class="month">Month 1 — 차트 읽기 기본기</div>
-      <div class="desc">추세 → EMA → SR zone → 시간대</div>
+      <div class="month">Month 1 — 차트 기본 + KST hour</div>
+      <div class="desc">추세 + EMA + SR(visual) + <strong style="color:var(--accent-good);">KST hour ⭐</strong></div>
     </div>
     <div class="tier-card tier-2">
       <h4>⚪ Tier 2: Setup Building</h4>
-      <div class="month">Month 2 — 진입 자리 정확도</div>
-      <div class="desc">BB → EMA SR → PA → <strong style="color:var(--accent-warn);">Pullback ⭐</strong></div>
+      <div class="month">Month 2 — 진입 자리</div>
+      <div class="desc">Squeeze + EMA touch (REVERSE!) + PA + <strong style="color:var(--accent-warn);">Top buy 회피 ⭐</strong></div>
     </div>
     <div class="tier-card tier-3">
-      <h4>🟢 Tier 3: Research</h4>
-      <div class="month">Month 3 — v3.5 edge 적용</div>
-      <div class="desc">Momentum → ICT → <strong style="color:var(--accent-good);">04:30 BURN_X</strong> → 22:30</div>
+      <h4>🟢 Tier 3: Research v3.5</h4>
+      <div class="month">Month 3 — Trail = game-changer</div>
+      <div class="desc">ATR + ICT + <strong style="color:var(--accent-good);">04:30 BURN_X ⭐⭐⭐</strong> + 22:30</div>
     </div>
     <div class="tier-card tier-4">
-      <h4>🔵 Tier 4: Mastery</h4>
-      <div class="month">Month 4+ — Apex Eval 진입</div>
-      <div class="desc">모라토리엄 해제 + Live PA</div>
+      <h4>🔵 Tier 4: Advanced (NEW)</h4>
+      <div class="month">Month 4 — Confluence</div>
+      <div class="desc">Day of Week + <strong style="color:var(--accent-good);">Confluence ⭐⭐ (best PF 1.22)</strong></div>
     </div>
   </div>
 
-  <!-- 12 Week Grid -->
-  <h3>📋 12주 진도 (각 카드 클릭 → 상세 학습 자료 + 📚 원본 소스 바로가기)</h3>
-  <div class="subtitle" style="margin-bottom:12px;">각 주차 markdown 끝에 <strong>📚 원본 소스 바로가기 섹션</strong> 추가됨 — YouTube 영상 / 책 Amazon / Free PDF / NotebookLM query / 카테고리 sources.md 직접 link.</div>
+  <!-- 14 Week Grid (v2 research-backed) -->
+  <h3>📋 14주 진도 v2.0 (각 카드 = 검증 데이터 + 원본 소스)</h3>
+  <div class="subtitle" style="margin-bottom:12px;">각 주차 = <strong>검증 status (T1/T2/T5 tier badge)</strong> + 측정 수치 + 원본 소스. 🔴 = REJECTED 통설, 🟢 = verified, ⭐ = top edge.</div>
   <div class="week-grid">
 
-    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_1_foundation/week_01_trend.md" target="_blank" class="week-card t1">
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/curriculum_v2/tier_1_foundation/week_01_trend.md" target="_blank" class="week-card t1">
       <div class="week-num">WEEK 1 · TIER 1</div>
-      <h4>🚦 추세 인식</h4>
-      <div class="week-desc">HH/HL vs LH/LL vs Range. 3 timeframe 동시 식별.</div>
-      <div class="week-rule">5/5 차트 정확 + Range LONG 충동 0회</div>
-      <div class="week-status">⬜ 미시작 · 시작 권장</div>
+      <h4>🚦 Multi-TF 추세 (small)</h4>
+      <div class="week-desc">All-up vs all-down d=+0.03. small but real. confluence factor.</div>
+      <div class="week-rule">B4 verified: last_2y Δμ=0.20 ATR</div>
+      <div class="week-status">⬜ 미시작 · START</div>
     </a>
 
-    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_1_foundation/week_02_ma_alignment.md" target="_blank" class="week-card t1">
-      <div class="week-num">WEEK 2 · TIER 1</div>
-      <h4>EMA 정·역배열</h4>
-      <div class="week-desc">EMA 20/50/200. Price vs EMA20. W1 모순 시 진입 lock.</div>
-      <div class="week-rule">5/5 정렬 + 모순 진입 0회</div>
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/curriculum_v2/tier_1_foundation/week_02_ema_alignment.md" target="_blank" class="week-card t1">
+      <div class="week-num">WEEK 2 · TIER 1 🔴</div>
+      <h4>EMA 배열 (REJECTED short)</h4>
+      <div class="week-desc">통설 fwd 5b d=0.014 negligible. 24-48b 시만 small effect.</div>
+      <div class="week-rule">A1 verified — long-hold only</div>
       <div class="week-status">⬜</div>
     </a>
 
-    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_1_foundation/week_03_support_resistance.md" target="_blank" class="week-card t1">
-      <div class="week-num">WEEK 3 · TIER 1</div>
-      <h4>SR Zone (선 X, 구간 O)</h4>
-      <div class="week-desc">Touch ≥ 3, ±0.25×ATR. Top buy 위험 식별.</div>
-      <div class="week-rule">Top buy 진입 = 0회 ⭐</div>
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/curriculum_v2/tier_1_foundation/week_03_sr_visual.md" target="_blank" class="week-card t1">
+      <div class="week-num">WEEK 3 · TIER 1 🔴</div>
+      <h4>SR visual aid (edge X)</h4>
+      <div class="week-desc">Zone vs line Δ -0.62pp. NQ 5m 차이 X. 시각 도구만.</div>
+      <div class="week-rule">B1 verified — SR 단독 진입 0</div>
       <div class="week-status">⬜</div>
     </a>
 
-    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_1_foundation/week_04_session_timing.md" target="_blank" class="week-card t1">
-      <div class="week-num">WEEK 4 · TIER 1 졸업</div>
-      <h4>매매 시간대 (Edge time)</h4>
-      <div class="week-desc">Asian/EU/NY-AM/04:30. Edge time 외 진입 자제.</div>
-      <div class="week-rule">Non-edge 진입 < 10% (이유 없음)</div>
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/curriculum_v2/tier_1_foundation/week_04_kst_hour.md" target="_blank" class="week-card t1 starred green">
+      <div class="week-num">WEEK 4 · TIER 1 ⭐⭐⭐</div>
+      <h4>🚀 KST Hour Bias</h4>
+      <div class="week-desc">단일 가장 강한 factor. KST 14/19 LONG ⭐, KST 20-22 SHORT cluster.</div>
+      <div class="week-rule">D1 verified — Phase E sim PF 1.04-1.22</div>
       <div class="week-status">⬜ Tier 1 통합 self-test</div>
     </a>
 
-    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_2_setup/week_05_bollinger.md" target="_blank" class="week-card t2">
-      <div class="week-num">WEEK 5 · TIER 2</div>
-      <h4>Bollinger Band</h4>
-      <div class="week-desc">Mean revert vs Squeeze breakout. Walking-the-band 함정.</div>
-      <div class="week-rule">Walking-band SHORT 진입 = 0회</div>
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/curriculum_v2/tier_2_setup/week_05_squeeze_expansion.md" target="_blank" class="week-card t2 starred">
+      <div class="week-num">WEEK 5 · TIER 2 ⭐</div>
+      <h4>Squeeze→Expansion</h4>
+      <div class="week-desc">ATR z 12-bar squeeze → fwd 48b range +44%. 통설 confirmed.</div>
+      <div class="week-rule">D3 verified — squeeze direction confluence 필요</div>
       <div class="week-status">⬜</div>
     </a>
 
-    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_2_setup/week_06_ma_as_sr.md" target="_blank" class="week-card t2">
-      <div class="week-num">WEEK 6 · TIER 2</div>
-      <h4>EMA Dynamic SR</h4>
-      <div class="week-desc">EMA20 1st/2nd touch + bounce 확인. Linda Holy Grail.</div>
-      <div class="week-rule">Random 진입 (no pullback) = 0</div>
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/curriculum_v2/tier_2_setup/week_06_ema_touch_reverse.md" target="_blank" class="week-card t2">
+      <div class="week-num">WEEK 6 · TIER 2 🔴</div>
+      <h4>EMA Touch # (REVERSE!)</h4>
+      <div class="week-desc">통설 REVERSE — 4th+ HR 더 높음 (last_1y +3.79pp). Linda HG REJECTED.</div>
+      <div class="week-rule">A2 verified — Touch # 무관 룰</div>
       <div class="week-status">⬜</div>
     </a>
 
-    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_2_setup/week_07_pa_candles.md" target="_blank" class="week-card t2">
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/curriculum_v2/tier_2_setup/week_07_pa_strong_body.md" target="_blank" class="week-card t2">
       <div class="week-num">WEEK 7 · TIER 2</div>
-      <h4>PA Candle Patterns</h4>
-      <div class="week-desc">Engulf / Pin / Inside. 자리 우선, candle = trigger.</div>
-      <div class="week-rule">자리 X candle 진입 < 20%</div>
+      <h4>PA Strong Body</h4>
+      <div class="week-desc">Strong body continuation +0.16 ATR. Hammer/Star single REVERSE 통설.</div>
+      <div class="week-rule">D4 verified — body 단독 X (small)</div>
       <div class="week-status">⬜</div>
     </a>
 
-    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_2_setup/week_08_pullbacks.md" target="_blank" class="week-card t2 starred">
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/curriculum_v2/tier_2_setup/week_08_top_buy_avoid.md" target="_blank" class="week-card t2 starred">
       <div class="week-num">WEEK 8 · TIER 2 졸업 ⭐⭐⭐</div>
-      <h4>🔥 Pullback vs Top Buy</h4>
-      <div class="week-desc">Fib 38.2/50/61.8 retrace. 사용자 핵심 약점 (L5) 직접 처방.</div>
-      <div class="week-rule">Top Buy 진입 = 0회 (절대) ⭐</div>
+      <h4>🔥 Top Buy 회피</h4>
+      <div class="week-desc">Fib <23.6% retrace HR 47% (lowest). 사용자 핵심 약점 직접 처방.</div>
+      <div class="week-rule">A3 verified — Top Buy 진입 0회 강제</div>
       <div class="week-status">⬜ Tier 2 통합 self-test</div>
     </a>
 
-    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_3_research/week_09_momentum.md" target="_blank" class="week-card t3">
-      <div class="week-num">WEEK 9 · TIER 3</div>
-      <h4>Momentum vs 횡보</h4>
-      <div class="week-desc">ATR z-score, Volman 4 criteria. 짤짤이 함정 처방.</div>
-      <div class="week-rule">ATR z &lt; -0.5 진입 = 0</div>
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/curriculum_v2/tier_3_research/week_09_atr_normalization.md" target="_blank" class="week-card t3">
+      <div class="week-num">WEEK 9 · TIER 3 🔴</div>
+      <h4>ATR z normalization</h4>
+      <div class="week-desc">통설 z high momentum REJECTED. ATR = stop sizing 도구.</div>
+      <div class="week-rule">A4 verified — z 단독 entry X</div>
       <div class="week-status">⬜</div>
     </a>
 
-    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_3_research/week_10_ict_basics.md" target="_blank" class="week-card t3">
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/curriculum_v2/tier_3_research/week_10_ict_recognition.md" target="_blank" class="week-card t3">
       <div class="week-num">WEEK 10 · TIER 3</div>
-      <h4>ICT FVG/OB (인식만)</h4>
-      <div class="week-desc">우리 검증 REJECTED. 다른 트레이더 차트 reading + 면역.</div>
+      <h4>ICT 인식 (사용 X)</h4>
+      <div class="week-desc">HYP-CONF-001 BTC REJECTED. NQ replication 다음. 인식만 학습.</div>
       <div class="week-rule">ICT 단독 진입 = 0</div>
       <div class="week-status">⬜</div>
     </a>
 
-    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_3_research/week_11_burn_x_0430.md" target="_blank" class="week-card t3 starred green">
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/curriculum_v2/tier_3_research/week_11_burn_x.md" target="_blank" class="week-card t3 starred green">
       <div class="week-num">WEEK 11 · TIER 3 ⭐⭐⭐⭐⭐</div>
-      <h4>🚀 04:30 BURN_X</h4>
-      <div class="week-desc">우리 핵심 edge. 10y Sharpe_w 4.38. ATM #1 (60/30/2).</div>
-      <div class="week-rule">5일 04:30 sim 강제 5/5</div>
+      <h4>🚀 04:30 BURN_X + Trail</h4>
+      <div class="week-desc">v3.5 Sharpe 4.38 (Trail). simple PF 1.12 → ATM trail 3.81 = +220%.</div>
+      <div class="week-rule">+ Squeeze guard (z<-0.5 SKIP rule, D6)</div>
+      <div class="week-status">⬜ 5일 04:30 sim 강제</div>
+    </a>
+
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/curriculum_v2/tier_3_research/week_12_burn_r.md" target="_blank" class="week-card t3 starred green">
+      <div class="week-num">WEEK 12 · TIER 3</div>
+      <h4>22:30 BURN_R + Regime</h4>
+      <div class="week-desc">KST 22 raw -0.29 ATR SHORT. Phase E simple PF 1.01 — Trail 필수.</div>
+      <div class="week-rule">D1 + ADR-022 Regime A/B size</div>
+      <div class="week-status">⬜ 5일 22:30 sim</div>
+    </a>
+
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/curriculum_v2/tier_4_advanced/week_13_day_of_week.md" target="_blank" class="week-card t3 starred">
+      <div class="week-num">WEEK 13 · TIER 4 ⭐</div>
+      <h4>📅 Day of Week</h4>
+      <div class="week-desc">Mon LONG +0.63 ATR (48b)! ⭐. Tue SHORT 단독 X. PF 1.05 cost-adj.</div>
+      <div class="week-rule">D5 verified — Mon LONG bias / Tue SHORT confluence only</div>
       <div class="week-status">⬜</div>
     </a>
 
-    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_3_research/week_12_burn_r_2230.md" target="_blank" class="week-card t3 starred green">
-      <div class="week-num">WEEK 12 · 12주 졸업 🎓</div>
-      <h4>22:30 BURN_R + Regime A/B</h4>
-      <div class="week-desc">NY open 22:30. Score → Level → size 자동. 졸업 = Tier 4 자격.</div>
-      <div class="week-rule">5일 22:30 + Regime size 룰</div>
-      <div class="week-status">⬜ 12주 종합 self-test</div>
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/curriculum_v2/tier_4_advanced/week_14_confluence.md" target="_blank" class="week-card t3 starred green">
+      <div class="week-num">WEEK 14 · 14주 졸업 🎓⭐⭐⭐</div>
+      <h4>🏆 Confluence + Trade Mgmt</h4>
+      <div class="week-desc">CONF_KST14_MON P3 PF 1.22 ⭐⭐ best. CONF_KST19_MON 1.09. 3 plans.</div>
+      <div class="week-rule">D6 + Phase E — Trade-able edge</div>
+      <div class="week-status">⬜ Sim 4주 → Apex Eval 자격</div>
     </a>
 
   </div>
 
-  <!-- CTA buttons -->
+  <!-- CTA buttons (v2 link) -->
   <div class="cta-row">
-    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_1_foundation/week_01_trend.md" target="_blank" class="cta-button cta-warn">🚦 Week 1 시작 (오늘부터)</a>
-    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/README.md" target="_blank" class="cta-button cta-primary">📖 커리큘럼 README</a>
-    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/PROGRESSION_MAP.md" target="_blank" class="cta-button cta-secondary">🗺️ 12주 스킬 트리 (상세)</a>
-    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/_logs/progression_log.md" target="_blank" class="cta-button cta-secondary">📊 진도 기록 (사용자 채움)</a>
-    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/_logs/observation_log.md" target="_blank" class="cta-button cta-secondary">👁 관찰 노트</a>
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/curriculum_v2/tier_1_foundation/week_01_trend.md" target="_blank" class="cta-button cta-warn">🚦 Week 1 시작</a>
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/curriculum_v2/README.md" target="_blank" class="cta-button cta-primary">📖 v2 README</a>
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/curriculum_v2/PROGRESSION_MAP.md" target="_blank" class="cta-button cta-secondary">🗺️ 14주 스킬 트리</a>
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/research/MASTER_REPORT.md" target="_blank" class="cta-button cta-secondary">🔬 Master Report (16 검증)</a>
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/research/PHASE_E_REPORT.md" target="_blank" class="cta-button cta-secondary">📊 Phase E (cost-adj)</a>
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/curriculum_v2/_logs/progression_log.md" target="_blank" class="cta-button cta-secondary">📝 진도 기록</a>
+  </div>
+
+  <!-- 검증 Top Edges 표 -->
+  <h3 style="margin-top:32px;">🏆 Cost-adjusted Top Edges (Phase E 검증)</h3>
+  <div class="subtitle" style="margin-bottom:12px;">Trade simulation: SL=1.5×ATR / TP=2.0×ATR / cost 0.022 ATR / NQ 5m 10y. P3 = recent (2023+).</div>
+  <table style="font-size:13px;">
+    <thead>
+      <tr>
+        <th>Edge</th><th>Total PF</th><th>P3 PF (recent)</th><th>P3 N</th><th>등급</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:rgba(63,185,80,0.05);">
+        <td><strong>CONF_KST14 + Monday LONG</strong></td><td>1.07</td><td><strong style="color:var(--accent-good);">1.22</strong></td><td>169</td><td>🏆 ⭐⭐ Best confluence</td>
+      </tr>
+      <tr style="background:rgba(63,185,80,0.05);">
+        <td><strong>KST14 LONG (US lunch)</strong></td><td>1.04</td><td><strong style="color:var(--accent-good);">1.14</strong></td><td>846</td><td>🏆 ⭐ Larger N</td>
+      </tr>
+      <tr style="background:rgba(63,185,80,0.05);">
+        <td><strong>CONF_KST19 + Monday LONG</strong></td><td>1.12</td><td>1.09</td><td>169</td><td>🏆 ⭐ Confluence #2</td>
+      </tr>
+      <tr>
+        <td>MON_LONG (Day of Week)</td><td>1.05</td><td>1.08</td><td>11,924</td><td>🥈 Big sample</td>
+      </tr>
+      <tr>
+        <td>KST04 BURN_X (simple SL/TP)</td><td>1.12</td><td>1.01</td><td>813</td><td>🥈 Trail 필요</td>
+      </tr>
+      <tr>
+        <td><strong>04:30 BURN_X with v3.5 ATM Trail</strong></td><td><strong style="color:var(--accent-good);">3.81</strong></td><td>verified</td><td>tick PF</td><td>🏆 ⭐⭐⭐ Cash cow (Trail!)</td>
+      </tr>
+      <tr style="opacity:0.6;">
+        <td>KST20-22 SHORT (단독)</td><td>0.89-1.01</td><td>0.84-0.97</td><td>~850 each</td><td>❌ LOSE single</td>
+      </tr>
+      <tr style="opacity:0.6;">
+        <td>BEAR_BODY_CONT_SHORT</td><td>0.94</td><td>0.95</td><td>11,361</td><td>❌ LOSE</td>
+      </tr>
+    </tbody>
+  </table>
+  <div style="margin-top:14px; padding:12px 14px; background:rgba(251,191,36,0.06); border-left:3px solid var(--accent-warn); border-radius:4px; font-size:13px;">
+    <strong>핵심 통찰</strong>: 단일 factor PF 1.00-1.12 marginal. <strong>Confluence (2-factor) PF 1.07-1.22</strong>. <strong>ATM Trail = +220% boost (1.12 → 3.81)</strong>. KST20-22 SHORT raw signal 강해도 trade sim 에서는 LOSE.
   </div>
 
   <!-- 사용 방법 압축 -->
