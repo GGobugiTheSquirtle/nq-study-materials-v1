@@ -1,0 +1,668 @@
+//@version=6
+// ════════════════════════════════════════════════════════════════════════════
+// MNQ All v4 — Common + 5m + 1m + Burst Signals 통합
+// ════════════════════════════════════════════════════════════════════════════
+// 2026-05-03 V1: 4개 파일 → 1개 통합 (관리 단순화). 별도 유지: MNQ_OBFVG_R4_v1.
+//
+// ───────────────────────────────────────────────────────────────────────────
+// 차트 셋업 (TDV Desktop) — 2개 indicator 만 add
+//   5m 차트 → MNQ_OBFVG_R4_v1 + MNQ_All_v4   (L3/S2 + Burst 활성)
+//   1m 차트 → MNQ_OBFVG_R4_v1 + MNQ_All_v4   (BURN_X + Burst 활성)
+//   ATM 결정은 차트 외부 (Tradovate ATM Templates).
+//
+// ───────────────────────────────────────────────────────────────────────────
+// TF 자동 감지 (timeframe.in_seconds())
+//   5m → L3/S2 + L2/L4/S3 + Burst + Reference
+//   1m → BURN_X + Burst + Reference
+//   기타 (15m 등) → Burst + Reference 만
+//
+// ───────────────────────────────────────────────────────────────────────────
+// 신호 검증 (출처)
+//
+//   [5m] L3 / S2 Tier A — Forensics 10y NQ
+//        L3 Sharpe 4.69 (slot 21:00-22:30 + atr>1.3, N=509)
+//        S2 Sharpe 2.73 (RTH_open + atr>1.0,        N=793)
+//
+//   [1m] BURN_X spike 5종 — 사용자 실전 검증
+//        백테스트 NOGO 결과는 측정법 결함 의심 (CLAUDE.md 교훈 #45,
+//        BTC bot MFE/MAE WR 95.6% → 분봉 path WR 44.8% 사례 동일 패턴).
+//        Phase 2 path classifier 재설계 후 정식 채점 예정.
+//
+//   [Burst] CONT_GO / STOP / REV_CONFIRM — NQ 17.4y OOS validation
+//        28/36 cells STABLE (78%), RSI80_PARADOX 1 cell DECAY (미포함).
+//
+//        LAST_1Y rate (5m / 1m):
+//          🟢 CONT GO    → 추가 1 ATR 도달 72% / 88%
+//          🔴 REV CONF   → trigger 후 1 ATR drawdown 53% / 79%
+//          ⛔ STOP        → ≥1.5 ATR 추가 상승 87%+ 안 감
+//
+// ───────────────────────────────────────────────────────────────────────────
+// 통합 시 교정
+//   1. ATR/EMA/BB/KST 중복 계산 1번만 (~200줄 절감)
+//   2. vol_z 두 개 — vol_z_20 (BURN_X) / vol_z_50 (Burst)
+//   3. session_active (KST 20:30-05:00) vs in_kst_open_block (21-23) 분리
+//   4. HUD 2개 분리 — Reference (top_left) / Signals (middle_right)
+//   5. REV_CONFIRM measurement = trigger 시점 기준 (53%/79%, 실거래 정확)
+//   6. RSI80_PARADOX 미포함 (15m LAST_1Y -15pp DECAY)
+//
+// ───────────────────────────────────────────────────────────────────────────
+// 주의사항
+//   - CONT GO 양면성: cont 70%+ 인데 retrace 70%+ 동시. SL 1 ATR 안쪽 stop hit 빈번.
+//     (path-sim PF 1.0 break-even — 청산/타이밍 보조용 권장)
+//   - REV CONF 5m partial decay (IS-OOS -6.8pp). LAST_1Y 53% — 모니터링 필요.
+//   - 운영 중 한 번에 한 포지션만. 금요일 KST 01:45 이전 청산 (OBFVG 룰 준수).
+// ════════════════════════════════════════════════════════════════════════════
+
+indicator("MNQ All v4", overlay=true,
+          max_labels_count=200, max_boxes_count=50, max_lines_count=50)
+
+// ════════════════════════════════════════════════════════════════════════════
+// 0. INPUTS — Master Toggles → Group-specific
+// ════════════════════════════════════════════════════════════════════════════
+
+// ── 0. Master Toggles (모듈 전체 ON/OFF) ──
+grp_master = "0. Master Toggles"
+i_show_ref     = input.bool(true,  "Reference (EMA / VWAP / BB)",   group=grp_master)
+i_show_sess    = input.bool(true,  "Session boxes + H/L stepline",  group=grp_master)
+i_show_5m_sig  = input.bool(true,  "5m signals (L3 / S2)",          group=grp_master)
+i_show_1m_sig  = input.bool(true,  "1m signals (BURN_X spike)",     group=grp_master)
+i_show_burst   = input.bool(true,  "Burst signals (CONT/STOP/REV)", group=grp_master)
+i_show_ref_hud = input.bool(true,  "Reference HUD",                 group=grp_master)
+i_show_sig_hud = input.bool(true,  "Signal HUD",                    group=grp_master)
+
+// ── 1. Reference plots ──
+grp_ref = "1. Reference"
+i_show_emas = input.bool(true, "EMA 20 / 50 / 200",     group=grp_ref)
+i_show_vwap = input.bool(true, "Session VWAP",          group=grp_ref)
+i_show_bb   = input.bool(true, "Bollinger Band 20 · 2", group=grp_ref)
+
+// ── 2. 5m Signals (L3/S2 — 5m TF 한정) ──
+grp_5m = "2. 5m Signals (L3/S2)"
+i_5m_show_high   = input.bool(true,  "L3/S2 Tier A ▲▼",                    group=grp_5m)
+i_5m_show_mid    = input.bool(true,  "L2/L4 (경계) 작은 ▲",                 group=grp_5m)
+i_5m_show_obs    = input.bool(true,  "S3 BB@22:30 (관찰) ✕",                group=grp_5m)
+i_5m_show_tier_b = input.bool(false, "L3/S2 Tier B 작은 ▲ (default OFF)",   group=grp_5m)
+i_5m_cooldown    = input.int(5,      "L3/S2 쿨다운 (봉)",                   group=grp_5m)
+i_5m_forbid_med  = input.bool(true,  "S2: MED vol 차단",                    group=grp_5m)
+i_5m_req_cross   = input.bool(true,  "Stoch K x D Cross 필수",              group=grp_5m)
+i_5m_tier_a_atr  = input.float(1.0,  "Tier A — ATR Ratio Min", minval=0.5, maxval=3.0, step=0.1, group=grp_5m)
+i_5m_s2_non_mix  = input.bool(true,  "S2 Tier A — non-MIXED Regime 요구",   group=grp_5m)
+i_5m_skip_thu    = input.bool(true,  "L3 Thursday SKIP (Sharpe -0.75)",     group=grp_5m)
+
+// ── 3. 1m Signals (BURN_X — 1m TF 한정) ──
+grp_1m = "3. 1m Signals (BURN_X)"
+i_1m_show_lbl   = input.bool(true,  "🔥 BURN_X ▲▼",                              group=grp_1m)
+i_1m_volz_spike = input.float(1.5,  "vol_z 스파이크 임계",   minval=0.8, step=0.1, group=grp_1m)
+i_1m_mom_bars   = input.int(5,      "모멘텀 창 (봉)",        minval=3, maxval=10, group=grp_1m)
+i_1m_mom_need   = input.int(4,      "모멘텀 최소 연속",      minval=3, maxval=10, group=grp_1m)
+i_1m_break_atr  = input.float(2.0,  "Breakout ATR 배수",     minval=1.0, step=0.1, group=grp_1m)
+i_1m_cooldown   = input.int(10,     "BURN_X 쿨다운 (봉)",                          group=grp_1m)
+
+// ── 4. Burst Signals (TF 무관 — OOS 검증) ──
+grp_burst = "4. Burst Signals (TF 무관)"
+i_burst_show_cont = input.bool(true, "🟢 CONT GO",            group=grp_burst)
+i_burst_show_stop = input.bool(true, "⛔ STOP",                group=grp_burst)
+i_burst_show_rev  = input.bool(true, "🔴 REVERSAL CONFIRM",   group=grp_burst)
+i_burst_show_bg   = input.bool(true, "Burst 배경색 (옅게)",   group=grp_burst)
+i_burst_show_lbl  = input.bool(true, "REV CONFIRM 라벨",      group=grp_burst)
+
+i_ret3_cont    = input.float(0.5,  "CONT — ret_3_atr ≥",         group=grp_burst, step=0.1)
+i_ret3_rev     = input.float(1.0,  "REV — ret_3_atr ≥ (anchor)", group=grp_burst, step=0.1)
+i_vol_climax   = input.float(3.0,  "Climax vol z-score (50봉)",  group=grp_burst, step=0.5)
+i_vchg_surge   = input.float(2.5,  "vchg ratio SURGE",           group=grp_burst, step=0.1)
+i_vol_low      = input.float(-1.0, "STOP — vol z LOW",           group=grp_burst, step=0.5)
+i_vchg_dec     = input.float(0.7,  "STOP — vchg ratio DEC",      group=grp_burst, step=0.1)
+i_range_small  = input.float(0.7,  "STOP — range/ATR SMALL",     group=grp_burst, step=0.1)
+i_use_kst_open = input.bool(true,  "CONT 신호: KST 21-23 필터",   group=grp_burst)
+
+// ── 5. Display (HUD position) ──
+grp_disp = "5. Display"
+i_ref_hud_pos = input.string("top_left", "Reference HUD 위치",
+                  options=["top_left", "top_right", "bottom_left", "bottom_right", "middle_left", "middle_right"], group=grp_disp)
+i_sig_hud_pos = input.string("middle_right", "Signal HUD 위치",
+                  options=["top_left", "top_right", "bottom_left", "bottom_right", "middle_left", "middle_right"], group=grp_disp)
+
+// ── 6. Alerts ──
+grp_alert = "6. Alerts"
+i_alert_5m_a  = input.bool(true, "5m L3/S2 Tier A alerts",       group=grp_alert)
+i_alert_burnx = input.bool(true, "1m BURN_X alerts",              group=grp_alert)
+i_alert_burst = input.bool(true, "Burst alerts (CONT/REV/STOP)",  group=grp_alert)
+
+
+// ════════════════════════════════════════════════════════════════════════════
+// 1. CORE INDICATORS — 4 모듈 공통 사용. 한 번만 계산 (~200줄 절감 효과)
+// ════════════════════════════════════════════════════════════════════════════
+
+// TF 감지 (신호 분기용)
+tf_sec   = timeframe.in_seconds()
+is_tf_5m = tf_sec == 300
+is_tf_1m = tf_sec == 60
+
+// ── ATR / EMA — 모든 모듈 사용 ──
+atr14    = ta.atr(14)
+ema20    = ta.ema(close, 20)
+ema50    = ta.ema(close, 50)
+ema200   = ta.ema(close, 200)
+ema_up   = ema20 > ema50 and ema50 > ema200
+ema_down = ema20 < ema50 and ema50 < ema200
+
+// ── Bollinger 20·2 — Reference plot + 5m L2/S3 + vol_tier ──
+ma20     = ta.sma(close, 20)
+sd20     = ta.stdev(close, 20)
+bb_up    = ma20 + 2 * sd20
+bb_lo    = ma20 - 2 * sd20
+bb_pct   = (close - bb_lo) / (bb_up - bb_lo) * 100
+bb_width = (bb_up - bb_lo) / ma20 * 100
+vol_tier = bb_width < 0.12 ? "LOW" : bb_width < 0.25 ? "MED" : "HIGH"
+
+// ── VWAP — Reference plot ──
+vwap_day = ta.vwap(hlc3)
+
+// ── Stoch — 5m L3/S2 진입 ──
+stoch_k    = ta.stoch(close, high, low, 14)
+stoch_d    = ta.sma(stoch_k, 3)
+cross_up   = ta.crossover(stoch_k,  stoch_d)
+cross_down = ta.crossunder(stoch_k, stoch_d)
+
+// ── CCI — 5m L4 ──
+cci20 = ta.cci(close, 20)
+
+// ── ATR ratio — 5m L3/S2 Tier A 자격 + Burst regime 보조 ──
+atr_sma20 = ta.sma(atr14, 20)
+atr_ratio = atr_sma20 > 0.0001 ? atr14 / atr_sma20 : 0.0
+
+// ── Volume z-scores — TWO lookbacks (의미 다름) ──
+//   vol_z_20 → 1m BURN_X spike (짧은 lookback, sensitive)
+//   vol_z_50 → Burst CONT/STOP/REV (긴 lookback, robust)
+vol_sma_20 = ta.sma(volume, 20)
+vol_std_20 = ta.stdev(volume, 20)
+vol_z_20   = vol_std_20 > 0 ? (volume - vol_sma_20) / vol_std_20 : 0.0
+
+vol_sma_50 = ta.sma(volume, 50)
+vol_std_50 = ta.stdev(volume, 50)
+vol_z_50   = vol_std_50 > 0 ? (volume - vol_sma_50) / vol_std_50 : 0.0
+
+// ── Volume change ratio (vs prev 5-bar avg) — Burst CONT/STOP ──
+vol_sma_5  = ta.sma(volume, 5)
+vchg_ratio = vol_sma_5[1] > 0 ? volume / vol_sma_5[1] : 1.0
+
+// ── Range / Body / Wick — 1m BURN_X wick reversal + Burst STOP ──
+rng       = high - low
+range_atr = atr14 > 0 ? rng / atr14 : 0.0
+body_abs  = math.abs(close - open)
+upper_wk  = high - math.max(close, open)
+lower_wk  = math.min(close, open) - low
+is_red    = close < open
+is_green  = close > open
+
+// ── 3-bar return — Burst CONT_GO + REV_CONFIRM 핵심 anchor ──
+ret3_atr = atr14 > 0 ? (close - close[3]) / atr14 : 0.0
+
+// ── near_ema20 — 5m L3/S2 진입 조건 (close 와 EMA20 거리 < 0.20%) ──
+near_ema20 = math.abs(close - ema20) / ema20 * 100 < 0.20
+
+// ── Regime — 5m 한정 의미 (288봉 = 24h on 5m, 1m 에선 4.8h 라 다른 의미) ──
+//   slope_pct: EMA200 24h slope %
+//   above_pct: 직전 50봉 close > EMA200 비율
+slope_pct = ema200[288] > 0 ? (ema200 - ema200[288]) / ema200[288] * 100.0 : 0.0
+above_cnt = 0
+for i = 0 to 49
+    above_cnt := above_cnt + (close[i] > ema200[i] ? 1 : 0)
+above_pct = above_cnt * 100.0 / 50.0
+regime = slope_pct > 0.10 and above_pct >= 70 ? "BULL" : slope_pct < -0.10 and above_pct <= 30 ? "BEAR" : "MIXED"
+
+
+// ════════════════════════════════════════════════════════════════════════════
+// 2. TIME / SESSIONS — KST (한국) + ET (NY) timezone 자동 처리
+// ════════════════════════════════════════════════════════════════════════════
+
+// ── KST ──
+kst_h      = hour(time, "Asia/Seoul")
+kst_m      = minute(time, "Asia/Seoul")
+kst_hm     = kst_h * 100 + kst_m                  // 예: 2230 = 22:30
+kst_wday   = dayofweek(time, "Asia/Seoul")        // Sun=1 ... Sat=7
+is_thu_kst = kst_wday == 5                        // 5m L3 Thursday SKIP 용
+
+// ── ET (Reference HUD 세션 표시) ──
+et_h       = hour(time, "America/New_York")
+is_asian   = (et_h >= 18) or (et_h < 3)
+is_london  = (et_h >= 3)  and (et_h < 8)
+is_ny_open = (et_h >= 8)  and (et_h < 10)
+is_ny_reg  = (et_h >= 10) and (et_h < 16)
+is_us_sess = is_ny_open or is_ny_reg
+
+// ── 시간 필터 3종 (의미 다름, 분리 유지) ──
+//   session_active   : 5m/1m 신호 전체 활성 시간 (KST 20:30 ~ 05:00)
+//   is_rth_open      : 1m RTH flash 윈도우 (KST 22:30 ~ 22:45)
+//   in_kst_open_block: Burst CONT_GO 핵심 필터 (KST 21 ~ 23, NY open block)
+session_active    = (kst_hm >= 2030) or (kst_hm < 500)
+is_rth_open       = kst_hm >= 2230 and kst_hm < 2245
+in_kst_open_block = kst_h >= 21 and kst_h <= 23
+session_burst_ok  = (not i_use_kst_open) or in_kst_open_block
+
+
+// ════════════════════════════════════════════════════════════════════════════
+// 3. SESSION BOXES + H/L STEPLINE — Asia / London / US 시각화 + 직전 세션 H/L
+// ════════════════════════════════════════════════════════════════════════════
+
+asia_enter = is_asian   and not is_asian[1]
+eu_enter   = is_london  and not is_london[1]
+us_enter   = is_us_sess and not is_us_sess[1]
+
+var box cur_asia_box = na
+var box cur_eu_box   = na
+var box cur_us_box   = na
+
+if i_show_sess and asia_enter
+    cur_asia_box := box.new(bar_index, high, bar_index, low,
+         border_color=color.new(#845ef7, 40), bgcolor=color.new(#845ef7, 94),
+         border_width=1, border_style=line.style_dashed,
+         text="ASIA", text_size=size.tiny,
+         text_color=color.new(#845ef7, 30),
+         text_halign=text.align_left, text_valign=text.align_top)
+if i_show_sess and is_asian and not na(cur_asia_box)
+    box.set_top(cur_asia_box,    math.max(box.get_top(cur_asia_box), high))
+    box.set_bottom(cur_asia_box, math.min(box.get_bottom(cur_asia_box), low))
+    box.set_right(cur_asia_box,  bar_index)
+
+if i_show_sess and eu_enter
+    cur_eu_box := box.new(bar_index, high, bar_index, low,
+         border_color=color.new(#f59e0b, 40), bgcolor=color.new(#f59e0b, 94),
+         border_width=1, border_style=line.style_dashed,
+         text="LONDON", text_size=size.tiny,
+         text_color=color.new(#f59e0b, 30),
+         text_halign=text.align_left, text_valign=text.align_top)
+if i_show_sess and is_london and not na(cur_eu_box)
+    box.set_top(cur_eu_box,    math.max(box.get_top(cur_eu_box), high))
+    box.set_bottom(cur_eu_box, math.min(box.get_bottom(cur_eu_box), low))
+    box.set_right(cur_eu_box,  bar_index)
+
+if i_show_sess and us_enter
+    cur_us_box := box.new(bar_index, high, bar_index, low,
+         border_color=color.new(#06b6d4, 40), bgcolor=color.new(#06b6d4, 94),
+         border_width=1, border_style=line.style_dashed,
+         text="US", text_size=size.tiny,
+         text_color=color.new(#06b6d4, 30),
+         text_halign=text.align_left, text_valign=text.align_top)
+if i_show_sess and is_us_sess and not na(cur_us_box)
+    box.set_top(cur_us_box,    math.max(box.get_top(cur_us_box), high))
+    box.set_bottom(cur_us_box, math.min(box.get_bottom(cur_us_box), low))
+    box.set_right(cur_us_box,  bar_index)
+
+// 직전 세션 H/L stepline
+var float sess_asia_h = na
+var float sess_asia_l = na
+var float sess_eu_h   = na
+var float sess_eu_l   = na
+var float sess_us_h   = na
+var float sess_us_l   = na
+
+if asia_enter
+    sess_asia_h := high
+    sess_asia_l := low
+else if is_asian
+    sess_asia_h := math.max(nz(sess_asia_h, high), high)
+    sess_asia_l := math.min(nz(sess_asia_l, low),  low)
+
+if eu_enter
+    sess_eu_h := high
+    sess_eu_l := low
+else if is_london
+    sess_eu_h := math.max(nz(sess_eu_h, high), high)
+    sess_eu_l := math.min(nz(sess_eu_l, low),  low)
+
+if us_enter
+    sess_us_h := high
+    sess_us_l := low
+else if is_us_sess
+    sess_us_h := math.max(nz(sess_us_h, high), high)
+    sess_us_l := math.min(nz(sess_us_l, low),  low)
+
+plot(i_show_sess and not is_asian   ? sess_asia_h : na, "Asia H",   color.new(#845ef7, 45), 1, plot.style_stepline)
+plot(i_show_sess and not is_asian   ? sess_asia_l : na, "Asia L",   color.new(#845ef7, 45), 1, plot.style_stepline)
+plot(i_show_sess and not is_london  ? sess_eu_h   : na, "London H", color.new(#f59e0b, 45), 1, plot.style_stepline)
+plot(i_show_sess and not is_london  ? sess_eu_l   : na, "London L", color.new(#f59e0b, 45), 1, plot.style_stepline)
+plot(i_show_sess and not is_us_sess ? sess_us_h   : na, "US H",     color.new(#06b6d4, 45), 1, plot.style_stepline)
+plot(i_show_sess and not is_us_sess ? sess_us_l   : na, "US L",     color.new(#06b6d4, 45), 1, plot.style_stepline)
+
+
+// ════════════════════════════════════════════════════════════════════════════
+// 4. EMA + VWAP + BB PLOTS — Reference (색/두께 통일: 흰굵 / 주황 / 빨얇)
+// ════════════════════════════════════════════════════════════════════════════
+
+plot(i_show_ref and i_show_emas ? ema20    : na, "EMA20",      color=color.new(color.white,  10), linewidth=3)
+plot(i_show_ref and i_show_emas ? ema50    : na, "EMA50",      color=color.new(color.orange, 20), linewidth=2)
+plot(i_show_ref and i_show_emas ? ema200   : na, "EMA200",     color=color.new(color.red,    30), linewidth=1)
+plot(i_show_ref and i_show_vwap ? vwap_day : na, "VWAP",       color=color.new(color.aqua,   40), style=plot.style_stepline)
+plot(i_show_ref and i_show_bb   ? bb_up    : na, "BB Up 20·2", color.new(color.gray, 65), 1)
+plot(i_show_ref and i_show_bb   ? bb_lo    : na, "BB Lo 20·2", color.new(color.gray, 65), 1)
+
+
+// ════════════════════════════════════════════════════════════════════════════
+// 5. 5m SIGNALS — L3 / S2 Tier 분류 + L2/L4/S3 (5m TF 한정)
+// ════════════════════════════════════════════════════════════════════════════
+//   L3 LONG  : Stoch<20 + Cross↑ + nearEMA20 + ema_up + session + Tier A (atr_ratio≥1.0)
+//              Thursday SKIP (Sharpe -0.75 시기)
+//   S2 SHORT : Stoch>80 + Cross↓ + nearEMA20 + ema_down + session + !MED + non-MIXED
+//   L2/L4    : 학습용 작은 ▲ (BB<10 / CCI<-100)
+//   S3       : 관찰용 ✕ (KST 22:30 RTH spike + BB>90)
+
+med_short_block = i_5m_forbid_med and (vol_tier == "MED")
+
+// 5m signal cooldown (전 long/short trigger 후 N봉 wait)
+var int last_long_bar_5m  = -1000
+var int last_short_bar_5m = -1000
+can_long_5m  = (bar_index - last_long_bar_5m)  > i_5m_cooldown
+can_short_5m = (bar_index - last_short_bar_5m) > i_5m_cooldown
+
+// ── L3 base (LONG, Tier A: atr_ratio ≥ threshold) ──
+sig_l3_base = is_tf_5m and (stoch_k < 20 and (not i_5m_req_cross or cross_up) and
+              near_ema20 and ema_up and session_active and can_long_5m)
+if i_5m_skip_thu and is_thu_kst
+    sig_l3_base := false
+sig_l3_tier_a = sig_l3_base and atr_ratio >= i_5m_tier_a_atr
+sig_l3_tier_b = sig_l3_base and not sig_l3_tier_a
+
+// ── S2 base (SHORT, Tier A: atr_ratio + non-MIXED regime) ──
+sig_s2_base = is_tf_5m and (stoch_k > 80 and (not i_5m_req_cross or cross_down) and
+              near_ema20 and ema_down and session_active and not med_short_block and can_short_5m)
+s2_tier_a_regime_ok = not i_5m_s2_non_mix or regime != "MIXED"
+sig_s2_tier_a = sig_s2_base and atr_ratio >= i_5m_tier_a_atr and s2_tier_a_regime_ok
+sig_s2_tier_b = sig_s2_base and not sig_s2_tier_a
+
+// ── L2/L4/S3 (보조 — 작은 ▲▼ 만, 검증 약함) ──
+sig_l2 = is_tf_5m and bb_pct < 10  and ema_up   and session_active and can_long_5m
+sig_l4 = is_tf_5m and cci20 < -100 and ema_up   and session_active and can_long_5m
+is_rth_spike = kst_hm >= 2230 and kst_hm < 2245
+sig_s3 = is_tf_5m and bb_pct > 90 and ema_down and is_rth_spike and can_short_5m
+
+long_trig_5m  = sig_l3_base or sig_l2 or sig_l4
+short_trig_5m = sig_s2_base or sig_s3
+if long_trig_5m
+    last_long_bar_5m := bar_index
+if short_trig_5m
+    last_short_bar_5m := bar_index
+
+
+// ════════════════════════════════════════════════════════════════════════════
+// 6. 1m SIGNALS — BURN_X Spike Detector (1m TF 한정, 5종)
+// ════════════════════════════════════════════════════════════════════════════
+//   1. VOL spike     : vol_z_20 > 임계 + 색 일치
+//   2. Momentum      : 5봉 중 4봉 같은 방향
+//   3. Breakout      : 20봉 H/L 돌파 + range > 2×ATR
+//   4. Wick reversal : 반대 방향 wick > body × 2
+//   5. RTH flash     : KST 22:30 (NY 09:30 cash open) auto
+
+// 1H bias (직전 1H close 와 비교 — HUD/방향 hint)
+bias_1h = request.security(syminfo.tickerid, "60", close, barmerge.gaps_off, barmerge.lookahead_off)
+bias_1h_up   = close > bias_1h[1]
+bias_1h_down = close < bias_1h[1]
+
+// 1. VOL spike (1m 은 vol_z_20 사용 — 짧은 lookback, sensitive)
+vol_spike_up   = vol_z_20 > i_1m_volz_spike and close > open
+vol_spike_down = vol_z_20 > i_1m_volz_spike and close < open
+
+// 2. Momentum (5봉 중 4봉 같은 방향)
+mom_up_cnt = 0
+mom_dn_cnt = 0
+for i = 0 to i_1m_mom_bars - 1
+    mom_up_cnt := mom_up_cnt + (close[i] > open[i] ? 1 : 0)
+    mom_dn_cnt := mom_dn_cnt + (close[i] < open[i] ? 1 : 0)
+momentum_up   = mom_up_cnt >= i_1m_mom_need
+momentum_down = mom_dn_cnt >= i_1m_mom_need
+
+// 3. Breakout (20봉 H/L + range_5 > N×ATR)
+hh20    = ta.highest(high, 20)[1]
+ll20    = ta.lowest(low, 20)[1]
+range_5 = ta.highest(high, 5) - ta.lowest(low, 5)
+breakout_up   = close > hh20 and range_5 > atr14 * i_1m_break_atr
+breakout_down = close < ll20 and range_5 > atr14 * i_1m_break_atr
+
+// 4. Wick reversal (긴 wick + 반대 색)
+wick_long_rev  = lower_wk > body_abs * 2 and close > open
+wick_short_rev = upper_wk > body_abs * 2 and close < open
+
+// 5. RTH open auto-flash (KST 22:30 = NY 09:30 cash open)
+rth_flash = is_rth_open and not is_rth_open[1]
+
+// ── Aggregate + cooldown ──
+var int last_burnx_bar = -1000
+any_bull_spike = vol_spike_up   or momentum_up   or breakout_up   or wick_long_rev or rth_flash
+any_bear_spike = vol_spike_down or momentum_down or breakout_down or wick_short_rev
+
+burnx_fire = is_tf_1m and session_active and (any_bull_spike or any_bear_spike) and
+             (bar_index - last_burnx_bar) > i_1m_cooldown
+if burnx_fire
+    last_burnx_bar := bar_index
+
+burnx_long_bias  = burnx_fire and (any_bull_spike  and not any_bear_spike)
+burnx_short_bias = burnx_fire and (any_bear_spike and not any_bull_spike)
+
+// spike 종류 (HUD 라벨 용)
+spike_kind = vol_spike_up ? "VOL↑" : vol_spike_down ? "VOL↓" : momentum_up ? "MOM↑" : momentum_down ? "MOM↓" : breakout_up ? "BO↑" : breakout_down ? "BO↓" : wick_long_rev ? "WICK↑" : wick_short_rev ? "WICK↓" : rth_flash ? "RTH" : "-"
+
+
+// ════════════════════════════════════════════════════════════════════════════
+// 7. BURST SIGNALS — CONT GO / STOP / REV CONFIRM (TF 무관, OOS 검증)
+// ════════════════════════════════════════════════════════════════════════════
+//   🟢 CONT GO        : ret_3≥0.5 + (vol_z_50≥3 OR vchg≥2.5) + KST 21-23
+//                       → 추가 1 ATR 도달 72%(5m) / 88%(1m)
+//   ⛔ STOP            : vol_z_50<-1 + (vchg<0.7 OR range<0.7×ATR)
+//                       → ≥1.5 ATR 추가 상승 87%+ 안 감
+//   🔴 REV CONFIRM    : 3봉 path (anchor ret_3≥1 / climax red / red close lower)
+//                       → trigger 후 1 ATR drawdown 53%(5m) / 79%(1m)
+
+// ── 🟢 CONT GO ──
+T_any_burst = ret3_atr >= i_ret3_cont
+vol_EXT     = vol_z_50 >= i_vol_climax
+vchg_S      = vchg_ratio >= i_vchg_surge
+cont_go     = T_any_burst and (vol_EXT or vchg_S) and session_burst_ok
+
+// ── ⛔ STOP ──
+vol_LOW     = vol_z_50 <= i_vol_low
+vchg_DEC_b  = vchg_ratio < i_vchg_dec
+rng_SMALL_b = range_atr < i_range_small
+stop_signal = vol_LOW and (vchg_DEC_b or rng_SMALL_b)
+
+// ── 🔴 REVERSAL CONFIRM (3봉 path) ──
+//   bar i (직전 직전) : ret_3_atr ≥ 1.0  (이미 1 ATR+ 상승)
+//   bar i+1 (직전)    : vol_z_50 ≥ 3 + red bar (climax volume)
+//   bar i+2 (현재)    : red + close < close[1] (확정)
+ret3_anchor   = ret3_atr[2]
+vol_z_p1      = vol_z_50[1]
+red_p1_burst  = is_red[1]
+red_now_burst = is_red
+close_lower_b = close < close[1]
+
+reversal_confirm = not na(ret3_anchor) and ret3_anchor >= i_ret3_rev and
+                   vol_z_p1 >= i_vol_climax and red_p1_burst and red_now_burst and close_lower_b
+
+
+// ════════════════════════════════════════════════════════════════════════════
+// 8. PLOTSHAPES — 시각 노이즈 최소 (small/tiny + 옅은 bg)
+// ════════════════════════════════════════════════════════════════════════════
+//   라벨 폐기 룰 (2026-04-29 사용자 결정): 큰 라벨 X, plotshape 작은 ▲▼ 만.
+//   유일한 라벨: REV CONFIRM (가장 중요한 청산 신호 — 토글 가능).
+
+// ── 5m signals ──
+plotshape(i_show_5m_sig and i_5m_show_high and sig_l3_tier_a, title="L3 Tier A",
+          style=shape.triangleup, location=location.belowbar,
+          color=color.new(color.lime, 0), size=size.small)
+plotshape(i_show_5m_sig and i_5m_show_tier_b and sig_l3_tier_b, title="L3 Tier B",
+          style=shape.triangleup, location=location.belowbar,
+          color=color.new(color.green, 40), size=size.tiny)
+plotshape(i_show_5m_sig and i_5m_show_high and sig_s2_tier_a, title="S2 Tier A",
+          style=shape.triangledown, location=location.abovebar,
+          color=color.new(color.red, 0), size=size.small)
+plotshape(i_show_5m_sig and i_5m_show_tier_b and sig_s2_tier_b, title="S2 Tier B",
+          style=shape.triangledown, location=location.abovebar,
+          color=color.new(color.maroon, 40), size=size.tiny)
+plotshape(i_show_5m_sig and i_5m_show_mid and sig_l2, title="L2 BB▲",
+          style=shape.triangleup, location=location.belowbar,
+          color=color.new(color.aqua, 30), size=size.tiny)
+plotshape(i_show_5m_sig and i_5m_show_mid and sig_l4, title="L4 CCI▲",
+          style=shape.triangleup, location=location.belowbar,
+          color=color.new(color.blue, 30), size=size.tiny)
+plotshape(i_show_5m_sig and i_5m_show_obs and sig_s3, title="S3 BB@22:30",
+          style=shape.xcross, location=location.abovebar,
+          color=color.new(color.orange, 30), size=size.tiny)
+
+// ── 1m signals ──
+plotshape(i_show_1m_sig and i_1m_show_lbl and burnx_long_bias,  title="BURN_X Long",
+          style=shape.triangleup, location=location.belowbar,
+          color=color.new(color.red, 0), size=size.tiny)
+plotshape(i_show_1m_sig and i_1m_show_lbl and burnx_short_bias, title="BURN_X Short",
+          style=shape.triangledown, location=location.abovebar,
+          color=color.new(color.red, 0), size=size.tiny)
+plotshape(i_show_1m_sig and i_1m_show_lbl and rth_flash, title="RTH Open KST 22:30",
+          style=shape.diamond, location=location.abovebar,
+          color=color.new(color.yellow, 0), size=size.tiny)
+
+// ── Burst signals ──
+bg_cont = i_show_burst and i_burst_show_cont and i_burst_show_bg and cont_go ? color.new(color.green, 85) : na
+bg_stop = i_show_burst and i_burst_show_stop and i_burst_show_bg and stop_signal ? color.new(color.gray, 90) : na
+bg_rev  = i_show_burst and i_burst_show_rev  and i_burst_show_bg and reversal_confirm ? color.new(color.red, 80) : na
+bgcolor(bg_cont, title="CONT GO bg")
+bgcolor(bg_stop, title="STOP bg")
+bgcolor(bg_rev,  title="REV CONFIRM bg")
+
+plotshape(i_show_burst and i_burst_show_cont and cont_go, title="CONT GO",
+          style=shape.triangleup, location=location.belowbar,
+          color=color.new(color.green, 0), size=size.small)
+plotshape(i_show_burst and i_burst_show_stop and stop_signal, title="STOP",
+          style=shape.diamond, location=location.abovebar,
+          color=color.new(color.gray, 30), size=size.tiny)
+plotshape(i_show_burst and i_burst_show_rev and reversal_confirm, title="REVERSAL CONFIRM",
+          style=shape.triangledown, location=location.abovebar,
+          color=color.new(color.red, 0), size=size.normal)
+
+if i_show_burst and i_burst_show_lbl and i_burst_show_rev and reversal_confirm
+    label.new(bar_index, high, "REV",
+              color=color.new(color.red, 20), textcolor=color.white,
+              style=label.style_label_down, size=size.small)
+
+
+// ════════════════════════════════════════════════════════════════════════════
+// 9. HUD — Reference (top_left default) + Signal (middle_right default)
+// ════════════════════════════════════════════════════════════════════════════
+//   Reference HUD : KST / Session / EMA Align / vol_tier (4행, 모든 TF)
+//   Signal HUD    : TF 별 다른 행 표시 (5m: L3/S2 / 1m: BURN_X/vol_z) + Burst (CONT/STOP/REV)
+//   OBFVG_R4_v1 가 top_right 사용 → All_v4 메인 HUD = top_left 로 충돌 회피.
+
+// Reference HUD position
+ref_hud_pos = i_ref_hud_pos == "top_right" ? position.top_right : i_ref_hud_pos == "top_left" ? position.top_left : i_ref_hud_pos == "bottom_right" ? position.bottom_right : i_ref_hud_pos == "bottom_left" ? position.bottom_left : i_ref_hud_pos == "middle_left" ? position.middle_left : position.middle_right
+
+sig_hud_pos = i_sig_hud_pos == "top_right" ? position.top_right : i_sig_hud_pos == "top_left" ? position.top_left : i_sig_hud_pos == "bottom_right" ? position.bottom_right : i_sig_hud_pos == "bottom_left" ? position.bottom_left : i_sig_hud_pos == "middle_left" ? position.middle_left : position.middle_right
+
+// ── Reference HUD (4행: KST / Session / EMA / vol_tier) ──
+var table ref_hud = table.new(position=ref_hud_pos, columns=2, rows=4, border_width=1)
+
+if i_show_ref_hud and barstate.islast
+    cell_bg = color.new(color.black, 60)
+
+    table.cell(ref_hud, 0, 0, "KST", bgcolor=cell_bg, text_color=color.silver)
+    hour_str = str.tostring(kst_h, "00") + ":" + str.tostring(kst_m, "00")
+    table.cell(ref_hud, 1, 0, hour_str, bgcolor=cell_bg, text_color=color.white)
+
+    table.cell(ref_hud, 0, 1, "Session", bgcolor=cell_bg, text_color=color.silver)
+    sess_txt = is_asian ? "ASIA" : is_london ? "LONDON" : is_ny_open ? "NY OPEN" : is_ny_reg ? "NY REG" : "CLOSE"
+    sess_col = is_ny_open ? #f59e0b : is_ny_reg ? #06b6d4 : is_london ? #f59e0b : is_asian ? #845ef7 : color.gray
+    table.cell(ref_hud, 1, 1, sess_txt, bgcolor=cell_bg, text_color=sess_col)
+
+    table.cell(ref_hud, 0, 2, "EMA", bgcolor=cell_bg, text_color=color.silver)
+    ema_txt = ema_up ? "UP ↑" : ema_down ? "DOWN ↓" : "MIXED"
+    ema_col = ema_up ? color.lime : ema_down ? color.red : color.gray
+    table.cell(ref_hud, 1, 2, ema_txt, bgcolor=cell_bg, text_color=ema_col)
+
+    table.cell(ref_hud, 0, 3, "vol_tier", bgcolor=cell_bg, text_color=color.silver)
+    vt_col = vol_tier == "HIGH" ? color.red : vol_tier == "MED" ? color.yellow : color.gray
+    table.cell(ref_hud, 1, 3, vol_tier + " (" + str.tostring(bb_width, "#.##") + "%)",
+               bgcolor=cell_bg, text_color=vt_col)
+
+// ── Signal HUD (TF 별 다른 row 표시) ──
+var table sig_hud = table.new(position=sig_hud_pos, columns=2, rows=6, border_width=1)
+
+if i_show_sig_hud and barstate.islast
+    cell_bg = color.new(color.black, 60)
+
+    // Header
+    tf_label_str = is_tf_5m ? "5m" : is_tf_1m ? "1m" : "TF=" + str.tostring(timeframe.period)
+    table.cell(sig_hud, 0, 0, "Signals", bgcolor=color.new(color.gray, 70),
+               text_color=color.white, text_size=size.small)
+    table.cell(sig_hud, 1, 0, tf_label_str, bgcolor=color.new(color.gray, 70),
+               text_color=color.white, text_size=size.small)
+
+    // Row 1: 5m L3 (or 1m BURN_X)
+    if is_tf_5m
+        table.cell(sig_hud, 0, 1, "L3", bgcolor=cell_bg, text_color=color.white, text_size=size.tiny)
+        l3_txt = sig_l3_tier_a ? "FIRE A" : sig_l3_tier_b ? "fire B" : (i_5m_skip_thu and is_thu_kst) ? "THU" : "-"
+        l3_col = sig_l3_tier_a ? color.lime : sig_l3_tier_b ? color.green : (i_5m_skip_thu and is_thu_kst) ? color.purple : color.gray
+        table.cell(sig_hud, 1, 1, l3_txt, bgcolor=cell_bg, text_color=l3_col, text_size=size.tiny)
+    else
+        table.cell(sig_hud, 0, 1, "BURN_X", bgcolor=cell_bg, text_color=color.silver, text_size=size.tiny)
+        bx_txt = burnx_long_bias ? "▲ " + spike_kind : burnx_short_bias ? "▼ " + spike_kind : burnx_fire ? "mixed" : "-"
+        bx_col = burnx_long_bias ? color.lime : burnx_short_bias ? color.red : burnx_fire ? color.orange : color.gray
+        table.cell(sig_hud, 1, 1, bx_txt, bgcolor=cell_bg, text_color=bx_col, text_size=size.tiny)
+
+    // Row 2: 5m S2 (or 1m vol_z)
+    if is_tf_5m
+        table.cell(sig_hud, 0, 2, "S2", bgcolor=cell_bg, text_color=color.white, text_size=size.tiny)
+        s2_txt = sig_s2_tier_a ? "FIRE A" : sig_s2_tier_b ? "fire B" : med_short_block ? "BLK" : "-"
+        s2_col = sig_s2_tier_a ? color.red : sig_s2_tier_b ? color.maroon : med_short_block ? color.gray : color.silver
+        table.cell(sig_hud, 1, 2, s2_txt, bgcolor=cell_bg, text_color=s2_col, text_size=size.tiny)
+    else
+        table.cell(sig_hud, 0, 2, "vol_z(20)", bgcolor=cell_bg, text_color=color.silver, text_size=size.tiny)
+        vz_c = vol_z_20 > 1.5 ? color.red : vol_z_20 > 1.0 ? color.yellow : color.gray
+        table.cell(sig_hud, 1, 2, str.tostring(vol_z_20, "#.##"), bgcolor=cell_bg, text_color=vz_c, text_size=size.tiny)
+
+    // Row 3: Burst CONT
+    table.cell(sig_hud, 0, 3, "🟢 CONT", bgcolor=cell_bg, text_color=color.green, text_size=size.tiny)
+    cont_txt = cont_go ? "FIRE" : "-"
+    cont_col = cont_go ? color.green : color.gray
+    table.cell(sig_hud, 1, 3, cont_txt, bgcolor=cell_bg, text_color=cont_col, text_size=size.tiny)
+
+    // Row 4: Burst STOP
+    table.cell(sig_hud, 0, 4, "⛔ STOP", bgcolor=cell_bg, text_color=color.gray, text_size=size.tiny)
+    stop_txt = stop_signal ? "FIRE" : "-"
+    stop_col = stop_signal ? color.silver : color.gray
+    table.cell(sig_hud, 1, 4, stop_txt, bgcolor=cell_bg, text_color=stop_col, text_size=size.tiny)
+
+    // Row 5: Burst REV + ret3/volZ summary
+    table.cell(sig_hud, 0, 5, "🔴 REV", bgcolor=cell_bg, text_color=color.red, text_size=size.tiny)
+    rev_str = reversal_confirm ? "FIRE!" : "r3=" + str.tostring(ret3_atr, "#.#") + " vz=" + str.tostring(vol_z_50, "#.#")
+    rev_col = reversal_confirm ? color.red : color.silver
+    table.cell(sig_hud, 1, 5, rev_str, bgcolor=cell_bg, text_color=rev_col, text_size=size.tiny)
+
+
+// ════════════════════════════════════════════════════════════════════════════
+// 10. ALERTS — 5m Tier A / 1m BURN_X / Burst (CONT/REV/STOP)
+// ════════════════════════════════════════════════════════════════════════════
+//   alert()         : 즉시 popup (Tier A 만, regime 정보 포함)
+//   alertcondition(): TDV 알림 패널에서 등록 가능 (JSON message — webhook 호환)
+
+if i_alert_5m_a and sig_l3_tier_a
+    alert("MNQ 5m L3 Tier A FIRE — atr_ratio=" + str.tostring(atr_ratio, "#.##") +
+          " regime=" + regime, alert.freq_once_per_bar)
+if i_alert_5m_a and sig_s2_tier_a
+    alert("MNQ 5m S2 Tier A FIRE — atr_ratio=" + str.tostring(atr_ratio, "#.##") +
+          " regime=" + regime, alert.freq_once_per_bar)
+
+alertcondition(sig_l3_tier_a, title="L3 Tier A (5m)", message="MNQ 5m L3 Tier A FIRE")
+alertcondition(sig_s2_tier_a, title="S2 Tier A (5m)", message="MNQ 5m S2 Tier A FIRE")
+
+alertcondition(burnx_long_bias,  title="🔥 BURN_X Long (1m)",
+               message="MNQ 1m BURN_X Long 활성")
+alertcondition(burnx_short_bias, title="🔥 BURN_X Short (1m)",
+               message="MNQ 1m BURN_X Short 활성")
+alertcondition(rth_flash, title="RTH Open Flash (1m)",
+               message="MNQ KST 22:30 RTH Open")
+
+alertcondition(cont_go,
+   title="MNQ CONT GO (Burst)",
+   message='{"sig":"CONT_GO","sym":"{{ticker}}","tf":"{{interval}}","time":"{{time}}"}')
+alertcondition(reversal_confirm,
+   title="MNQ REVERSAL CONFIRM (Burst)",
+   message='{"sig":"REVERSAL_CONFIRM","sym":"{{ticker}}","tf":"{{interval}}","time":"{{time}}"}')
+alertcondition(stop_signal,
+   title="MNQ STOP (Burst)",
+   message='{"sig":"STOP","sym":"{{ticker}}","tf":"{{interval}}","time":"{{time}}"}')
