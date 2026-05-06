@@ -1,47 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <NinjaTrader>
-  <AtmStrategy>
-    <Name>MNQ_BURN_X_v1</Name>
-    <BarsAgo>0</BarsAgo>
-    <BarsInProgressIndex>0</BarsInProgressIndex>
+  <AtmStrategy xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Brackets>
-      <BracketRow>
+      <Bracket>
         <Quantity>1</Quantity>
         <StopLoss>60</StopLoss>
         <Target>0</Target>
-        <StopStrategy>AutoTrail</StopStrategy>
-        <AutoBreakEvenProfitTrigger>0</AutoBreakEvenProfitTrigger>
-        <AutoBreakEvenPlus>0</AutoBreakEvenPlus>
-        <AutoTrailFrequency>2</AutoTrailFrequency>
-        <AutoTrailAmount>30</AutoTrailAmount>
-        <AutoTrailExecPriceType>0</AutoTrailExecPriceType>
-        <AutoTrailThresholdAdvancement>0</AutoTrailThresholdAdvancement>
-        <AutoTrailThresholdAdvancementFrequency>0</AutoTrailThresholdAdvancementFrequency>
-        <AutoTrailThresholdAdvancementType>0</AutoTrailThresholdAdvancementType>
-        <AutoTrailThresholdAmount>30</AutoTrailThresholdAmount>
-      </BracketRow>
+        <StopStrategyTemplate>BURN_X_v1_stop</StopStrategyTemplate>
+      </Bracket>
     </Brackets>
-    <Calculate>2</Calculate>
-    <ChaseLimit>0</ChaseLimit>
+    <ChasePeriod>1</ChasePeriod>
     <ChaseAttempts>0</ChaseAttempts>
-    <ChaseLimitOrders>false</ChaseLimitOrders>
-    <ChaseTouch>false</ChaseTouch>
-    <ConfirmExecution>false</ConfirmExecution>
-    <ConsiderCommissions>true</ConsiderCommissions>
+    <IsChaseLimitOrders>false</IsChaseLimitOrders>
+    <IsChaseTouch>false</IsChaseTouch>
+    <IsConfirmExecution>false</IsConfirmExecution>
+    <IsConsiderCommissions>true</IsConsiderCommissions>
     <DiscretionaryQuantity>0</DiscretionaryQuantity>
-    <DiscretionaryQuantityType>1</DiscretionaryQuantityType>
-    <DiscretionaryQuantityValue>0</DiscretionaryQuantityValue>
     <ExecutionPriceType>0</ExecutionPriceType>
     <IsChase>false</IsChase>
     <IsRealtime>true</IsRealtime>
     <IsReverseAtStop>false</IsReverseAtStop>
     <IsReverseAtTarget>false</IsReverseAtTarget>
     <IsTargetChase>false</IsTargetChase>
-    <MitForProfit>false</MitForProfit>
+    <IsMitForProfit>false</IsMitForProfit>
+    <IsStopLimitForStopLoss>false</IsStopLimitForStopLoss>
     <ParameterType>1</ParameterType>
     <Quantity>1</Quantity>
     <ShadowStrategyName />
-    <StopLimit>false</StopLimit>
-    <TimeInForce>3</TimeInForce>
+    <TimeInForce>1</TimeInForce>
+    <Template>MNQ_BURN_X_v1</Template>
   </AtmStrategy>
 </NinjaTrader>

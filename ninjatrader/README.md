@@ -2,8 +2,32 @@
 
 > Pine v5.1 (`MNQ_All_v5.pine`, 980 lines) 의 NT8 포팅 + ATM Templates
 >
-> **Updated**: 2026-05-07
+> **Updated**: 2026-05-07 (schema 정정 — sample.xml 발견 후)
 > **Source**: research/MASTER_REPORT.md + PHASE_E/F/G2/G3 + Pine v5.1
+
+## 🚨 v2 정정 (2026-05-07): NT8 ATM = 2-tier 구조
+
+**중요**: NT8 ATM template 은 **StopStrategy 와 ATM 이 별도 폴더 / 별도 파일**:
+
+```
+templates/
+├── StopStrategy/         ← Auto Trail / Break Even spec (별도)
+│   ├── R500_PH_SHORT_stop.xml
+│   ├── BURN_X_v2_stop.xml
+│   ├── BURN_X_v1_stop.xml
+│   └── KST_CONF_LONG_stop.xml
+└── AtmStrategy/          ← Quantity / SL / Target + StopStrategyTemplate name reference
+    ├── MNQ_R500_PH_SHORT.xml
+    ├── MNQ_BURN_X_v2.xml
+    ├── MNQ_BURN_X_v1.xml
+    ├── MNQ_KST_CONF_LONG.xml
+    └── MNQ_SCALP_LIGHT_A.xml
+```
+
+ATM XML 의 `<StopStrategyTemplate>` 태그가 StopStrategy template **이름** 을 reference.
+
+이전 (v1) XML 은 schema 잘못 — flat fields (`<AutoTrailFrequency>`, `<AutoTrailAmount>`) 였음.
+정확 schema (sample.xml 기준) = `<AutoTrailSteps><AutoTrailStep>` nested.
 
 ---
 
@@ -11,18 +35,25 @@
 
 ```
 ninjatrader/
-├── Indicators/                          (.cs → NT8 컴파일 후 사용)
-│   ├── AAL_Shared.cs                    공유 enum
-│   ├── AAL_StE_Signal.cs (v1.2)         L3/S2 Tier A/B + Thursday SKIP (existing)
-│   ├── AAL_R8_Signal.cs                 4h cross+ADX+retest (existing, BTC/NQ HTF)
-│   ├── AAL_v5_RoundShort.cs ⭐ NEW      R500 up + 전고점 SHORT (G3 P3 PF 4.56)
-│   └── AAL_v5_KSTHour.cs ⭐ NEW         KST 14/19/04:30 + Squeeze GUARD + Day of Week
-├── AtmStrategy/                         (.xml → NT8 templates 폴더로 복사)
-│   ├── MNQ_R500_PH_SHORT.xml ⭐         G3 winner (SL 18 / Trail 12)
-│   ├── MNQ_BURN_X_v2.xml                HE-001 optimal (SL 30 / Trail 18)
-│   ├── MNQ_BURN_X_v1.xml                Legacy (SL 60 / Trail 30)
-│   ├── MNQ_KST_CONF_LONG.xml            KST14/19+Mon LONG (SL 60 / TP 120 / BE 40)
-│   └── MNQ_SCALP_LIGHT_A.xml            Scalp 1:1 RR (SL 10 / TP 10)
+├── Indicators/                              (.cs → NT8 bin/Custom/Indicators/)
+│   ├── AAL_Shared.cs
+│   ├── AAL_StE_Signal.cs (v1.2)             L3/S2 Tier A/B + Thursday SKIP
+│   ├── AAL_R8_Signal.cs                     4h cross+ADX+retest
+│   ├── AAL_v5_RoundShort.cs ⭐ NEW          R500↑PH SHORT (G3 P3 PF 4.56)
+│   └── AAL_v5_KSTHour.cs ⭐ NEW             KST 14/19/04:30 + Squeeze GUARD + DOW
+├── StopStrategy/                            (.xml → NT8 templates/StopStrategy/)
+│   ├── R500_PH_SHORT_stop.xml ⭐            Auto Trail 12/12/1 (G3)
+│   ├── BURN_X_v2_stop.xml                   Auto Trail 18/18/1 (HE-001)
+│   ├── BURN_X_v1_stop.xml                   Auto Trail 30/30/2 (legacy)
+│   ├── KST_CONF_LONG_stop.xml               BreakEven 40+4
+│   ├── sample.xml                           NT8 default (참조용)
+│   └── sample1.xml                          NT8 default (참조용)
+├── AtmStrategy/                             (.xml → NT8 templates/AtmStrategy/)
+│   ├── MNQ_R500_PH_SHORT.xml ⭐             SL 18 + R500_PH_SHORT_stop ref
+│   ├── MNQ_BURN_X_v2.xml                    SL 30 + BURN_X_v2_stop ref
+│   ├── MNQ_BURN_X_v1.xml                    SL 60 + BURN_X_v1_stop ref
+│   ├── MNQ_KST_CONF_LONG.xml                SL 60 / TP 120 + KST_CONF_LONG_stop
+│   └── MNQ_SCALP_LIGHT_A.xml                SL 10 / TP 10 (no stop strategy)
 └── README.md (이 파일)
 ```
 
@@ -40,16 +71,18 @@ NT8 → Control Center → New → NinjaScript Editor → Compile (F5).
 
 NT8 → New → NinjaScript Editor → 첫 컴파일 시 F5. 새 indicators 가 차트 indicator list 에 등장.
 
-### 2) ATM Templates (.xml)
+### 2) StopStrategy + ATM Templates (.xml) — 2단계 설치
 
 ```
-.xml 파일들 → C:\Users\<user>\Documents\NinjaTrader 8\templates\AtmStrategy\
+StopStrategy XMLs → templates/StopStrategy/  (4개)
+ATM Strategy XMLs → templates/AtmStrategy/   (5개, 그 중 4개는 StopStrategy 참조)
 ```
 
 NT8 재시작 후 ATM Strategy Selector dropdown 에서 5종 선택 가능.
 
-> 또는 GUI 로 직접 만들기 (사용자가 보낸 dialog 사용):
-> Chart Trader → Custom Strategy Parameters → 아래 표 값 입력 → Save as Template
+> ⚠️ XML 로드 실패 시 → **GUI 로 직접 만들기 (가장 안전)**:
+> Chart Trader → ATM Strategy → ▼ → Custom → 아래 값 입력 → Save as Template
+> NT8 가 GUI 로 만든 XML 이 가장 정확. 이후 그 XML 을 본 repo 사본과 비교/패치 가능.
 
 ---
 
