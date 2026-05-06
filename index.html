@@ -265,10 +265,245 @@
   }
   footer a { color: var(--accent); }
 
+  /* === v1.2 Curriculum Hero === */
+  .curriculum-hero {
+    background: linear-gradient(135deg, rgba(63, 185, 80, 0.10), rgba(88, 166, 255, 0.05));
+    border: 1px solid var(--accent-good);
+    border-radius: 12px;
+    padding: 28px 24px;
+    margin: 24px 0 32px;
+  }
+  .curriculum-hero h2 {
+    color: var(--accent-good);
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+  .curriculum-hero h3 {
+    color: var(--text-bright);
+    font-size: 16px;
+    margin: 24px 0 12px;
+  }
+  .curriculum-hero .subtitle {
+    color: var(--text-dim);
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+
+  .tier-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .tier-card {
+    padding: 14px 16px;
+    background: var(--bg-card);
+    border-radius: 8px;
+    border-left: 4px solid;
+  }
+  .tier-card.tier-1 { border-color: var(--tier1); }
+  .tier-card.tier-2 { border-color: var(--tier2); }
+  .tier-card.tier-3 { border-color: var(--accent-good); }
+  .tier-card.tier-4 { border-color: var(--accent); }
+  .tier-card h4 {
+    font-size: 14px;
+    margin-bottom: 4px;
+    color: var(--text-bright);
+  }
+  .tier-card .month {
+    color: var(--text-dim);
+    font-size: 11px;
+    margin-bottom: 6px;
+  }
+  .tier-card .desc {
+    font-size: 12px;
+    color: var(--text);
+  }
+
+  .week-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .week-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    transition: all 0.2s;
+    text-decoration: none;
+    color: var(--text);
+    display: block;
+  }
+  .week-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    background: var(--bg-card-hover);
+  }
+  .week-card.t1 { border-top: 3px solid var(--tier1); }
+  .week-card.t2 { border-top: 3px solid var(--tier2); }
+  .week-card.t3 { border-top: 3px solid var(--accent-good); }
+  .week-card.starred {
+    background: linear-gradient(135deg, var(--bg-card), rgba(251, 191, 36, 0.06));
+    border: 1px solid var(--accent-warn);
+  }
+  .week-card.starred.green {
+    background: linear-gradient(135deg, var(--bg-card), rgba(63, 185, 80, 0.06));
+    border: 1px solid var(--accent-good);
+  }
+  .week-card .week-num {
+    font-size: 10px;
+    color: var(--text-dim);
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+  }
+  .week-card h4 {
+    font-size: 14px;
+    margin: 4px 0 6px;
+    color: var(--text-bright);
+  }
+  .week-card .week-desc {
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+  .week-card .week-rule {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-size: 10px;
+    color: var(--accent-warn);
+  }
+  .week-card .week-status {
+    margin-top: 6px;
+    font-size: 10px;
+    color: var(--text-dim);
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 20px 0 4px;
+  }
+  .cta-button {
+    padding: 10px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .cta-primary {
+    background: var(--accent-good);
+    color: #0d1117;
+  }
+  .cta-primary:hover { background: #2da44e; }
+  .cta-warn {
+    background: var(--accent-warn);
+    color: #0d1117;
+  }
+  .cta-warn:hover { background: #bf8700; }
+  .cta-secondary {
+    background: var(--bg-card);
+    color: var(--accent);
+    border: 1px solid var(--border);
+  }
+  .cta-secondary:hover { border-color: var(--accent); }
+
+  /* === Weakness Mapping === */
+  .weakness-section {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent-warn);
+    border-radius: 8px;
+    padding: 24px;
+    margin: 32px 0;
+  }
+  .weakness-section h2 {
+    color: var(--accent-warn);
+    margin-bottom: 6px;
+  }
+  .weakness-section .subtitle {
+    color: var(--text-dim);
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+  .weakness-section table th {
+    background: rgba(248, 81, 73, 0.08);
+  }
+  .weakness-section .weakness-name {
+    color: var(--accent-danger);
+    font-weight: 600;
+  }
+  .weakness-section .lesson-tag {
+    display: inline-block;
+    padding: 1px 6px;
+    background: rgba(248, 81, 73, 0.15);
+    color: var(--accent-danger);
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .weakness-section .week-tag {
+    display: inline-block;
+    padding: 1px 6px;
+    background: rgba(63, 185, 80, 0.15);
+    color: var(--accent-good);
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-right: 4px;
+  }
+  .weakness-section .week-tag.starred {
+    background: rgba(251, 191, 36, 0.2);
+    color: var(--accent-warn);
+  }
+
+  /* === Quick reference grid === */
+  .quickref-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .quickref-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .quickref-card h4 {
+    color: var(--accent);
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  .quickref-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+  }
+  .quickref-card li {
+    padding: 4px 0;
+    color: var(--text);
+  }
+  .quickref-card li::before {
+    content: "→ ";
+    color: var(--accent);
+  }
+
   @media (max-width: 768px) {
     body { padding: 16px 12px; }
     header h1 { font-size: 22px; }
     .grid { grid-template-columns: 1fr; }
+    .week-grid { grid-template-columns: 1fr; }
+    .tier-strip { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -309,25 +544,267 @@
   <div class="quote" style="margin-top:8px;">"Real edge = breakout retest discipline, NOT direction prediction." — Lesson 50</div>
 </div>
 
-<!-- v1.2 NEW: 커리큘럼 박스 -->
-<div class="why-box" id="curriculum-box" style="border-left-color: var(--accent-good); background: linear-gradient(135deg, rgba(63, 185, 80, 0.08), rgba(88, 166, 255, 0.05));">
-  <h2 style="color: var(--accent-good);">🎓 v1.2 NEW: 12주 점진적 체화 커리큘럼 (00_curriculum/)</h2>
-  <div style="margin-top:8px;">
-    <strong>이론적 도서관 (01-06) + 시간축 진도 (00_curriculum)</strong>. 매주 1개 주제 → 차트 관찰 → 일지 마킹 → 다음 주 누적.
+<!-- ============================================ -->
+<!-- 🎓 v1.2 CURRICULUM HERO (메인 진입점) -->
+<!-- ============================================ -->
+<section class="curriculum-hero" id="curriculum-box">
+  <h2>🎓 12주 점진적 체화 커리큘럼 (메인 진입점)</h2>
+  <div class="subtitle">매주 1개 주제 → 차트 관찰 (5분/day) → 일지 마킹 → 다음 주 누적. 사용자 약점 직접 처방 sequence.</div>
+
+  <!-- Tier strip -->
+  <div class="tier-strip">
+    <div class="tier-card tier-1">
+      <h4>🟡 Tier 1: Foundation</h4>
+      <div class="month">Month 1 — 차트 읽기 기본기</div>
+      <div class="desc">추세 → EMA → SR zone → 시간대</div>
+    </div>
+    <div class="tier-card tier-2">
+      <h4>⚪ Tier 2: Setup Building</h4>
+      <div class="month">Month 2 — 진입 자리 정확도</div>
+      <div class="desc">BB → EMA SR → PA → <strong style="color:var(--accent-warn);">Pullback ⭐</strong></div>
+    </div>
+    <div class="tier-card tier-3">
+      <h4>🟢 Tier 3: Research</h4>
+      <div class="month">Month 3 — v3.5 edge 적용</div>
+      <div class="desc">Momentum → ICT → <strong style="color:var(--accent-good);">04:30 BURN_X</strong> → 22:30</div>
+    </div>
+    <div class="tier-card tier-4">
+      <h4>🔵 Tier 4: Mastery</h4>
+      <div class="month">Month 4+ — Apex Eval 진입</div>
+      <div class="desc">모라토리엄 해제 + Live PA</div>
+    </div>
   </div>
-  <div class="data" style="margin-top:10px;">
-    <strong>Tier 1 (Month 1):</strong> 추세 → EMA → SR zone → 시간대 (차트 읽기 기본기)<br>
-    <strong>Tier 2 (Month 2):</strong> BB → EMA SR → PA candle → <strong style="color:var(--accent-warn);">Pullback vs Top Buy ⭐ (L5 직접 처방)</strong><br>
-    <strong>Tier 3 (Month 3):</strong> Momentum → ICT 인식 → <strong style="color:var(--accent-good);">04:30 BURN_X</strong> → 22:30 BURN_R + Regime A/B
+
+  <!-- 12 Week Grid -->
+  <h3>📋 12주 진도 (각 카드 클릭 → 상세 학습 자료)</h3>
+  <div class="week-grid">
+
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_1_foundation/week_01_trend.md" target="_blank" class="week-card t1">
+      <div class="week-num">WEEK 1 · TIER 1</div>
+      <h4>🚦 추세 인식</h4>
+      <div class="week-desc">HH/HL vs LH/LL vs Range. 3 timeframe 동시 식별.</div>
+      <div class="week-rule">5/5 차트 정확 + Range LONG 충동 0회</div>
+      <div class="week-status">⬜ 미시작 · 시작 권장</div>
+    </a>
+
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_1_foundation/week_02_ma_alignment.md" target="_blank" class="week-card t1">
+      <div class="week-num">WEEK 2 · TIER 1</div>
+      <h4>EMA 정·역배열</h4>
+      <div class="week-desc">EMA 20/50/200. Price vs EMA20. W1 모순 시 진입 lock.</div>
+      <div class="week-rule">5/5 정렬 + 모순 진입 0회</div>
+      <div class="week-status">⬜</div>
+    </a>
+
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_1_foundation/week_03_support_resistance.md" target="_blank" class="week-card t1">
+      <div class="week-num">WEEK 3 · TIER 1</div>
+      <h4>SR Zone (선 X, 구간 O)</h4>
+      <div class="week-desc">Touch ≥ 3, ±0.25×ATR. Top buy 위험 식별.</div>
+      <div class="week-rule">Top buy 진입 = 0회 ⭐</div>
+      <div class="week-status">⬜</div>
+    </a>
+
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_1_foundation/week_04_session_timing.md" target="_blank" class="week-card t1">
+      <div class="week-num">WEEK 4 · TIER 1 졸업</div>
+      <h4>매매 시간대 (Edge time)</h4>
+      <div class="week-desc">Asian/EU/NY-AM/04:30. Edge time 외 진입 자제.</div>
+      <div class="week-rule">Non-edge 진입 < 10% (이유 없음)</div>
+      <div class="week-status">⬜ Tier 1 통합 self-test</div>
+    </a>
+
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_2_setup/week_05_bollinger.md" target="_blank" class="week-card t2">
+      <div class="week-num">WEEK 5 · TIER 2</div>
+      <h4>Bollinger Band</h4>
+      <div class="week-desc">Mean revert vs Squeeze breakout. Walking-the-band 함정.</div>
+      <div class="week-rule">Walking-band SHORT 진입 = 0회</div>
+      <div class="week-status">⬜</div>
+    </a>
+
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_2_setup/week_06_ma_as_sr.md" target="_blank" class="week-card t2">
+      <div class="week-num">WEEK 6 · TIER 2</div>
+      <h4>EMA Dynamic SR</h4>
+      <div class="week-desc">EMA20 1st/2nd touch + bounce 확인. Linda Holy Grail.</div>
+      <div class="week-rule">Random 진입 (no pullback) = 0</div>
+      <div class="week-status">⬜</div>
+    </a>
+
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_2_setup/week_07_pa_candles.md" target="_blank" class="week-card t2">
+      <div class="week-num">WEEK 7 · TIER 2</div>
+      <h4>PA Candle Patterns</h4>
+      <div class="week-desc">Engulf / Pin / Inside. 자리 우선, candle = trigger.</div>
+      <div class="week-rule">자리 X candle 진입 < 20%</div>
+      <div class="week-status">⬜</div>
+    </a>
+
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_2_setup/week_08_pullbacks.md" target="_blank" class="week-card t2 starred">
+      <div class="week-num">WEEK 8 · TIER 2 졸업 ⭐⭐⭐</div>
+      <h4>🔥 Pullback vs Top Buy</h4>
+      <div class="week-desc">Fib 38.2/50/61.8 retrace. 사용자 핵심 약점 (L5) 직접 처방.</div>
+      <div class="week-rule">Top Buy 진입 = 0회 (절대) ⭐</div>
+      <div class="week-status">⬜ Tier 2 통합 self-test</div>
+    </a>
+
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_3_research/week_09_momentum.md" target="_blank" class="week-card t3">
+      <div class="week-num">WEEK 9 · TIER 3</div>
+      <h4>Momentum vs 횡보</h4>
+      <div class="week-desc">ATR z-score, Volman 4 criteria. 짤짤이 함정 처방.</div>
+      <div class="week-rule">ATR z &lt; -0.5 진입 = 0</div>
+      <div class="week-status">⬜</div>
+    </a>
+
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_3_research/week_10_ict_basics.md" target="_blank" class="week-card t3">
+      <div class="week-num">WEEK 10 · TIER 3</div>
+      <h4>ICT FVG/OB (인식만)</h4>
+      <div class="week-desc">우리 검증 REJECTED. 다른 트레이더 차트 reading + 면역.</div>
+      <div class="week-rule">ICT 단독 진입 = 0</div>
+      <div class="week-status">⬜</div>
+    </a>
+
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_3_research/week_11_burn_x_0430.md" target="_blank" class="week-card t3 starred green">
+      <div class="week-num">WEEK 11 · TIER 3 ⭐⭐⭐⭐⭐</div>
+      <h4>🚀 04:30 BURN_X</h4>
+      <div class="week-desc">우리 핵심 edge. 10y Sharpe_w 4.38. ATM #1 (60/30/2).</div>
+      <div class="week-rule">5일 04:30 sim 강제 5/5</div>
+      <div class="week-status">⬜</div>
+    </a>
+
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_3_research/week_12_burn_r_2230.md" target="_blank" class="week-card t3 starred green">
+      <div class="week-num">WEEK 12 · 12주 졸업 🎓</div>
+      <h4>22:30 BURN_R + Regime A/B</h4>
+      <div class="week-desc">NY open 22:30. Score → Level → size 자동. 졸업 = Tier 4 자격.</div>
+      <div class="week-rule">5일 22:30 + Regime size 룰</div>
+      <div class="week-status">⬜ 12주 종합 self-test</div>
+    </a>
+
   </div>
-  <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap;">
-    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/README.md" target="_blank" style="padding:8px 14px; background:var(--accent-good); color:#0d1117; border-radius:6px; text-decoration:none; font-weight:600;">📖 커리큘럼 README</a>
-    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/PROGRESSION_MAP.md" target="_blank" style="padding:8px 14px; background:var(--bg-card); border:1px solid var(--accent-good); color:var(--accent-good); border-radius:6px; text-decoration:none;">🗺️ 12주 스킬 트리</a>
-    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_1_foundation/week_01_trend.md" target="_blank" style="padding:8px 14px; background:var(--accent-warn); color:#0d1117; border-radius:6px; text-decoration:none; font-weight:600;">🚦 Week 1 시작</a>
-    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/_logs/progression_log.md" target="_blank" style="padding:8px 14px; background:var(--bg-card); border:1px solid var(--border); color:var(--text); border-radius:6px; text-decoration:none;">📊 진도 기록</a>
+
+  <!-- CTA buttons -->
+  <div class="cta-row">
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/tier_1_foundation/week_01_trend.md" target="_blank" class="cta-button cta-warn">🚦 Week 1 시작 (오늘부터)</a>
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/README.md" target="_blank" class="cta-button cta-primary">📖 커리큘럼 README</a>
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/PROGRESSION_MAP.md" target="_blank" class="cta-button cta-secondary">🗺️ 12주 스킬 트리 (상세)</a>
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/_logs/progression_log.md" target="_blank" class="cta-button cta-secondary">📊 진도 기록 (사용자 채움)</a>
+    <a href="https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/00_curriculum/_logs/observation_log.md" target="_blank" class="cta-button cta-secondary">👁 관찰 노트</a>
   </div>
-  <div class="quote" style="margin-top:14px; border-color:var(--accent-good);">"매매 시간 ↓, 공부 시간 ↑. 12주 후 Top Buy 면역 + 04:30 BURN_X 강제 = Apex Eval 진입 자격." — 커리큘럼 졸업 목표</div>
-</div>
+
+  <!-- 사용 방법 압축 -->
+  <div class="quickref-grid" style="margin-top:24px;">
+    <div class="quickref-card">
+      <h4>📅 매주 진행 방식</h4>
+      <ul>
+        <li>월: 핵심 개념 15분 학습</li>
+        <li>화-금: 매일 차트 5분 관찰</li>
+        <li>주말: self-test (1-5점)</li>
+        <li>월: Pre-Session Card 새 항목</li>
+      </ul>
+    </div>
+    <div class="quickref-card">
+      <h4>🚨 진도 룰</h4>
+      <ul>
+        <li>4점 미만 → 1주 더 (절대 진행 X)</li>
+        <li>매주 1개 주제 lock (3개 동시 X)</li>
+        <li>이론 < 차트 관찰 < 일지 < 실전</li>
+        <li>12주 → 16주 늘어져도 OK</li>
+      </ul>
+    </div>
+    <div class="quickref-card">
+      <h4>🎯 12주 후 변화 목표</h4>
+      <ul>
+        <li>Top Buy 진입 = 0 (W8 졸업)</li>
+        <li>04:30/22:30 강제 5/5 (sim)</li>
+        <li>Pre-Session Card 1분 이내</li>
+        <li>Sim PF 1.5+ + Apex Eval 자격</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="quote" style="margin-top:18px; border-left:3px solid var(--accent-good); padding-left:16px; font-style:italic; color:var(--text-bright);">
+    "매매 시간 ↓, 공부 시간 ↑. 12주 후 Top Buy 면역 + 04:30 BURN_X 강제 = Apex Eval 진입 자격."<br>
+    <span style="font-size:11px; color:var(--text-dim); font-style:normal;">— 커리큘럼 졸업 목표 (2026-05-06 시작)</span>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- 💡 사용자 약점 → 처방 매핑 -->
+<!-- ============================================ -->
+<section class="weakness-section" id="weakness-mapping-table">
+  <h2>💡 사용자 약점 → 커리큘럼 처방 매핑</h2>
+  <div class="subtitle">자가 진단 약점 (LEARNINGS L1-L50) 이 어느 주차에서 정확히 처방되는가</div>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:30%;">약점 (자가 진단)</th>
+        <th style="width:12%;">Lessons</th>
+        <th style="width:23%;">처방 주차</th>
+        <th>핵심 룰 (해당 주 통과 조건)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="weakness-name">Top Buying (신고가 직진입)</span></td>
+        <td><span class="lesson-tag">L5</span></td>
+        <td><span class="week-tag">W3</span><span class="week-tag starred">W8 ⭐</span></td>
+        <td><strong>W8 졸업 조건 = Top Buy 진입 0회</strong> (Fib 38.2-61.8% pullback 만)</td>
+      </tr>
+      <tr>
+        <td><span class="weakness-name">희망적 추세지향 (LONG bias)</span></td>
+        <td><span class="lesson-tag">L41</span></td>
+        <td><span class="week-tag">W1</span><span class="week-tag">W2</span></td>
+        <td>Range LONG 충동 0회 (W1) + 모순 시그널 진입 lock (W2)</td>
+      </tr>
+      <tr>
+        <td><span class="weakness-name">짤짤이 후 욕심 (FOMO)</span></td>
+        <td><span class="lesson-tag">L4</span><span class="lesson-tag">L41</span></td>
+        <td><span class="week-tag">W4</span><span class="week-tag">W9</span></td>
+        <td>Non-edge 진입 < 10% (W4) + ATR z &lt; -0.5 진입 0 (W9)</td>
+      </tr>
+      <tr>
+        <td><span class="weakness-name">물타기 / Averaging Down</span></td>
+        <td><span class="lesson-tag">L20</span><span class="lesson-tag">L46</span></td>
+        <td><span class="week-tag">W3</span><span class="week-tag">W6</span><span class="week-tag">W8</span></td>
+        <td>SR zone 깨지면 진입 lock + EMA20 깨지면 lock + Pullback 룰만</td>
+      </tr>
+      <tr>
+        <td><span class="weakness-name">의지 cooldown 실패 (R30 위반 59%)</span></td>
+        <td><span class="lesson-tag">L42</span><span class="lesson-tag">L43</span></td>
+        <td><span class="week-tag">W4</span><span class="week-tag">W11</span></td>
+        <td>Edge time 강제 (시간 = 환경 룰) + 04:30 알람 + ATM 자동 lock</td>
+      </tr>
+      <tr>
+        <td><span class="weakness-name">일중 MDD 자각 부재 (BREACH 위험)</span></td>
+        <td><span class="lesson-tag">L46</span><span class="lesson-tag">L47</span></td>
+        <td><span class="week-tag">W12</span><span class="week-tag">W11</span></td>
+        <td>Regime score 매 세션 + size 자동 (Tier 4 R30+R34+Apex Bundle)</td>
+      </tr>
+      <tr>
+        <td><span class="weakness-name">Sim size 비현실 (transferable X)</span></td>
+        <td><span class="lesson-tag">L48</span></td>
+        <td><span class="week-tag">W11</span><span class="week-tag">W12</span></td>
+        <td>Sim 도 max 10ct (regime A) / 3ct (regime B) 룰 강제</td>
+      </tr>
+      <tr>
+        <td><span class="weakness-name">Post-break recovery 충동</span></td>
+        <td><span class="lesson-tag">L49</span><span class="lesson-tag">L50</span></td>
+        <td><span class="week-tag">W4</span><span class="week-tag">W9</span></td>
+        <td>Break 후 5분 observe (R33) + momentum 객관 측정 (W9)</td>
+      </tr>
+      <tr>
+        <td><span class="weakness-name">SR 선으로 그려서 협소 식별</span></td>
+        <td><span class="lesson-tag">L17</span></td>
+        <td><span class="week-tag">W3</span></td>
+        <td>SR = zone (touch ≥ 3, ±0.25×ATR). 선 X.</td>
+      </tr>
+      <tr>
+        <td><span class="weakness-name">ICT FVG/OB 잘못된 신뢰</span></td>
+        <td>HYP-CONF-001</td>
+        <td><span class="week-tag">W10</span></td>
+        <td>인식만 (사용 X). 1주 hit rate self-experiment → 50% random 직접 검증</td>
+      </tr>
+    </tbody>
+  </table>
+  <div style="margin-top:14px; padding:12px 14px; background:rgba(63, 185, 80, 0.06); border-left:3px solid var(--accent-good); border-radius:4px; font-size:13px;">
+    <strong>핵심 통찰</strong>: 모든 약점은 <strong>의지가 아니라 환경/룰</strong>로 해결. 12주 커리큘럼 = 매주 1개 룰을 차트 + 일지에 강제 결합 → 12주 후 자동 작동 (체화).
+  </div>
+</section>
 
 <!-- 검색 -->
 <input type="text" class="search-box" id="searchBox" placeholder="🔍 검색: 키워드, 저자, 컨셉 (예: Mark Douglas, top buying, AVWAP)">
@@ -346,7 +823,8 @@
   <a href="#notebooklm" style="background: rgba(63, 185, 80, 0.1); border-color: var(--accent-good); color: var(--accent-good);">🧠 NotebookLM (1,109 source)</a>
   <a href="#details" style="background: rgba(251, 191, 36, 0.1); border-color: var(--tier1); color: var(--tier1);">📚 Detail.md (자기충족 교재)</a>
   <a href="#v11-update" style="background: rgba(248, 81, 73, 0.1); border-color: var(--accent-danger); color: var(--accent-danger);">🆕 v1.1 — L46-L50 + R33-R35 + MDD + Apex</a>
-  <a href="#curriculum-box" style="background: rgba(63, 185, 80, 0.15); border-color: var(--accent-good); color: var(--accent-good); font-weight:600;">🎓 v1.2 — 12주 커리큘럼</a>
+  <a href="#curriculum-box" style="background: rgba(63, 185, 80, 0.15); border-color: var(--accent-good); color: var(--accent-good); font-weight:600;">🎓 12주 커리큘럼 (메인)</a>
+  <a href="#weakness-mapping-table" style="background: rgba(251, 191, 36, 0.15); border-color: var(--accent-warn); color: var(--accent-warn); font-weight:600;">💡 약점→처방 매핑</a>
 </div>
 
 <!-- 카테고리 카드 -->
