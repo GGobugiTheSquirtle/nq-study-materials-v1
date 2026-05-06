@@ -197,4 +197,30 @@ W1 추가 (현재 W1 학습 중):
 
 ---
 
+## 📚 원본 소스 바로가기 (직접 click)
+
+### 영상 (YouTube) — Tier 1
+- [Al Brooks Price Action 채널](https://www.youtube.com/@AlBrooksPriceAction) ⭐⭐⭐ — bar-by-bar 추세 정의의 표준
+- [Stacey Burke Trading (NQ daily)](https://www.youtube.com/@StaceyBurkeTrading) ⭐⭐⭐ — 매일 NQ 5m 추세 분석 영상
+- [The Trading Channel — Patrick Wieland](https://www.youtube.com/@TheTradingChannel) ⭐⭐ — 단순화된 추세 매매
+- [Lance Beggs (NQ futures)](https://www.youtube.com/@LanceBeggs) ⭐⭐⭐ — multi-timeframe trend context
+
+### 책 / Free PDF / Blog
+- [Al Brooks "Trading Price Action: TRENDS" (2012)](https://www.amazon.com/Trading-Price-Action-Trends-Technical/dp/1118066510) — 추세 정의 절대 표준
+- [Linda Raschke "Street Smarts" (1996)](https://www.amazon.com/Street-Smarts-High-Probability-Short-Term-Strategies/dp/0965046109) — pullback within trend 정량 룰
+- [Adam Grimes blog (free)](https://adamhgrimes.com/blog/) — 정량 measurable trend patterns
+- [Lance Beggs blog (free, NQ 위주)](https://yourtradingcoach.com/) — 무료 글 풍부
+
+### NotebookLM 검색 (사용자 1,090 source)
+- 🆕 [영어 권위자 notebook (19 source)](https://notebooklm.google.com/notebook/81fe9110-dfe2-4b64-bcd6-c221c36d84c6) — Al Brooks, Hougaard, Steenbarger, ICT, Volman 등
+- 추천 query: `"Higher High Higher Low" + 차트프로 차트편` cross-notebook
+- 추천 query: `"Dow Theory swing point 추세 정의"` (영어 + 한국어 동시)
+
+### 카테고리 sources.md
+- [02 Price Action sources](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/02_price_action/sources.md) — 12 sources
+- [03 Trend Following sources](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/03_trend_following/sources.md) — 11 sources
+- [02 detail.md (자기충족 교재)](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/02_price_action/detail.md)
+
+---
+
 *W1 시작: 2026-05-06 / 다음 self-test: 2026-05-12 (or 5 세션 후)*

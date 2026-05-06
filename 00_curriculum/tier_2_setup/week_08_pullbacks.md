@@ -312,5 +312,43 @@ W8 self-test 4점 + Top Buy 0 회 통과 시:
 
 ---
 
+## 📚 원본 소스 바로가기 (직접 click) ⭐⭐⭐⭐⭐
+
+### 영상 / 채널 — Tier 1 (사용자 핵심 약점 처방)
+- [Linda Raschke — Holy Grail / pullback (Real Vision interview)](https://www.youtube.com/results?search_query=linda+raschke+pullback+entry) ⭐⭐⭐⭐⭐ — pullback discipline 표준
+- [Adam Grimes — pullback statistics (free YouTube)](https://www.youtube.com/@AdamHGrimes) ⭐⭐⭐⭐⭐ — Fib retracement 정량 분석
+- [Tom Hougaard — Trade with conviction](https://www.youtube.com/@traderTomHougaard) ⭐⭐⭐⭐ — top buying 회피 + winner ride
+- [SMB Capital — pullback playbook](https://www.youtube.com/@smbcapital) ⭐⭐⭐⭐ — prop firm pullback setup
+- [Al Brooks — pullback bar 정의](https://www.youtube.com/@AlBrooksPriceAction) ⭐⭐⭐ — bar-by-bar pullback identification
+
+### 책 / Free PDF (필독)
+- ⭐⭐⭐⭐⭐ [Linda Raschke "Street Smarts" (1996)](https://www.amazon.com/Street-Smarts-High-Probability-Short-Term-Strategies/dp/0965046109) — Holy Grail pullback (Chapter 핵심)
+- ⭐⭐⭐⭐⭐ [Adam Grimes "Art and Science"](https://www.amazon.com/Art-Science-Technical-Analysis-Statistics/dp/1118115120) — pullback measurable patterns
+- ⭐⭐⭐⭐ [Tom Hougaard "Best Loser Wins" (FREE PDF)](https://tradertom.com/wp-content/uploads/2021/03/BEST-LOSER-WINS-1.pdf) — Top buying 회피의 심리 + 룰
+- [Mike Bellafiore "The PlayBook" (2013)](https://www.amazon.com/PlayBook-Untold-Story-Quintessential-Trader/dp/1118415302) — 정형화된 pullback setup
+- [Adam Grimes free blog](https://adamhgrimes.com/blog/) — pullback statistics 무료 글
+
+### Fibonacci Retracement
+- [TradingView Fib Retracement docs](https://www.tradingview.com/support/solutions/43000584025/) — tool 사용법
+- [Auto Fib Retracement (TV community)](https://www.tradingview.com/script/?text=auto+fib) — 자동 fib
+
+### NotebookLM 검색 (핵심 약점 처방)
+- 🆕 [영어 권위자 notebook (19 source)](https://notebooklm.google.com/notebook/81fe9110-dfe2-4b64-bcd6-c221c36d84c6) — Linda + Hougaard + Grimes + SMB
+- 추천 query: `"pullback Fibonacci retracement 38.2 50 61.8" + 차트프로 차트편 + 김직선`
+- 추천 query: `"top buying chasing 신고가 직진입"` (사용자 약점 직접)
+- 추천 query: `"Holy Grail Linda Raschke + 보조지표편 Strategies (37 source) + 데이트레이딩편 (29)"`
+
+### 우리 검증
+- [LEARNINGS.md L5 (top buying)](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1) — 사용자 자가 진단 archive
+- [LEARNINGS.md L17 (pullback discipline)](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1)
+
+### 카테고리 sources.md
+- [03 Trend Following sources ⭐⭐⭐](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/03_trend_following/sources.md) — Linda + Grimes
+- [03 detail.md](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/03_trend_following/detail.md)
+- [01 Psychology sources (Hougaard)](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/01_psychology/sources.md)
+- [01 detail.md](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/01_psychology/detail.md) — Top buying 심리 처방
+
+---
+
 *W8 시작: W7 통과 후. 어렵다 — 1주 더 가도 OK.*
 *Top Buy 진입 0회 미달 시 W8 무한 반복 (절대 진행 X).*

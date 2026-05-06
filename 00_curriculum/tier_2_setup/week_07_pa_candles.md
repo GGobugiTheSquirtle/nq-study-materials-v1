@@ -215,4 +215,29 @@ W7 추가:
 
 ---
 
+## 📚 원본 소스 바로가기 (직접 click)
+
+### 영상 / 채널
+- [Al Brooks Price Action 채널](https://www.youtube.com/@AlBrooksPriceAction) ⭐⭐⭐ — 캔들 패턴 정의 표준
+- [Lance Beggs (NQ futures)](https://www.youtube.com/@LanceBeggs) ⭐⭐⭐ — engulf/pin/inside in context
+- [The Trading Channel — Patrick Wieland](https://www.youtube.com/@TheTradingChannel) ⭐⭐ — 단순화된 PA candle 영상
+- [NoNonsenseForex — pure PA](https://www.youtube.com/@nononsenseforex) ⭐⭐ — "no indicator" 캔들 매매
+
+### 책 / Free PDF
+- [Steve Nison "Japanese Candlestick Charting Techniques" (1991)](https://www.amazon.com/Japanese-Candlestick-Charting-Techniques-Second/dp/0735201811) ⭐⭐⭐ — 캔들 표준
+- [Al Brooks "Trading Price Action: TRENDS"](https://www.amazon.com/Trading-Price-Action-Trends-Technical/dp/1118066510) — engulfing 정량 정의
+- [Bob Volman "Forex Price Action Scalping" (2011)](https://www.amazon.com/Forex-Price-Action-Scalping-depth/dp/9090257098) — 5m PA candle scalp
+
+### NotebookLM 검색
+- 🆕 [영어 권위자 notebook](https://notebooklm.google.com/notebook/81fe9110-dfe2-4b64-bcd6-c221c36d84c6)
+- 추천 query: `"engulfing pin bar inside bar Al Brooks" + 차트프로 차트편 (62 source)`
+- 추천 query: `"candle pattern reversal continuation"` (한국어)
+
+### 카테고리 sources.md
+- [02 Price Action sources](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/02_price_action/sources.md) ⭐⭐⭐
+- [02 detail.md](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/02_price_action/detail.md)
+- [06 Scalping sources (Volman)](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/06_scalping/sources.md)
+
+---
+
 *W7 시작: W6 통과 후*

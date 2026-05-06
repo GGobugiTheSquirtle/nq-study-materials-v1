@@ -263,4 +263,43 @@ W11 추가 (04:30 한정):
 
 ---
 
+## 📚 원본 소스 바로가기 (직접 click) — 우리 v3.5 검증 자료
+
+### 우리 검증 (필수)
+- ⭐⭐⭐⭐⭐ [CLAUDE.md §해외선물 MNQ 연구](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1) — 04:30 BURN_X 정의 + Sharpe_w 4.38
+- [ADR-029 STRIDE_BARS bug fix](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1) — 진짜 수치 (6.48 → 4.38)
+- [ADR-030 ATM 재최적화](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1) — ATM #1 60/30/2 도출
+- [ADR-032 운영 플랫폼 (TDV+Tradovate)](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1)
+- [ADR-033 Commission RT $2.18 sensitivity](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1)
+
+### 영상 (외부 reference, NY 후반 + EU close)
+- [SMB Capital — NY session](https://www.youtube.com/@smbcapital) ⭐⭐⭐ — NY trading hours edge
+- [Convergent Trading (order flow + 시간대)](https://www.youtube.com/@ConvergentTrading) ⭐⭐ — NY end + EU close
+- [Brian Shannon (Anchored VWAP)](https://www.youtube.com/@AlphaTrendsBrianShannon) ⭐⭐ — session VWAP
+
+### 책 (NY session + Index futures)
+- [Mike Bellafiore "One Good Trade" (2010)](https://www.amazon.com/One-Good-Trade-Inside-Trading/dp/0470529660) ⭐⭐⭐ — prop firm NY 세션
+- [Mike Bellafiore "The PlayBook" (2013)](https://www.amazon.com/PlayBook-Untold-Story-Quintessential-Trader/dp/1118415302) — playbook = 04:30 BURN_X 와 호환
+- [Linda Raschke "Street Smarts"](https://www.amazon.com/Street-Smarts-High-Probability-Short-Term-Strategies/dp/0965046109) — index futures momentum
+
+### Tradovate / TradingView 운영 도구
+- [Tradovate ATM Templates docs](https://documentation.tradovate.com/)
+- [TradingView Desktop docs](https://www.tradingview.com/desktop/) — 사용자 v3.5 운영 환경
+- [Phone alarm app (Android/iOS)](https://www.google.com/search?q=alarm+app) — 04:25 KST 알람 필수
+
+### NotebookLM 검색
+- 🆕 [영어 권위자 notebook](https://notebooklm.google.com/notebook/81fe9110-dfe2-4b64-bcd6-c221c36d84c6) — SMB / Bellafiore
+- 추천 query: `"NY late afternoon trading + EU close + 04:30 KST"` (시간대 cross-check)
+- 추천 query: `"Mike Bellafiore playbook prop firm NY"`
+
+### 매매일지 / research
+- [매매일지/해외선물/research/](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1) — 사용자 BURN_X sim 결과 archive
+- [LEARNINGS_NQ.md](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1) — NQ 특화 lessons
+
+### 카테고리 sources.md
+- [05 NQ Specifics sources ⭐⭐⭐](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/05_nq_specifics/sources.md) — SMB / Bellafiore / CME
+- [05 detail.md](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/05_nq_specifics/detail.md)
+
+---
+
 *W11 시작: W10 통과 후 / 5 세션 04:30 강제*

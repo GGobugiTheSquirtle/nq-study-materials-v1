@@ -206,4 +206,28 @@ W2 추가:
 
 ---
 
+## 📚 원본 소스 바로가기 (직접 click)
+
+### 영상 (YouTube) — Tier 1
+- [Brett Steenbarger blog YouTube + interviews](https://www.youtube.com/results?search_query=brett+steenbarger+moving+average) ⭐⭐⭐ — EMA 200 이상에서만 LONG 룰
+- [Adam Grimes — pullback statistics](https://www.youtube.com/@AdamHGrimes) ⭐⭐⭐ — EMA pullback 정량 분석
+- [Stacey Burke (NQ daily)](https://www.youtube.com/@StaceyBurkeTrading) ⭐⭐ — daily EMA confluence
+
+### 책 / Free PDF / Blog
+- [Linda Raschke "Holy Grail" (free article)](https://www.amazon.com/Street-Smarts-High-Probability-Short-Term-Strategies/dp/0965046109) — 20-period MA pullback (Street Smarts 안에)
+- [Stan Weinstein "Secrets for Profiting"](https://www.amazon.com/Secrets-Profiting-Bull-Bear-Markets/dp/1556236832) — Stage analysis + EMA 200 시각
+- [Brett Steenbarger TraderFeed blog](https://traderfeed.blogspot.com/) — performance + indicator 상관관계
+
+### NotebookLM 검색
+- 🆕 [영어 권위자 notebook](https://notebooklm.google.com/notebook/81fe9110-dfe2-4b64-bcd6-c221c36d84c6) — 위 권위자 자료 19 source
+- 추천 query: `"EMA 50 200 정배열" + 김직선 100억 해외선물` (한국어 + 영어 통합)
+- 추천 query: `"Moving Average pullback Holy Grail" + 보조지표편 Strategies`
+
+### 카테고리 sources.md
+- [03 Trend Following sources](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/03_trend_following/sources.md) ⭐ — Linda/Adam Grimes/Weinstein
+- [03 detail.md](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/03_trend_following/detail.md)
+- [05 NQ Specifics sources](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/05_nq_specifics/sources.md)
+
+---
+
 *W2 시작: W1 self-test 4점 이상 후 / 다음 self-test: 5 세션 후*

@@ -200,4 +200,28 @@ W6 추가:
 
 ---
 
+## 📚 원본 소스 바로가기 (직접 click)
+
+### 영상 / 채널
+- [Linda Raschke — "Holy Grail" (20 EMA pullback)](https://www.youtube.com/results?search_query=linda+raschke+holy+grail+ema) ⭐⭐⭐ — EMA20 pullback 표준
+- [Adam Grimes — pullback statistics](https://www.youtube.com/@AdamHGrimes) ⭐⭐⭐ — first/second touch 정량
+- [Stacey Burke (NQ daily)](https://www.youtube.com/@StaceyBurkeTrading) ⭐⭐ — 매일 EMA pullback 사례
+
+### 책 / Free PDF
+- [Linda Raschke "Street Smarts" (Holy Grail chapter)](https://www.amazon.com/Street-Smarts-High-Probability-Short-Term-Strategies/dp/0965046109) ⭐⭐⭐
+- [Adam Grimes "Art and Science"](https://www.amazon.com/Art-Science-Technical-Analysis-Statistics/dp/1118115120) — EMA pullback statistics
+- [Brian Shannon (Alphatrends, AVWAP + MA)](https://www.alphatrends.net/) — dynamic SR 응용
+
+### NotebookLM 검색
+- 🆕 [영어 권위자 notebook](https://notebooklm.google.com/notebook/81fe9110-dfe2-4b64-bcd6-c221c36d84c6)
+- 추천 query: `"EMA 20 pullback retest" + 차트프로 차트편 + 김직선 100억 해외선물`
+- 추천 query: `"Holy Grail Linda Raschke + 보조지표편 Strategies"`
+
+### 카테고리 sources.md
+- [03 Trend Following sources](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/03_trend_following/sources.md) ⭐
+- [03 detail.md](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/03_trend_following/detail.md)
+- [02 Price Action sources](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/02_price_action/sources.md)
+
+---
+
 *W6 시작: W5 통과 후*

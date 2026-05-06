@@ -307,5 +307,53 @@ Month 5+:   Live PA 진입 OR continue sim
 
 ---
 
+## 📚 원본 소스 바로가기 (직접 click) — 12주 졸업 시험
+
+### 우리 검증 (필수)
+- ⭐⭐⭐⭐⭐ [CLAUDE.md §해외선물 MNQ 연구](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1) — 22:30 BURN_R Sharpe 4.72
+- ⭐⭐⭐⭐⭐ [ADR-022 Regime-Aware Two-Level](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1) — Regime score 4 지표
+- [ADR-029 stride bug fix](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1) — 22:30 진짜 수치
+- [ADR-030 ATM 재최적화](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1)
+
+### 영상 / 채널 — NY Open
+- [SMB Capital — NY 09:30 EST open](https://www.youtube.com/@smbcapital) ⭐⭐⭐⭐⭐ — "30 분 = 90% edge"
+- [Mike Bellafiore — opening drive](https://www.youtube.com/results?search_query=mike+bellafiore+opening+drive) ⭐⭐⭐
+- [Adam Mancini Twitter (@AdamMancini4)](https://twitter.com/AdamMancini4) ⭐⭐⭐ — 매일 무료 NQ/ES levels (NY open 직전)
+- [Convergent Trading (NY open + order flow)](https://www.youtube.com/@ConvergentTrading) ⭐⭐ — DOM + NY open
+
+### 책 / Free PDF
+- [Mike Bellafiore "One Good Trade"](https://www.amazon.com/One-Good-Trade-Inside-Trading/dp/0470529660) ⭐⭐⭐ — NY open prop firm
+- [Mike Bellafiore "The PlayBook"](https://www.amazon.com/PlayBook-Untold-Story-Quintessential-Trader/dp/1118415302) ⭐⭐⭐ — 22:30 BURN_R = "playbook setup"
+- [Brian Shannon "Maximum Trading Gains with AVWAP"](https://www.amazon.com/Maximum-Trading-Gains-Anchored-VWAP/dp/0982118503) ⭐⭐⭐ — session AVWAP at NY open
+- [David Aronson "Evidence-Based TA"](https://www.amazon.com/Evidence-Based-Technical-Analysis-Statistical-Methods/dp/0470008741) ⭐⭐ — Regime detection 통계
+- [CME Group educational](https://www.cmegroup.com/education.html) — RTH (NY) open 정의
+
+### NQ 특화 한국어 (NotebookLM 1,090 source)
+- [김직선 100억 해외선물 (136 source)](https://notebooklm.google.com) — KST 22:30 매매 사례
+- [차트프로 해외선물편 (30) + 실전편 (25)](https://notebooklm.google.com)
+- [오더플로우 Part 1+2 (59)](https://notebooklm.google.com)
+
+### NotebookLM 검색
+- 🆕 [영어 권위자 notebook](https://notebooklm.google.com/notebook/81fe9110-dfe2-4b64-bcd6-c221c36d84c6) — SMB + Bellafiore
+- 추천 query: `"NY open 22:30 KST gap reversal" + 김직선 100억 + 차트프로 해외선물편`
+- 추천 query: `"Regime detection trend regime market regime"` (영어)
+- 추천 query: `"opening drive playbook NY"` (영어 + 한국어 통합)
+
+### Apex / 프롭펌 호환 (Tier 4 준비)
+- [Apex Trader Funding rules](https://www.apextraderfunding.com/) — Eval $50k / PA Tier 1 / DLL
+- [LEARNINGS.md L48 (sim size non-transferable)](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1)
+- [HYP-APEX-001 보고서](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1) — Apex Compatibility Bundle 5종
+
+### 매매일지 / research
+- [매매일지/해외선물/research/](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1) — 22:30 BURN_R sim 결과
+- [LEARNINGS_NQ.md](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1) — NQ 22:30 / NY open lessons
+- [PRE_SESSION_CARD.md](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1) — 운영 카드
+
+### 카테고리 sources.md
+- [05 NQ Specifics sources ⭐⭐⭐⭐⭐](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/05_nq_specifics/sources.md)
+- [05 detail.md](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/05_nq_specifics/detail.md)
+
+---
+
 *W12 시작: W11 통과 후 / 5 세션 22:30 강제*
-*졸업 = Tier 4 진입 자격*
+*졸업 = Tier 4 진입 자격 + Apex Eval 준비 완료*

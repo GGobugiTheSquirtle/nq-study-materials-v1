@@ -285,4 +285,40 @@ W4 self-test 4점 이상 통과 시:
 
 ---
 
+## 📚 원본 소스 바로가기 (직접 click)
+
+### 영상 (YouTube) — Tier 1
+- [SMB Capital — NY open 매매](https://www.youtube.com/@smbcapital) ⭐⭐⭐ — prop firm 환경 + NY session 핵심
+- [Convergent Trading (Order flow + 시간대)](https://www.youtube.com/@ConvergentTrading) ⭐⭐ — DOM 기반 timing
+- [TradeProTV — Daily NQ market structure](https://www.youtube.com/@TradeProTV) ⭐⭐ — daily 시간대 분석
+
+### 책 / Blog / 공식 자료
+- [SMB Capital blog](https://www.smbcapital.com/blog/) — playbook + NY session
+- [Mike Bellafiore "One Good Trade"](https://www.amazon.com/One-Good-Trade-Inside-Trading/dp/0470529660) ⭐⭐⭐ — prop firm trader 의 시간대 운영
+- [Mike Bellafiore "The PlayBook" (2013)](https://www.amazon.com/PlayBook-Untold-Story-Quintessential-Trader/dp/1118415302) — 정형화된 setup × 시간대
+- [CME Group educational (NQ 공식)](https://www.cmegroup.com/education.html) — RTH vs ETH 시간대 정의
+- [Brian Shannon "Anchored VWAP" (Alphatrends)](https://www.alphatrends.net/) — session VWAP 활용
+
+### NQ 특화 (한국어)
+- [김직선 100억 해외선물 (NotebookLM 136 source)](https://notebooklm.google.com) — 사용자 NotebookLM "김직선 100억" search
+- [차트프로 해외선물편 (30 source)](https://notebooklm.google.com) — NotebookLM "차트프로 해외선물편" search
+- [오더플로우 Part 1+2 (59 source)](https://notebooklm.google.com) — KST 기준 시간대 분석
+
+### 우리 v3.5 검증 (시간대 = edge)
+- [CLAUDE.md §해외선물 MNQ 연구](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1) — 04:30 BURN_X / 22:30 BURN_R / 03:00 BURN_X (Sharpe_w 4.38/4.72/2.30)
+- ADR-029 (stride bug fix) — 진짜 edge time 수치
+- ADR-030/032/033 — ATM 재최적화
+
+### NotebookLM 검색
+- 🆕 [영어 권위자 notebook](https://notebooklm.google.com/notebook/81fe9110-dfe2-4b64-bcd6-c221c36d84c6)
+- 추천 query: `"NY open 매매 시간대" + 김직선 + 오더플로우 Part 1`
+- 추천 query: `"opening range overnight inventory ETH RTH"` (영어 + 한국어)
+
+### 카테고리 sources.md
+- [05 NQ Specifics sources](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/05_nq_specifics/sources.md) ⭐⭐⭐ — SMB / Mancini / CME 등
+- [05 detail.md](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/05_nq_specifics/detail.md)
+- [06 Scalping sources](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/06_scalping/sources.md)
+
+---
+
 *W4 시작: W3 self-test 4점 이상 후 / Tier 1 종합 self-test: 5 세션 후*

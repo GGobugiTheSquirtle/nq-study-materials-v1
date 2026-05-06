@@ -243,4 +243,37 @@ W4 후 압축안 도입 검토.
 
 ---
 
+## 📚 원본 소스 바로가기 (직접 click)
+
+### 영상 (YouTube) — Tier 1
+- [Al Brooks Price Action 채널](https://www.youtube.com/@AlBrooksPriceAction) ⭐⭐⭐ — SR = zone (선 X) 정의
+- [Lance Beggs (NQ futures)](https://www.youtube.com/@LanceBeggs) ⭐⭐⭐ — context-driven SR 자리 식별
+- [Convergent Trading (order flow + SR)](https://www.youtube.com/@ConvergentTrading) ⭐⭐ — Volume Profile SR
+- [Adam Mancini Twitter (@AdamMancini4)](https://twitter.com/AdamMancini4) ⭐⭐⭐ — 매일 무료 ES/NQ 핵심 levels post
+
+### 책 / Free PDF / Blog
+- [Adam Grimes "Art and Science"](https://www.amazon.com/Art-Science-Technical-Analysis-Statistics/dp/1118115120) — measurable SR statistics
+- [Adam Grimes blog (free)](https://adamhgrimes.com/blog/) — SR pattern testable definitions
+- [Anna Coulling "Volume Price Analysis"](https://www.amazon.com/Complete-Guide-Volume-Price-Analysis/dp/1491249390) — VSA + SR 결합
+- [TradingView Volume Profile docs](https://www.tradingview.com/support/solutions/43000502040) — POC, VAH, VAL 사용법
+
+### Pivot / SR 자동 탐지 도구
+- [TradingView "Pivot Points HL" indicator](https://www.tradingview.com/script/jdh3Wc4F-Pivot-points-HL/) — swing 자동 마킹
+- [TradingView "Auto Support and Resistance" community](https://www.tradingview.com/script/?text=auto+support+resistance) — 다양한 무료 SR indicator
+
+### NotebookLM 검색
+- 🆕 [영어 권위자 notebook](https://notebooklm.google.com/notebook/81fe9110-dfe2-4b64-bcd6-c221c36d84c6)
+- 추천 query: `"지지저항 zone touch count" + 차트프로 차트편 + 지지저항 단편`
+- 추천 query: `"Volume Profile POC + Order Flow"` (NQ 특화 SR)
+
+### 글로벌 표준
+- [CLAUDE.md SR 정의 (글로벌 권장 표준)](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1) — 사용자 표준 SR zone 알고리즘 (touch ≥ 3, ±0.25×ATR)
+
+### 카테고리 sources.md
+- [02 Price Action sources](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/02_price_action/sources.md) ⭐
+- [02 detail.md](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/02_price_action/detail.md)
+- [05 NQ Specifics sources](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/05_nq_specifics/sources.md) — Adam Mancini levels
+
+---
+
 *W3 시작: W2 self-test 4점 이상 후 / 다음 self-test: 5 세션 후. 어려우면 1주 더.*

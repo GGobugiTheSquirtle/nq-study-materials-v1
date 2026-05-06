@@ -215,4 +215,31 @@ W9 추가:
 
 ---
 
+## 📚 원본 소스 바로가기 (직접 click)
+
+### 영상 / 채널
+- [Linda Raschke — Volatility expansion](https://www.youtube.com/results?search_query=linda+raschke+volatility+expansion) ⭐⭐⭐ — momentum 정의 표준
+- [Brett Steenbarger — pace + volatility](https://www.youtube.com/results?search_query=brett+steenbarger+volatility) ⭐⭐⭐
+- [BookMap educational (volume + speed)](https://www.youtube.com/@bookmap) ⭐⭐ — DOM 기반 momentum
+- [SMB Capital scalp playlist](https://www.youtube.com/@smbcapital) ⭐⭐⭐ — momentum × 시간대
+
+### 책 / Free PDF
+- [Bob Volman "Forex Price Action Scalping"](https://www.amazon.com/Forex-Price-Action-Scalping-depth/dp/9090257098) ⭐⭐⭐ — 4 momentum criteria 정의
+- [Linda Raschke "Street Smarts" — Volatility chapter](https://www.amazon.com/Street-Smarts-High-Probability-Short-Term-Strategies/dp/0965046109)
+- [Anna Coulling "Volume Price Analysis"](https://www.amazon.com/Complete-Guide-Volume-Price-Analysis/dp/1491249390) — VSA = volume + range
+- [BookMap learn (free)](https://bookmap.com/learn/) — volume + speed visualization
+
+### NotebookLM 검색
+- 🆕 [영어 권위자 notebook](https://notebooklm.google.com/notebook/81fe9110-dfe2-4b64-bcd6-c221c36d84c6)
+- 추천 query: `"ATR volatility expansion + 06_scalping + 오더플로우 Part 1"` (118 + 59 source)
+- 추천 query: `"momentum criteria pace force"` (영어 + 한국어)
+- 추천 query: `"Bob Volman scalping criteria 4"` (영어 specific)
+
+### 카테고리 sources.md
+- [06 Scalping sources](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/06_scalping/sources.md) ⭐⭐⭐
+- [06 detail.md](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/06_scalping/detail.md)
+- [03 Trend Following sources (Linda)](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/03_trend_following/sources.md)
+
+---
+
 *W9 시작: Tier 2 졸업 후 / 5 세션*

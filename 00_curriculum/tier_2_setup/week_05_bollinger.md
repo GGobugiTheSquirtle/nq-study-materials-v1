@@ -193,4 +193,27 @@ W5 추가 (압축):
 
 ---
 
+## 📚 원본 소스 바로가기 (직접 click)
+
+### 영상 / 채널
+- [John Bollinger 본인 강연 (검색)](https://www.youtube.com/results?search_query=john+bollinger+bollinger+bands) ⭐⭐⭐ — 창시자 본인 정의
+- [Linda Raschke — Volatility expansion 인터뷰](https://www.youtube.com/results?search_query=linda+raschke+volatility+expansion) ⭐⭐⭐ — squeeze→expansion 정의
+- [Adam Grimes blog — BB statistics](https://adamhgrimes.com/blog/) ⭐⭐⭐ — BB walking-the-band 통계
+
+### 책 / Free PDF
+- [John Bollinger "Bollinger on Bollinger Bands" (2001)](https://www.amazon.com/Bollinger-Bands-John/dp/0071373683) — 창시자 표준 교과서
+- [Linda Raschke "Street Smarts"](https://www.amazon.com/Street-Smarts-High-Probability-Short-Term-Strategies/dp/0965046109) — Volatility 기반 setup
+- [TradingView Bollinger Bands docs](https://www.tradingview.com/support/solutions/43000501840/) — indicator 사용법
+
+### NotebookLM 검색
+- 🆕 [영어 권위자 notebook](https://notebooklm.google.com/notebook/81fe9110-dfe2-4b64-bcd6-c221c36d84c6)
+- 추천 query: `"Bollinger Band squeeze" + 보조지표편 Strategies` (37 source)
+- 추천 query: `"BB walking the band trend continuation"` (영어 + 한국어)
+
+### 카테고리 sources.md
+- [03 Trend Following sources](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/03_trend_following/sources.md)
+- [03 detail.md](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/03_trend_following/detail.md)
+
+---
+
 *W5 시작: Tier 1 졸업 후 / 5 세션 후 self-test*

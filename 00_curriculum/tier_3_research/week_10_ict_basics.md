@@ -218,4 +218,40 @@ W10 추가 (선택, 안 추가도 OK):
 
 ---
 
+## 📚 원본 소스 바로가기 (직접 click) — 인식만, 사용 X
+
+### 영상 / 채널 — Original
+- [Michael J. Huddleston (ICT 본인)](https://www.youtube.com/@InnerCircleTrader) ⭐⭐⭐ — ICT 1차 source. **무료** (수백 영상)
+- [The Trading Channel — Patrick Wieland](https://www.youtube.com/@TheTradingChannel) ⭐⭐⭐ — ICT 단순화 + daily 분석
+- [Stacey Burke (ICT mentee, NQ daily)](https://www.youtube.com/@StaceyBurkeTrading) ⭐⭐⭐ — daily NQ + ICT concepts
+- [Wysetrade — Riccardo Sturla (5-step sniper)](https://www.youtube.com/@Wysetrade) ⭐⭐ — ICT 단순화
+
+### 책 / Free PDF
+- [ICT Concepts PDF (커뮤니티 정리)](https://www.google.com/search?q=ICT+concepts+pdf+inner+circle+trader) — 검색 (무료 PDF 다수)
+- [TradingView ICT indicators](https://www.tradingview.com/script/?text=ICT+order+block) — 자동 식별 community indicators
+
+### 우리 검증 (REJECTED 결과)
+- [HYP-CONF-001 보고서 (BTC FVG/OB 0/20)](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1) — 사용자 자체 검증
+- 핵심 결론: **standalone 0% edge, confluence 통계적 무의미** → 사용 X, 인식만
+- "왜 안 통하는지" 1주 self-experiment (50 FVG mark → 1주 후 hit rate 측정)
+
+### NotebookLM 검색 — **사용자 1,090 source 중 452가 ICT** (가장 큰 집합)
+- 🆕 [영어 권위자 notebook](https://notebooklm.google.com/notebook/81fe9110-dfe2-4b64-bcd6-c221c36d84c6)
+- 사용자 보유 ICT notebook (notebooklm.google.com 검색):
+  - **ICT Part 1+2+3 (156 source)**
+  - **ICT 유니버설 (197 source)**
+  - **SMC 전략편 Courses+Crypto (95 source)**
+- 추천 query: `"FVG OB hit rate edge validation"` (REJECTED 결과 확인)
+- 추천 query: `"Order Block fair value gap pattern recognition"` (인식만)
+
+### 카테고리 sources.md
+- [04 ICT/SMC sources ⭐⭐⭐](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/04_ict_smc/sources.md) — 완전 목록
+- [04 detail.md](https://github.com/GGobugiTheSquirtle/nq-study-materials-v1/blob/main/04_ict_smc/detail.md)
+
+### ⚠️ Caveat
+- ICT 컨텐츠는 **quality variance 큼**. cult-language / 과장 win rate 일부.
+- 학습 목표 = "왜 random 인지 이해 + 다른 트레이더 차트 reading 가능" 만.
+
+---
+
 *W10 시작: W9 통과 후 / 가벼운 주, 5 세션 후 진행*
