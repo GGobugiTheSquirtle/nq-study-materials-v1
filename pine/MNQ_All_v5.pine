@@ -1,9 +1,12 @@
 //@version=6
 // ════════════════════════════════════════════════════════════════════════════
-// MNQ All v5 — Research-backed (16 hypothesis + 800 grid)
+// MNQ All v5.1 — Research-backed + Phase G2/G3 Round Figure
 // ════════════════════════════════════════════════════════════════════════════
-// 2026-05-06 V5: v4 (668 lines) + 11 new insights from research.
-// Source: 16 hypothesis tests (Phase A/B/D) + 800 grid search (Phase F HE-001)
+// 2026-05-06 V5.1: v5 (847 lines) + Phase G2/G3 round figure findings
+//                  — R500 up + pivot high break SHORT (P3 PF 4.56 with tight SL)
+// 2026-05-06 V5:   v4 (668 lines) + 11 insights
+// Source: 16 hypothesis tests (Phase A/B/D) + 800 grid search (Phase F)
+//         + Phase G2 (pivot-based round) + G3 (288-combo ATM grid for R500)
 //
 //   ───────────────────────────────────────────────────────────────────────
 //   v5 NEW INSIGHTS (verified by NQ 5m 10y backtest):
@@ -24,6 +27,13 @@
 //     9. Strong body continuation     — D4 +0.16 ATR (small bias)
 //    10. Multi-TF alignment          — B4 d=+0.03 (small)
 //    11. EMA20 touch counter         — A2 REVERSE 통설 학습용
+//
+//   🆕 PHASE 4 (v5.1 — round figures):
+//    12. R500 up + 전고점 break → SHORT marker
+//        · G2 verified: signed h2y -0.127, l2y -0.191, P3 -0.109 (robust)
+//        · G3 ATM grid: P3 PF **4.56** with SL 0.3 / PT 0.2 / TD 0.2 / H 12
+//        · N=1,197 P3 (~520/y recent), WR 63%, expectancy +0.41 ATR
+//    13. KST 21 + R1000 down + PL → SHORT extreme (rare, N=150 caveat)
 //
 //   ───────────────────────────────────────────────────────────────────────
 //   REJECTED 통설 (1줄 인지용):
@@ -115,6 +125,14 @@ i_v5_topbuy_pct     = input.float(0.236, "Top Buy fib threshold (default 23.6%)"
                                        minval=0.1, maxval=0.5, step=0.05, group=grp_v5)
 i_v5_topbuy_lookback= input.int(5,      "Top Buy 'recent SH' lookback (bars)", minval=3, maxval=20, group=grp_v5)
 
+// ── 🆕 5.1 Phase 4 — Round Figures (G2 + G3) ──
+grp_v51 = "5.1 🆕 v5.1 Round Figures (G2/G3)"
+i_v51_show_round500_short = input.bool(true,  "🔴 R500 up + 전고점 → SHORT (P3 PF 4.56)",   group=grp_v51)
+i_v51_show_round1000      = input.bool(true,  "R1000 up/down breakouts (markers)",          group=grp_v51)
+i_v51_show_kst21_extreme  = input.bool(true,  "💀 KST 21 + R1000 + PL extreme (rare)",      group=grp_v51)
+i_v51_round500_step       = input.float(500,  "Round 500 step (pt)", minval=100, step=100,  group=grp_v51)
+i_v51_round1000_step      = input.float(1000, "Round 1000 step (pt)", minval=500, step=500, group=grp_v51)
+
 // ── 6. Display ──
 grp_disp = "6. Display"
 i_ref_hud_pos = input.string("top_left", "Reference HUD 위치",
@@ -128,6 +146,7 @@ i_alert_5m_a   = input.bool(true, "5m L3/S2 Tier A alerts",       group=grp_aler
 i_alert_burnx  = input.bool(true, "1m BURN_X alerts",             group=grp_alert)
 i_alert_burst  = input.bool(true, "Burst alerts (CONT/REV/STOP)", group=grp_alert)
 i_alert_v5     = input.bool(true, "🆕 v5 alerts (KST hour/CONF/Top Buy/04:30 GUARD)", group=grp_alert)
+i_alert_v51    = input.bool(true, "🆕 v5.1 alerts (R500 SHORT / KST21 R1000 extreme)", group=grp_alert)
 
 
 // ════════════════════════════════════════════════════════════════════════════
@@ -328,6 +347,47 @@ v5_anti_burnx_squeeze = v5_kst_04_long and squeeze_active          // GUARD: SKI
 
 // Combined CONF flag (any LONG conf active)
 v5_any_conf_long = v5_conf_kst14_mon or v5_conf_kst19_mon or v5_conf_burnx_clean
+
+
+// ════════════════════════════════════════════════════════════════════════════
+// 2.6 🆕 v5.1 — ROUND FIGURE SIGNALS (Phase G2 + G3 verified)
+// ════════════════════════════════════════════════════════════════════════════
+//
+// Source: G2 pivot-based + G3 ATM 288-grid (P3 PF 4.56 with tight SL 0.3 ATR)
+// Re-uses last_sh_price / last_sl_price from Phase 2 (Top Buy detection)
+
+// ── Round figure cross detection (gap-safe, prev_close reference) ──
+prev_close = close[1]
+r500_above  = math.floor(prev_close / i_v51_round500_step)  * i_v51_round500_step  + i_v51_round500_step
+r500_below  = math.ceil(prev_close / i_v51_round500_step)   * i_v51_round500_step  - i_v51_round500_step
+r1000_above = math.floor(prev_close / i_v51_round1000_step) * i_v51_round1000_step + i_v51_round1000_step
+r1000_below = math.ceil(prev_close / i_v51_round1000_step)  * i_v51_round1000_step - i_v51_round1000_step
+
+crossed_500_up    = high >= r500_above  and prev_close < r500_above
+crossed_500_down  = low  <= r500_below  and prev_close > r500_below
+crossed_1000_up   = high >= r1000_above and prev_close < r1000_above
+crossed_1000_down = low  <= r1000_below and prev_close > r1000_below
+
+// ── Pivot break (re-use from Phase 2) ──
+broke_pivot_high = not na(last_sh_price) and high > last_sh_price
+broke_pivot_low  = not na(last_sl_price) and low < last_sl_price
+
+// ── 🔴 G3 best signal: R500 up + 전고점 break → SHORT ──
+//   Verified P3 PF 4.56 (cost-adj) with ATM SL 0.3 / PT 0.2 / TD 0.2 / H 12
+v51_r500_up_PH_short = is_tf_5m and crossed_500_up and broke_pivot_high
+
+// ── R1000 markers (raw, distribution edge) ──
+v51_r1000_up_PH_short = is_tf_5m and crossed_1000_up   and broke_pivot_high
+v51_r1000_down_PL_long= is_tf_5m and crossed_1000_down and broke_pivot_low
+
+// ── 💀 KST 21 + R1000 down + PL → SHORT extreme (G2 confluence, rare) ──
+v51_kst21_r1000_pl_extreme = is_tf_5m and kst_h == 21 and kst_m < 5 and
+                              crossed_1000_down and broke_pivot_low
+
+// ── 🆕 ATM v2.1 권장값 (R500 short specific, G3 optimal) ──
+//   SL 0.3 ATR / Pre-trail 0.2 ATR / Trail dist 0.2 ATR
+sl_ticks_r500   = math.round(0.3 * atr14 * 4)
+trail_ticks_r500= math.round(0.2 * atr14 * 4)
 
 
 // ════════════════════════════════════════════════════════════════════════════
@@ -681,6 +741,57 @@ if i_show_v5 and i_v5_show_touch and ema20_touch_event
 
 
 // ════════════════════════════════════════════════════════════════════════════
+// 8.6 🆕 v5.1 PLOTSHAPES — Round Figure Signals (Phase G2/G3)
+// ════════════════════════════════════════════════════════════════════════════
+
+// ── 🔴 R500 up + 전고점 break → SHORT (G3 verified P3 PF 4.56) ──
+plotshape(i_show_v5 and i_v51_show_round500_short and v51_r500_up_PH_short,
+          title="🆕 R500 up + PH → SHORT",
+          style=shape.triangledown, location=location.abovebar,
+          color=color.new(color.orange, 0), size=size.normal,
+          text="R500↑PH", textcolor=color.orange)
+
+if i_show_v5 and i_v51_show_round500_short and v51_r500_up_PH_short
+    label.new(bar_index, high,
+              "🔴 R500+PH SHORT\nATM: " + str.tostring(sl_ticks_r500) + "/" + str.tostring(trail_ticks_r500) + "/" + str.tostring(trail_ticks_r500),
+              color=color.new(color.orange, 0),
+              textcolor=color.white,
+              style=label.style_label_down,
+              size=size.small,
+              yloc=yloc.abovebar)
+
+// ── R1000 up + PH (보조 마커, less robust) ──
+plotshape(i_show_v5 and i_v51_show_round1000 and v51_r1000_up_PH_short,
+          title="🆕 R1000 up + PH",
+          style=shape.triangledown, location=location.abovebar,
+          color=color.new(color.fuchsia, 30), size=size.tiny,
+          text="R1k↑PH", textcolor=color.fuchsia)
+
+// ── R1000 down + PL (G의 K-Bounce — REJECTED by G2, marker 만 유지) ──
+plotshape(i_show_v5 and i_v51_show_round1000 and v51_r1000_down_PL_long,
+          title="🆕 R1000 down + PL (mild SHORT cont, NOT bounce)",
+          style=shape.triangleup, location=location.belowbar,
+          color=color.new(color.gray, 50), size=size.tiny,
+          text="R1k↓PL", textcolor=color.silver)
+
+// ── 💀 KST 21 + R1000 down + PL → SHORT extreme (rare event) ──
+plotshape(i_show_v5 and i_v51_show_kst21_extreme and v51_kst21_r1000_pl_extreme,
+          title="💀 KST21 + R1000 + PL extreme",
+          style=shape.labeldown, location=location.abovebar,
+          color=color.new(color.red, 0), size=size.large,
+          text="💀 SHORT", textcolor=color.white)
+
+if i_show_v5 and i_v51_show_kst21_extreme and v51_kst21_r1000_pl_extreme
+    label.new(bar_index, high,
+              "💀 KST21 + R1000 + PL\nN=150 / 10y\nl2y -2.6 ATR (extreme)",
+              color=color.new(color.red, 0),
+              textcolor=color.white,
+              style=label.style_label_down,
+              size=size.normal,
+              yloc=yloc.abovebar)
+
+
+// ════════════════════════════════════════════════════════════════════════════
 // 9. HUD — Reference + Signal (v5 extended)
 // ════════════════════════════════════════════════════════════════════════════
 
@@ -726,8 +837,8 @@ if i_show_ref_hud and barstate.islast
     table.cell(ref_hud, 1, 5, z_txt, bgcolor=cell_bg, text_color=z_col, text_size=size.tiny)
 
 
-// ── Signal HUD (v5: 8 rows = v4 5 + v5 3 new) ──
-var table sig_hud = table.new(position=sig_hud_pos, columns=2, rows=8, border_width=1)
+// ── Signal HUD (v5.1: 9 rows = v4 5 + v5 3 + v5.1 1 round) ──
+var table sig_hud = table.new(position=sig_hud_pos, columns=2, rows=9, border_width=1)
 
 if i_show_sig_hud and barstate.islast
     cell_bg = color.new(color.black, 60)
@@ -806,6 +917,17 @@ if i_show_sig_hud and barstate.islast
     atm_txt = str.tostring(sl_ticks_v2) + "/" + str.tostring(trail_ticks_v2) + "/" + str.tostring(trail_ticks_v2)
     table.cell(sig_hud, 1, 7, atm_txt, bgcolor=cell_bg, text_color=color.lime, text_size=size.tiny)
 
+    // 🆕 Row 8: v5.1 Round Figure
+    table.cell(sig_hud, 0, 8, "🔴 R500", bgcolor=cell_bg, text_color=color.orange, text_size=size.tiny)
+    r500_txt = v51_r500_up_PH_short ? "FIRE+PH ⭐ATM " + str.tostring(sl_ticks_r500) + "/" + str.tostring(trail_ticks_r500) :
+                v51_kst21_r1000_pl_extreme ? "💀 KST21 R1k+PL" :
+                crossed_500_up ? "↑(no PH)" :
+                crossed_500_down ? "↓500" : "-"
+    r500_col = v51_r500_up_PH_short ? color.orange :
+                v51_kst21_r1000_pl_extreme ? color.red :
+                (crossed_500_up or crossed_500_down) ? color.silver : color.gray
+    table.cell(sig_hud, 1, 8, r500_txt, bgcolor=cell_bg, text_color=r500_col, text_size=size.tiny)
+
 
 // ════════════════════════════════════════════════════════════════════════════
 // 10. ALERTS — v4 preserved + 🆕 v5
@@ -845,3 +967,14 @@ alertcondition(v5_kst_14_long,         title="🆕 KST 14 LONG",              me
 alertcondition(v5_conf_kst14_mon,      title="🆕 🔥 CONF KST14+Mon",         message="MNQ CONF: KST14 + Monday LONG (P3 PF 1.22 ⭐⭐)")
 alertcondition(v5_conf_kst19_mon,      title="🆕 🔥 CONF KST19+Mon",         message="MNQ CONF: KST19 + Monday LONG (P3 PF 1.09 ⭐)")
 alertcondition(top_buy_risk and is_tf_5m, title="🚨 Top Buy Risk",          message="MNQ Top Buy Risk — entry 금지 (사용자 약점 L5)")
+
+// 🆕 v5.1 alerts (Phase G2/G3)
+if i_alert_v51 and v51_r500_up_PH_short
+    alert("🔴 MNQ R500 up + 전고점 break → SHORT (G3 P3 PF 4.56) — ATM SL " + str.tostring(sl_ticks_r500) + "/Trail " + str.tostring(trail_ticks_r500), alert.freq_once_per_bar)
+if i_alert_v51 and v51_kst21_r1000_pl_extreme
+    alert("💀 MNQ KST 21 + R1000 down + PL → SHORT extreme (G2 l2y -2.6 ATR, rare)", alert.freq_once_per_bar)
+
+alertcondition(v51_r500_up_PH_short,        title="🆕 v5.1 R500 up+PH SHORT",       message="MNQ R500 up + 전고점 break → SHORT (G3 P3 PF 4.56)")
+alertcondition(v51_kst21_r1000_pl_extreme,  title="🆕 v5.1 KST21+R1000+PL extreme", message="MNQ KST 21 + R1000 down + PL → SHORT extreme")
+alertcondition(crossed_1000_up,             title="🆕 v5.1 R1000 up cross",         message="MNQ price crossed up through R1000 round figure")
+alertcondition(crossed_1000_down,           title="🆕 v5.1 R1000 down cross",       message="MNQ price crossed down through R1000 round figure")
