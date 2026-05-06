@@ -1,0 +1,1445 @@
+{
+  "R100": {
+    "round_step": 100,
+    "all_up": {
+      "n": 45769,
+      "w_eq": {
+        "mu_signed_post_cost": 0.02605649900121278,
+        "mu_signed_pre_cost": 0.048056499001212775,
+        "mu_rev_mfe": 2.863628177244903,
+        "mu_cont_mfe": 2.7048796162244106
+      },
+      "w_h2y": {
+        "mu_signed_post_cost": -0.006765391136455951,
+        "mu_signed_pre_cost": 0.015234608863544042,
+        "mu_rev_mfe": 2.874785878086381,
+        "mu_cont_mfe": 2.6661226586436055
+      },
+      "w_h1y": {
+        "mu_signed_post_cost": -0.034880922562172706,
+        "mu_signed_pre_cost": -0.01288092256217272,
+        "mu_rev_mfe": 2.8895473706337684,
+        "mu_cont_mfe": 2.63279656755124
+      },
+      "last_2y": {
+        "mu_signed_post_cost": -0.029630373489481814,
+        "mu_signed_pre_cost": -0.007630373489481804,
+        "mu_rev_mfe": 2.8840095069451284,
+        "mu_cont_mfe": 2.60665426688295
+      },
+      "last_1y": {
+        "mu_signed_post_cost": -0.037861148177342464,
+        "mu_signed_pre_cost": -0.01586114817734247,
+        "mu_rev_mfe": 2.889481463212993,
+        "mu_cont_mfe": 2.6046979542282065
+      },
+      "by_period": {
+        "P1_2016_2019": {
+          "n": 7303,
+          "mu_signed_post_cost": 0.02111451899761414,
+          "mu_signed_pre_cost": 0.04311451899761411
+        },
+        "P2_2020_2022": {
+          "n": 18514,
+          "mu_signed_post_cost": 0.04658689698396738,
+          "mu_signed_pre_cost": 0.06858689698396736
+        },
+        "P3_2023+": {
+          "n": 19952,
+          "mu_signed_post_cost": 0.008814693253095423,
+          "mu_signed_pre_cost": 0.030814693253095417
+        }
+      }
+    },
+    "all_down": {
+      "n": 46843,
+      "w_eq": {
+        "mu_signed_post_cost": -0.005275025794508407,
+        "mu_signed_pre_cost": 0.016724974205491586,
+        "mu_rev_mfe": 2.7271346829729466,
+        "mu_cont_mfe": 2.9568851575442685
+      },
+      "w_h2y": {
+        "mu_signed_post_cost": -0.021907735634174825,
+        "mu_signed_pre_cost": 9.226436582517543e-05,
+        "mu_rev_mfe": 2.716710498157067,
+        "mu_cont_mfe": 2.971052642796991
+      },
+      "w_h1y": {
+        "mu_signed_post_cost": -0.032315943258898305,
+        "mu_signed_pre_cost": -0.010315943258898307,
+        "mu_rev_mfe": 2.7037382843725317,
+        "mu_cont_mfe": 2.984242134055713
+      },
+      "last_2y": {
+        "mu_signed_post_cost": -0.03301336286346759,
+        "mu_signed_pre_cost": -0.011013362863467624,
+        "mu_rev_mfe": 2.6940373090786593,
+        "mu_cont_mfe": 3.0078066199922135
+      },
+      "last_1y": {
+        "mu_signed_post_cost": -0.0027613251762028264,
+        "mu_signed_pre_cost": 0.019238674823797156,
+        "mu_rev_mfe": 2.6813587624471973,
+        "mu_cont_mfe": 2.96828505517308
+      },
+      "by_period": {
+        "P1_2016_2019": {
+          "n": 7268,
+          "mu_signed_post_cost": -0.025230015713639132,
+          "mu_signed_pre_cost": -0.003230015713639102
+        },
+        "P2_2020_2022": {
+          "n": 18832,
+          "mu_signed_post_cost": -0.0030579271671162646,
+          "mu_signed_pre_cost": 0.018942072832883728
+        },
+        "P3_2023+": {
+          "n": 20743,
+          "mu_signed_post_cost": -0.0002959742888827326,
+          "mu_signed_pre_cost": 0.021704025711117257
+        }
+      }
+    },
+    "up_+pivotHigh": {
+      "n": 14298,
+      "w_eq": {
+        "mu_signed_post_cost": 0.007751797795235185,
+        "mu_signed_pre_cost": 0.029751797795235194,
+        "mu_rev_mfe": 2.9887824192740355,
+        "mu_cont_mfe": 2.801868235927162
+      },
+      "w_h2y": {
+        "mu_signed_post_cost": -0.022587684243119337,
+        "mu_signed_pre_cost": -0.000587684243119358,
+        "mu_rev_mfe": 2.990004967609154,
+        "mu_cont_mfe": 2.769262343696821
+      },
+      "w_h1y": {
+        "mu_signed_post_cost": -0.05599227411038197,
+        "mu_signed_pre_cost": -0.03399227411038196,
+        "mu_rev_mfe": 2.9961436269723216,
+        "mu_cont_mfe": 2.728032651736017
+      },
+      "last_2y": {
+        "mu_signed_post_cost": -0.04710503298554074,
+        "mu_signed_pre_cost": -0.025105032985540742,
+        "mu_rev_mfe": 2.972912458206379,
+        "mu_cont_mfe": 2.6983139351448386
+      },
+      "last_1y": {
+        "mu_signed_post_cost": -0.06117448357406223,
+        "mu_signed_pre_cost": -0.03917448357406229,
+        "mu_rev_mfe": 2.9762142369846263,
+        "mu_cont_mfe": 2.6730769100481835
+      },
+      "by_period": {
+        "P1_2016_2019": {
+          "n": 2347,
+          "mu_signed_post_cost": 0.046795358671511196,
+          "mu_signed_pre_cost": 0.06879535867151121
+        },
+        "P2_2020_2022": {
+          "n": 5678,
+          "mu_signed_post_cost": -0.015663187834309842,
+          "mu_signed_pre_cost": 0.006336812165690162
+        },
+        "P3_2023+": {
+          "n": 6273,
+          "mu_signed_post_cost": 0.014337968850222755,
+          "mu_signed_pre_cost": 0.03633796885022275
+        }
+      }
+    },
+    "down_+pivotLow": {
+      "n": 15403,
+      "w_eq": {
+        "mu_signed_post_cost": -0.006403937395389867,
+        "mu_signed_pre_cost": 0.015596062604610134,
+        "mu_rev_mfe": 2.877217273238476,
+        "mu_cont_mfe": 3.165590430370608
+      },
+      "w_h2y": {
+        "mu_signed_post_cost": -0.02537315701618143,
+        "mu_signed_pre_cost": -0.0033731570161814207,
+        "mu_rev_mfe": 2.8803739285991825,
+        "mu_cont_mfe": 3.1732583259611036
+      },
+      "w_h1y": {
+        "mu_signed_post_cost": -0.03278880136250776,
+        "mu_signed_pre_cost": -0.010788801362507735,
+        "mu_rev_mfe": 2.8835446611602555,
+        "mu_cont_mfe": 3.1818407550774404
+      },
+      "last_2y": {
+        "mu_signed_post_cost": -0.05511205812622939,
+        "mu_signed_pre_cost": -0.03311205812622939,
+        "mu_rev_mfe": 2.8785117142261,
+        "mu_cont_mfe": 3.261789418758827
+      },
+      "last_1y": {
+        "mu_signed_post_cost": 0.11207344818801228,
+        "mu_signed_pre_cost": 0.13407344818801226,
+        "mu_rev_mfe": 2.945954848438373,
+        "mu_cont_mfe": 3.0808654965257842
+      },
+      "by_period": {
+        "P1_2016_2019": {
+          "n": 2482,
+          "mu_signed_post_cost": 0.003999722092798292,
+          "mu_signed_pre_cost": 0.025999722092798293
+        },
+        "P2_2020_2022": {
+          "n": 6213,
+          "mu_signed_post_cost": -0.02140632824463195,
+          "mu_signed_pre_cost": 0.0005936717553680386
+        },
+        "P3_2023+": {
+          "n": 6708,
+          "mu_signed_post_cost": 0.0036419736804387047,
+          "mu_signed_pre_cost": 0.025641973680438704
+        }
+      }
+    },
+    "up_NOTpivotHigh": {
+      "n": 31471,
+      "w_eq": {
+        "mu_signed_post_cost": 0.0343727462714955,
+        "mu_signed_pre_cost": 0.056372746271495494,
+        "mu_rev_mfe": 2.8067677230956067,
+        "mu_cont_mfe": 2.660815452883241
+      },
+      "w_h2y": {
+        "mu_signed_post_cost": 0.00032486764359162705,
+        "mu_signed_pre_cost": 0.022324867643591605,
+        "mu_rev_mfe": 2.823154097812138,
+        "mu_cont_mfe": 2.619903880329359
+      },
+      "w_h1y": {
+        "mu_signed_post_cost": -0.025518825213035803,
+        "mu_signed_pre_cost": -0.0035188252130358,
+        "mu_rev_mfe": 2.842275905014138,
+        "mu_cont_mfe": 2.590562914757745
+      },
+      "last_2y": {
+        "mu_signed_post_cost": -0.02193192263728198,
+        "mu_signed_pre_cost": 6.8077362717997e-05,
+        "mu_rev_mfe": 2.8448433646203157,
+        "mu_cont_mfe": 2.5662736545223908
+      },
+      "last_1y": {
+        "mu_signed_post_cost": -0.027636722424283715,
+        "mu_signed_pre_cost": -0.005636722424283724,
+        "mu_rev_mfe": 2.8514434566088553,
+        "mu_cont_mfe": 2.574709299882702
+      },
+      "by_period": {
+        "P1_2016_2019": {
+          "n": 4956,
+          "mu_signed_post_cost": 0.008952910701682634,
+          "mu_signed_pre_cost": 0.030952910701682636
+        },
+        "P2_2020_2022": {
+          "n": 12836,
+          "mu_signed_post_cost": 0.07412319969495039,
+          "mu_signed_pre_cost": 0.09612319969495038
+        },
+        "P3_2023+": {
+          "n": 13679,
+          "mu_signed_post_cost": 0.00628179553975527,
+          "mu_signed_pre_cost": 0.028281795539755288
+        }
+      }
+    },
+    "down_NOTpivotLow": {
+      "n": 31440,
+      "w_eq": {
+        "mu_signed_post_cost": -0.004721952467906086,
+        "mu_signed_pre_cost": 0.0172780475320939,
+        "mu_rev_mfe": 2.6536066251529733,
+        "mu_cont_mfe": 2.8546368332012624
+      },
+      "w_h2y": {
+        "mu_signed_post_cost": -0.020229006745041463,
+        "mu_signed_pre_cost": 0.0017709932549585014,
+        "mu_rev_mfe": 2.637428212255445,
+        "mu_cont_mfe": 2.873099613581829
+      },
+      "w_h1y": {
+        "mu_signed_post_cost": -0.032087636181758736,
+        "mu_signed_pre_cost": -0.01008763618175876,
+        "mu_rev_mfe": 2.616923512621541,
+        "mu_cont_mfe": 2.888836845940909
+      },
+      "last_2y": {
+        "mu_signed_post_cost": -0.022382559627994604,
+        "mu_signed_pre_cost": -0.00038255962799462726,
+        "mu_rev_mfe": 2.6052940108981546,
+        "mu_cont_mfe": 2.885625598589
+      },
+      "last_1y": {
+        "mu_signed_post_cost": -0.0580740523504463,
+        "mu_signed_pre_cost": -0.036074052350446334,
+        "mu_rev_mfe": 2.553910162279861,
+        "mu_cont_mfe": 2.9140581772399665
+      },
+      "by_period": {
+        "P1_2016_2019": {
+          "n": 4786,
+          "mu_signed_post_cost": -0.040388438036158485,
+          "mu_signed_pre_cost": -0.0183884380361585
+        },
+        "P2_2020_2022": {
+          "n": 12619,
+          "mu_signed_post_cost": 0.00597595950334929,
+          "mu_signed_pre_cost": 0.027975959503349277
+        },
+        "P3_2023+": {
+          "n": 14035,
+          "mu_signed_post_cost": -0.0021781085944195047,
+          "mu_signed_pre_cost": 0.019821891405580487
+        }
+      }
+    },
+    "trade_sim_down_PL_LONG": {
+      "n": 15403,
+      "wr": 0.4458222424203077,
+      "pf": 1.0037664580284518,
+      "expectancy_atr": 0.00309365332474279,
+      "p3_n": 6708,
+      "p3_pf": 1.0240038861019098
+    },
+    "trade_sim_up_PH_SHORT": {
+      "n": 14298,
+      "wr": 0.4297803888655756,
+      "pf": 0.9468935024474889,
+      "expectancy_atr": -0.0438284162587139,
+      "p3_n": 6273,
+      "p3_pf": 0.9399661375221394
+    }
+  },
+  "R250": {
+    "round_step": 250,
+    "all_up": {
+      "n": 18049,
+      "w_eq": {
+        "mu_signed_post_cost": 0.040360533893682445,
+        "mu_signed_pre_cost": 0.06236053389368241,
+        "mu_rev_mfe": 2.8537894999247984,
+        "mu_cont_mfe": 2.7346356268073455
+      },
+      "w_h2y": {
+        "mu_signed_post_cost": -0.0063902077634952655,
+        "mu_signed_pre_cost": 0.015609792236504716,
+        "mu_rev_mfe": 2.8640724851356154,
+        "mu_cont_mfe": 2.6675753532372406
+      },
+      "w_h1y": {
+        "mu_signed_post_cost": -0.014065741577111568,
+        "mu_signed_pre_cost": 0.007934258422888418,
+        "mu_rev_mfe": 2.8556759682196553,
+        "mu_cont_mfe": 2.623621806633708
+      },
+      "last_2y": {
+        "mu_signed_post_cost": -0.030566374924442,
+        "mu_signed_pre_cost": -0.008566374924442,
+        "mu_rev_mfe": 2.86236154582576,
+        "mu_cont_mfe": 2.582000448820248
+      },
+      "last_1y": {
+        "mu_signed_post_cost": 0.019912646120363055,
+        "mu_signed_pre_cost": 0.04191264612036305,
+        "mu_rev_mfe": 2.8325556326333543,
+        "mu_cont_mfe": 2.595541573145577
+      },
+      "by_period": {
+        "P1_2016_2019": {
+          "n": 3176,
+          "mu_signed_post_cost": 0.24980324944914606,
+          "mu_signed_pre_cost": 0.271803249449146
+        },
+        "P2_2020_2022": {
+          "n": 7090,
+          "mu_signed_post_cost": -0.0310459908773999,
+          "mu_signed_pre_cost": -0.009045990877399927
+        },
+        "P3_2023+": {
+          "n": 7783,
+          "mu_signed_post_cost": 0.019941954428543233,
+          "mu_signed_pre_cost": 0.041941954428543204
+        }
+      }
+    },
+    "all_down": {
+      "n": 18624,
+      "w_eq": {
+        "mu_signed_post_cost": 0.04577603812571848,
+        "mu_signed_pre_cost": 0.06777603812571847,
+        "mu_rev_mfe": 2.7744158094732714,
+        "mu_cont_mfe": 2.951156966587016
+      },
+      "w_h2y": {
+        "mu_signed_post_cost": 0.021932065042841075,
+        "mu_signed_pre_cost": 0.04393206504284108,
+        "mu_rev_mfe": 2.7464271853616093,
+        "mu_cont_mfe": 2.9568556577266496
+      },
+      "w_h1y": {
+        "mu_signed_post_cost": 0.024685605284339558,
+        "mu_signed_pre_cost": 0.046685605284339515,
+        "mu_rev_mfe": 2.724877097864395,
+        "mu_cont_mfe": 2.9456674016011783
+      },
+      "last_2y": {
+        "mu_signed_post_cost": 0.040676477978972364,
+        "mu_signed_pre_cost": 0.06267647797897238,
+        "mu_rev_mfe": 2.7217946433770277,
+        "mu_cont_mfe": 2.9701144253833056
+      },
+      "last_1y": {
+        "mu_signed_post_cost": 0.12031716607857726,
+        "mu_signed_pre_cost": 0.1423171660785773,
+        "mu_rev_mfe": 2.7472294497298497,
+        "mu_cont_mfe": 2.886522229291572
+      },
+      "by_period": {
+        "P1_2016_2019": {
+          "n": 3284,
+          "mu_signed_post_cost": 0.23587349886507858,
+          "mu_signed_pre_cost": 0.2578734988650786
+        },
+        "P2_2020_2022": {
+          "n": 7328,
+          "mu_signed_post_cost": -0.015369812501660465,
+          "mu_signed_pre_cost": 0.006630187498339516
+        },
+        "P3_2023+": {
+          "n": 8012,
+          "mu_signed_post_cost": 0.023783618296633904,
+          "mu_signed_pre_cost": 0.0457836182966339
+        }
+      }
+    },
+    "up_+pivotHigh": {
+      "n": 5711,
+      "w_eq": {
+        "mu_signed_post_cost": 0.09242602281254463,
+        "mu_signed_pre_cost": 0.1144260228125446,
+        "mu_rev_mfe": 2.945391556519375,
+        "mu_cont_mfe": 2.876721311366925
+      },
+      "w_h2y": {
+        "mu_signed_post_cost": 0.02481513505073421,
+        "mu_signed_pre_cost": 0.04681513505073419,
+        "mu_rev_mfe": 2.9969537633441043,
+        "mu_cont_mfe": 2.8282742805948216
+      },
+      "w_h1y": {
+        "mu_signed_post_cost": 0.007592809823001516,
+        "mu_signed_pre_cost": 0.02959280982300146,
+        "mu_rev_mfe": 3.015661472065941,
+        "mu_cont_mfe": 2.7915714029394696
+      },
+      "last_2y": {
+        "mu_signed_post_cost": -0.04787255867395583,
+        "mu_signed_pre_cost": -0.025872558673955753,
+        "mu_rev_mfe": 3.0173803410387765,
+        "mu_cont_mfe": 2.745727745417392
+      },
+      "last_1y": {
+        "mu_signed_post_cost": 0.017860073084069773,
+        "mu_signed_pre_cost": 0.0398600730840698,
+        "mu_rev_mfe": 3.028388612476721,
+        "mu_cont_mfe": 2.692810802592144
+      },
+      "by_period": {
+        "P1_2016_2019": {
+          "n": 965,
+          "mu_signed_post_cost": 0.2570386401452526,
+          "mu_signed_pre_cost": 0.2790386401452525
+        },
+        "P2_2020_2022": {
+          "n": 2253,
+          "mu_signed_post_cost": 0.1461566861930817,
+          "mu_signed_pre_cost": 0.16815668619308166
+        },
+        "P3_2023+": {
+          "n": 2493,
+          "mu_signed_post_cost": -0.01985089669103065,
+          "mu_signed_pre_cost": 0.002149103308969368
+        }
+      }
+    },
+    "down_+pivotLow": {
+      "n": 6349,
+      "w_eq": {
+        "mu_signed_post_cost": 0.03381293963272655,
+        "mu_signed_pre_cost": 0.055812939632726544,
+        "mu_rev_mfe": 2.919298059117726,
+        "mu_cont_mfe": 3.1473313741544184
+      },
+      "w_h2y": {
+        "mu_signed_post_cost": 0.01073047630346047,
+        "mu_signed_pre_cost": 0.03273047630346046,
+        "mu_rev_mfe": 2.8999382324608116,
+        "mu_cont_mfe": 3.151109302208561
+      },
+      "w_h1y": {
+        "mu_signed_post_cost": 0.005723256494811709,
+        "mu_signed_pre_cost": 0.027723256494811718,
+        "mu_rev_mfe": 2.875677501530397,
+        "mu_cont_mfe": 3.1351819299026094
+      },
+      "last_2y": {
+        "mu_signed_post_cost": 0.005057150362857922,
+        "mu_signed_pre_cost": 0.027057150362857895,
+        "mu_rev_mfe": 2.8899687882552634,
+        "mu_cont_mfe": 3.216127884360925
+      },
+      "last_1y": {
+        "mu_signed_post_cost": 0.1451959385327079,
+        "mu_signed_pre_cost": 0.16719593853270798,
+        "mu_rev_mfe": 2.9563084244304774,
+        "mu_cont_mfe": 3.0558183190732624
+      },
+      "by_period": {
+        "P1_2016_2019": {
+          "n": 1128,
+          "mu_signed_post_cost": 0.11410788450804991,
+          "mu_signed_pre_cost": 0.13610788450804998
+        },
+        "P2_2020_2022": {
+          "n": 2612,
+          "mu_signed_post_cost": -0.0019112407023795701,
+          "mu_signed_pre_cost": 0.020088759297620436
+        },
+        "P3_2023+": {
+          "n": 2609,
+          "mu_signed_post_cost": 0.034862713958495974,
+          "mu_signed_pre_cost": 0.05686271395849597
+        }
+      }
+    },
+    "up_NOTpivotHigh": {
+      "n": 12338,
+      "w_eq": {
+        "mu_signed_post_cost": 0.016260517098770622,
+        "mu_signed_pre_cost": 0.03826051709877061,
+        "mu_rev_mfe": 2.811388839752029,
+        "mu_cont_mfe": 2.6688671599148366
+      },
+      "w_h2y": {
+        "mu_signed_post_cost": -0.02058709536099144,
+        "mu_signed_pre_cost": 0.0014129046390085665,
+        "mu_rev_mfe": 2.803618075717069,
+        "mu_cont_mfe": 2.594465289287119
+      },
+      "w_h1y": {
+        "mu_signed_post_cost": -0.023660836959195602,
+        "mu_signed_pre_cost": -0.0016608369591956098,
+        "mu_rev_mfe": 2.7847997521331145,
+        "mu_cont_mfe": 2.549217366273589
+      },
+      "last_2y": {
+        "mu_signed_post_cost": -0.028156402263147837,
+        "mu_signed_pre_cost": -0.00615640226314787,
+        "mu_rev_mfe": 2.7990816691693987,
+        "mu_cont_mfe": 2.5083877963026584
+      },
+      "last_1y": {
+        "mu_signed_post_cost": 0.020801389084531233,
+        "mu_signed_pre_cost": 0.042801389084531224,
+        "mu_rev_mfe": 2.7477619712578742,
+        "mu_cont_mfe": 2.553424999570774
+      },
+      "by_period": {
+        "P1_2016_2019": {
+          "n": 2211,
+          "mu_signed_post_cost": 0.2466453335641426,
+          "mu_signed_pre_cost": 0.2686453335641425
+        },
+        "P2_2020_2022": {
+          "n": 4837,
+          "mu_signed_post_cost": -0.11358426489844499,
+          "mu_signed_pre_cost": -0.09158426489844501
+        },
+        "P3_2023+": {
+          "n": 5290,
+          "mu_signed_post_cost": 0.038694993717975655,
+          "mu_signed_pre_cost": 0.060694993717975654
+        }
+      }
+    },
+    "down_NOTpivotLow": {
+      "n": 12275,
+      "w_eq": {
+        "mu_signed_post_cost": 0.05196371326478209,
+        "mu_signed_pre_cost": 0.07396371326478209,
+        "mu_rev_mfe": 2.699478342834359,
+        "mu_cont_mfe": 2.84968964979309
+      },
+      "w_h2y": {
+        "mu_signed_post_cost": 0.027702514352393744,
+        "mu_signed_pre_cost": 0.04970251435239374,
+        "mu_rev_mfe": 2.667346642739288,
+        "mu_cont_mfe": 2.8567867447573705
+      },
+      "w_h1y": {
+        "mu_signed_post_cost": 0.034669108789550845,
+        "mu_signed_pre_cost": 0.05666910878955083,
+        "mu_rev_mfe": 2.6454820621914803,
+        "mu_cont_mfe": 2.84588973278039
+      },
+      "last_2y": {
+        "mu_signed_post_cost": 0.057224688918575704,
+        "mu_signed_pre_cost": 0.07922468891857569,
+        "mu_rev_mfe": 2.63680202759457,
+        "mu_cont_mfe": 2.8471938431051624
+      },
+      "last_1y": {
+        "mu_signed_post_cost": 0.10626797692800934,
+        "mu_signed_pre_cost": 0.12826797692800937,
+        "mu_rev_mfe": 2.6291613228400843,
+        "mu_cont_mfe": 2.7909197315325
+      },
+      "by_period": {
+        "P1_2016_2019": {
+          "n": 2156,
+          "mu_signed_post_cost": 0.2995801839275686,
+          "mu_signed_pre_cost": 0.3215801839275686
+        },
+        "P2_2020_2022": {
+          "n": 4716,
+          "mu_signed_post_cost": -0.02282396634808156,
+          "mu_signed_pre_cost": -0.0008239663480815732
+        },
+        "P3_2023+": {
+          "n": 5403,
+          "mu_signed_post_cost": 0.018433745895782887,
+          "mu_signed_pre_cost": 0.040433745895782885
+        }
+      }
+    },
+    "trade_sim_down_PL_LONG": {
+      "n": 6349,
+      "wr": 0.45266971176563237,
+      "pf": 1.0309808916666763,
+      "expectancy_atr": 0.025141003193417822,
+      "p3_n": 2609,
+      "p3_pf": 1.0150552116366718
+    },
+    "trade_sim_up_PH_SHORT": {
+      "n": 5711,
+      "wr": 0.40991069865172475,
+      "pf": 0.8670065525442141,
+      "expectancy_atr": -0.11375660777587451,
+      "p3_n": 2493,
+      "p3_pf": 0.9276874695819051
+    }
+  },
+  "R500": {
+    "round_step": 500,
+    "all_up": {
+      "n": 8763,
+      "w_eq": {
+        "mu_signed_post_cost": 0.010153150033879507,
+        "mu_signed_pre_cost": 0.03215315003387952,
+        "mu_rev_mfe": 2.9077001430106426,
+        "mu_cont_mfe": 2.7372715317764063
+      },
+      "w_h2y": {
+        "mu_signed_post_cost": -0.025485488903600955,
+        "mu_signed_pre_cost": -0.0034854889036009928,
+        "mu_rev_mfe": 2.9004804958579227,
+        "mu_cont_mfe": 2.6802894720393318
+      },
+      "w_h1y": {
+        "mu_signed_post_cost": -0.03918921062379095,
+        "mu_signed_pre_cost": -0.01718921062379095,
+        "mu_rev_mfe": 2.894679351193656,
+        "mu_cont_mfe": 2.638026280899455
+      },
+      "last_2y": {
+        "mu_signed_post_cost": -0.014293133083013429,
+        "mu_signed_pre_cost": 0.007706866916986554,
+        "mu_rev_mfe": 2.8953280361530545,
+        "mu_cont_mfe": 2.645198774690971
+      },
+      "last_1y": {
+        "mu_signed_post_cost": -0.0625733261710363,
+        "mu_signed_pre_cost": -0.04057332617103638,
+        "mu_rev_mfe": 2.9037277589667574,
+        "mu_cont_mfe": 2.5635591742974655
+      },
+      "by_period": {
+        "P1_2016_2019": {
+          "n": 1296,
+          "mu_signed_post_cost": 0.251988889491667,
+          "mu_signed_pre_cost": 0.2739888894916669
+        },
+        "P2_2020_2022": {
+          "n": 3602,
+          "mu_signed_post_cost": -0.0824729098581058,
+          "mu_signed_pre_cost": -0.0604729098581058
+        },
+        "P3_2023+": {
+          "n": 3865,
+          "mu_signed_post_cost": 0.015384702270267265,
+          "mu_signed_pre_cost": 0.03738470227026726
+        }
+      }
+    },
+    "all_down": {
+      "n": 9194,
+      "w_eq": {
+        "mu_signed_post_cost": -0.03757736028637599,
+        "mu_signed_pre_cost": -0.015577360286376001,
+        "mu_rev_mfe": 2.774799294786072,
+        "mu_cont_mfe": 3.006697372859865
+      },
+      "w_h2y": {
+        "mu_signed_post_cost": -0.05525730009961612,
+        "mu_signed_pre_cost": -0.03325730009961612,
+        "mu_rev_mfe": 2.74287383769886,
+        "mu_cont_mfe": 3.0133327118625175
+      },
+      "w_h1y": {
+        "mu_signed_post_cost": -0.032655408701038016,
+        "mu_signed_pre_cost": -0.010655408701038043,
+        "mu_rev_mfe": 2.724105159541147,
+        "mu_cont_mfe": 2.996833482463143
+      },
+      "last_2y": {
+        "mu_signed_post_cost": -0.022567673053410627,
+        "mu_signed_pre_cost": -0.0005676730534106558,
+        "mu_rev_mfe": 2.732444287564522,
+        "mu_cont_mfe": 3.0353143696846656
+      },
+      "last_1y": {
+        "mu_signed_post_cost": 0.1439363752876933,
+        "mu_signed_pre_cost": 0.1659363752876933,
+        "mu_rev_mfe": 2.7482537247660943,
+        "mu_cont_mfe": 2.8835015552531984
+      },
+      "by_period": {
+        "P1_2016_2019": {
+          "n": 1318,
+          "mu_signed_post_cost": 0.2538154594831152,
+          "mu_signed_pre_cost": 0.27581545948311514
+        },
+        "P2_2020_2022": {
+          "n": 3814,
+          "mu_signed_post_cost": -0.08818202729513898,
+          "mu_signed_pre_cost": -0.06618202729513901
+        },
+        "P3_2023+": {
+          "n": 4062,
+          "mu_signed_post_cost": -0.08461072722009516,
+          "mu_signed_pre_cost": -0.06261072722009514
+        }
+      }
+    },
+    "up_+pivotHigh": {
+      "n": 2741,
+      "w_eq": {
+        "mu_signed_post_cost": -0.043796219459773224,
+        "mu_signed_pre_cost": -0.02179621945977321,
+        "mu_rev_mfe": 3.0143505192342723,
+        "mu_cont_mfe": 2.8365471845209673
+      },
+      "w_h2y": {
+        "mu_signed_post_cost": -0.12648201526901665,
+        "mu_signed_pre_cost": -0.10448201526901667,
+        "mu_rev_mfe": 3.0690802164384157,
+        "mu_cont_mfe": 2.8058345876702995
+      },
+      "w_h1y": {
+        "mu_signed_post_cost": -0.2089122769943405,
+        "mu_signed_pre_cost": -0.18691227699434063,
+        "mu_rev_mfe": 3.135392056099639,
+        "mu_cont_mfe": 2.748024915296286
+      },
+      "last_2y": {
+        "mu_signed_post_cost": -0.19089320549903926,
+        "mu_signed_pre_cost": -0.1688932054990393,
+        "mu_rev_mfe": 3.107311603434139,
+        "mu_cont_mfe": 2.7548557979584603
+      },
+      "last_1y": {
+        "mu_signed_post_cost": -0.39223259918716463,
+        "mu_signed_pre_cost": -0.37023259918716467,
+        "mu_rev_mfe": 3.2264358864568923,
+        "mu_cont_mfe": 2.5109465499506105
+      },
+      "by_period": {
+        "P1_2016_2019": {
+          "n": 404,
+          "mu_signed_post_cost": 0.19045967902949365,
+          "mu_signed_pre_cost": 0.21245967902949378
+        },
+        "P2_2020_2022": {
+          "n": 1140,
+          "mu_signed_post_cost": -0.058258851213286944,
+          "mu_signed_pre_cost": -0.03625885121328694
+        },
+        "P3_2023+": {
+          "n": 1197,
+          "mu_signed_post_cost": -0.10908609647786699,
+          "mu_signed_pre_cost": -0.08708609647786696
+        }
+      }
+    },
+    "down_+pivotLow": {
+      "n": 3160,
+      "w_eq": {
+        "mu_signed_post_cost": -0.017389481096375187,
+        "mu_signed_pre_cost": 0.004610518903624896,
+        "mu_rev_mfe": 2.9120559694815698,
+        "mu_cont_mfe": 3.1393121707775093
+      },
+      "w_h2y": {
+        "mu_signed_post_cost": -0.03526826487294767,
+        "mu_signed_pre_cost": -0.013268264872947693,
+        "mu_rev_mfe": 2.889143167974028,
+        "mu_cont_mfe": 3.1521191546289478
+      },
+      "w_h1y": {
+        "mu_signed_post_cost": -0.009540830409831672,
+        "mu_signed_pre_cost": 0.012459169590168306,
+        "mu_rev_mfe": 2.871491315269127,
+        "mu_cont_mfe": 3.1228483074695284
+      },
+      "last_2y": {
+        "mu_signed_post_cost": -0.04842660571941419,
+        "mu_signed_pre_cost": -0.026426605719414176,
+        "mu_rev_mfe": 2.8793542510895267,
+        "mu_cont_mfe": 3.1955300639814204
+      },
+      "last_1y": {
+        "mu_signed_post_cost": 0.19221350729382636,
+        "mu_signed_pre_cost": 0.21421350729382638,
+        "mu_rev_mfe": 2.9112066240774555,
+        "mu_cont_mfe": 2.9724078162200005
+      },
+      "by_period": {
+        "P1_2016_2019": {
+          "n": 469,
+          "mu_signed_post_cost": 0.14325597342449942,
+          "mu_signed_pre_cost": 0.16525597342449946
+        },
+        "P2_2020_2022": {
+          "n": 1337,
+          "mu_signed_post_cost": -0.013687499284758792,
+          "mu_signed_pre_cost": 0.008312500715241177
+        },
+        "P3_2023+": {
+          "n": 1354,
+          "mu_signed_post_cost": -0.07668953120894621,
+          "mu_signed_pre_cost": -0.05468953120894617
+        }
+      }
+    },
+    "up_NOTpivotHigh": {
+      "n": 6022,
+      "w_eq": {
+        "mu_signed_post_cost": 0.03470898227932989,
+        "mu_signed_pre_cost": 0.05670898227932991,
+        "mu_rev_mfe": 2.8591566888045703,
+        "mu_cont_mfe": 2.6920847891372754
+      },
+      "w_h2y": {
+        "mu_signed_post_cost": 0.01840530572889749,
+        "mu_signed_pre_cost": 0.04040530572889751,
+        "mu_rev_mfe": 2.827210889690268,
+        "mu_cont_mfe": 2.6257304185196557
+      },
+      "w_h1y": {
+        "mu_signed_post_cost": 0.03085910592218275,
+        "mu_signed_pre_cost": 0.05285910592218277,
+        "mu_rev_mfe": 2.795332102110382,
+        "mu_cont_mfe": 2.5926275067279367
+      },
+      "last_2y": {
+        "mu_signed_post_cost": 0.0575789894118808,
+        "mu_signed_pre_cost": 0.07957898941188078,
+        "mu_rev_mfe": 2.8090556541200544,
+        "mu_cont_mfe": 2.600570916384434
+      },
+      "last_1y": {
+        "mu_signed_post_cost": 0.057040398376644555,
+        "mu_signed_pre_cost": 0.07904039837664449,
+        "mu_rev_mfe": 2.7866361913073994,
+        "mu_cont_mfe": 2.5826491634816846
+      },
+      "by_period": {
+        "P1_2016_2019": {
+          "n": 892,
+          "mu_signed_post_cost": 0.2798563794319337,
+          "mu_signed_pre_cost": 0.30185637943193366
+        },
+        "P2_2020_2022": {
+          "n": 2462,
+          "mu_signed_post_cost": -0.0936849435116775,
+          "mu_signed_pre_cost": -0.07168494351167752
+        },
+        "P3_2023+": {
+          "n": 2668,
+          "mu_signed_post_cost": 0.07122861010441896,
+          "mu_signed_pre_cost": 0.09322861010441894
+        }
+      }
+    },
+    "down_NOTpivotLow": {
+      "n": 6034,
+      "w_eq": {
+        "mu_signed_post_cost": -0.04814973321319116,
+        "mu_signed_pre_cost": -0.02614973321319118,
+        "mu_rev_mfe": 2.7029181061818663,
+        "mu_cont_mfe": 2.9372471306623584
+      },
+      "w_h2y": {
+        "mu_signed_post_cost": -0.06579635926543514,
+        "mu_signed_pre_cost": -0.04379635926543515,
+        "mu_rev_mfe": 2.6657545016011346,
+        "mu_cont_mfe": 2.9401586684360734
+      },
+      "w_h1y": {
+        "mu_signed_post_cost": -0.04511632948327129,
+        "mu_signed_pre_cost": -0.023116329483271317,
+        "mu_rev_mfe": 2.6446502290731777,
+        "mu_cont_mfe": 2.928899699202692
+      },
+      "last_2y": {
+        "mu_signed_post_cost": -0.008944918586466776,
+        "mu_signed_pre_cost": 0.013055081413533164,
+        "mu_rev_mfe": 2.6550505920203933,
+        "mu_cont_mfe": 2.950911076890412
+      },
+      "last_1y": {
+        "mu_signed_post_cost": 0.11611033603822109,
+        "mu_signed_pre_cost": 0.13811033603822115,
+        "mu_rev_mfe": 2.6543307102117666,
+        "mu_cont_mfe": 2.8322576431899917
+      },
+      "by_period": {
+        "P1_2016_2019": {
+          "n": 849,
+          "mu_signed_post_cost": 0.3148901343494176,
+          "mu_signed_pre_cost": 0.33689013434941745
+        },
+        "P2_2020_2022": {
+          "n": 2477,
+          "mu_signed_post_cost": -0.12839162921273223,
+          "mu_signed_pre_cost": -0.10639162921273218
+        },
+        "P3_2023+": {
+          "n": 2708,
+          "mu_signed_post_cost": -0.08857132522566963,
+          "mu_signed_pre_cost": -0.06657132522566964
+        }
+      }
+    },
+    "trade_sim_down_PL_LONG": {
+      "n": 3160,
+      "wr": 0.4572784810126582,
+      "pf": 1.0454582333008957,
+      "expectancy_atr": 0.03660828284274343,
+      "p3_n": 1354,
+      "p3_pf": 1.0001560991852163
+    },
+    "trade_sim_up_PH_SHORT": {
+      "n": 2741,
+      "wr": 0.4122582998905509,
+      "pf": 0.8810881217997961,
+      "expectancy_atr": -0.10135918611166025,
+      "p3_n": 1197,
+      "p3_pf": 0.9209856362682141
+    }
+  },
+  "R1000": {
+    "round_step": 1000,
+    "all_up": {
+      "n": 4676,
+      "w_eq": {
+        "mu_signed_post_cost": 0.0015080875646156528,
+        "mu_signed_pre_cost": 0.023508087564615653,
+        "mu_rev_mfe": 2.952536844301256,
+        "mu_cont_mfe": 2.752680298148025
+      },
+      "w_h2y": {
+        "mu_signed_post_cost": 0.0030964718700004475,
+        "mu_signed_pre_cost": 0.025096471870000407,
+        "mu_rev_mfe": 2.969288285047178,
+        "mu_cont_mfe": 2.7541744442668046
+      },
+      "w_h1y": {
+        "mu_signed_post_cost": 0.02314231886641311,
+        "mu_signed_pre_cost": 0.045142318866413164,
+        "mu_rev_mfe": 2.966139592303026,
+        "mu_cont_mfe": 2.7390345431817265
+      },
+      "last_2y": {
+        "mu_signed_post_cost": 0.10773656848191016,
+        "mu_signed_pre_cost": 0.12973656848191006,
+        "mu_rev_mfe": 2.955450774488826,
+        "mu_cont_mfe": 2.7911414164969077
+      },
+      "last_1y": {
+        "mu_signed_post_cost": -0.061173234043767254,
+        "mu_signed_pre_cost": -0.03917323404376726,
+        "mu_rev_mfe": 3.0596150420098414,
+        "mu_cont_mfe": 2.6732389151606903
+      },
+      "by_period": {
+        "P1_2016_2019": {
+          "n": 841,
+          "mu_signed_post_cost": 0.4083029542352383,
+          "mu_signed_pre_cost": 0.43030295423523834
+        },
+        "P2_2020_2022": {
+          "n": 1865,
+          "mu_signed_post_cost": -0.19580482150643091,
+          "mu_signed_pre_cost": -0.17380482150643087
+        },
+        "P3_2023+": {
+          "n": 1970,
+          "mu_signed_post_cost": 0.014642144695330433,
+          "mu_signed_pre_cost": 0.036642144695330454
+        }
+      }
+    },
+    "all_down": {
+      "n": 4782,
+      "w_eq": {
+        "mu_signed_post_cost": -0.05248388351953712,
+        "mu_signed_pre_cost": -0.03048388351953713,
+        "mu_rev_mfe": 2.7777081088014435,
+        "mu_cont_mfe": 3.051496031646834
+      },
+      "w_h2y": {
+        "mu_signed_post_cost": -0.024391223226192263,
+        "mu_signed_pre_cost": -0.0023912232261922173,
+        "mu_rev_mfe": 2.7757379547292675,
+        "mu_cont_mfe": 3.049688505901906
+      },
+      "w_h1y": {
+        "mu_signed_post_cost": 0.02951877986491789,
+        "mu_signed_pre_cost": 0.05151877986491784,
+        "mu_rev_mfe": 2.783322800663758,
+        "mu_cont_mfe": 3.03369463884623
+      },
+      "last_2y": {
+        "mu_signed_post_cost": 0.09791401313154814,
+        "mu_signed_pre_cost": 0.11991401313154817,
+        "mu_rev_mfe": 2.84635461162131,
+        "mu_cont_mfe": 3.0782529810168997
+      },
+      "last_1y": {
+        "mu_signed_post_cost": 0.15509739559674832,
+        "mu_signed_pre_cost": 0.17709739559674825,
+        "mu_rev_mfe": 2.833437469584736,
+        "mu_cont_mfe": 3.0041327374178795
+      },
+      "by_period": {
+        "P1_2016_2019": {
+          "n": 826,
+          "mu_signed_post_cost": 0.23231786136892713,
+          "mu_signed_pre_cost": 0.25431786136892703
+        },
+        "P2_2020_2022": {
+          "n": 1957,
+          "mu_signed_post_cost": -0.11061392227030878,
+          "mu_signed_pre_cost": -0.0886139222703088
+        },
+        "P3_2023+": {
+          "n": 1999,
+          "mu_signed_post_cost": -0.1132571478730195,
+          "mu_signed_pre_cost": -0.09125714787301949
+        }
+      }
+    },
+    "up_+pivotHigh": {
+      "n": 1469,
+      "w_eq": {
+        "mu_signed_post_cost": 0.010944027907844718,
+        "mu_signed_pre_cost": 0.03294402790784471,
+        "mu_rev_mfe": 3.0135820738769494,
+        "mu_cont_mfe": 2.8564997708814173
+      },
+      "w_h2y": {
+        "mu_signed_post_cost": -0.08481869832692183,
+        "mu_signed_pre_cost": -0.06281869832692184,
+        "mu_rev_mfe": 3.16043475880017,
+        "mu_cont_mfe": 2.922701634938521
+      },
+      "w_h1y": {
+        "mu_signed_post_cost": -0.12374789910909309,
+        "mu_signed_pre_cost": -0.10174789910909311,
+        "mu_rev_mfe": 3.2649352283988833,
+        "mu_cont_mfe": 2.9377680431903075
+      },
+      "last_2y": {
+        "mu_signed_post_cost": 0.0468941880923599,
+        "mu_signed_pre_cost": 0.0688941880923598,
+        "mu_rev_mfe": 3.1970728571707228,
+        "mu_cont_mfe": 3.0819397369433297
+      },
+      "last_1y": {
+        "mu_signed_post_cost": -0.2720489646419524,
+        "mu_signed_pre_cost": -0.2500489646419524,
+        "mu_rev_mfe": 3.352654553268729,
+        "mu_cont_mfe": 2.7011295929195276
+      },
+      "by_period": {
+        "P1_2016_2019": {
+          "n": 270,
+          "mu_signed_post_cost": 0.470791114739765,
+          "mu_signed_pre_cost": 0.49279111473976506
+        },
+        "P2_2020_2022": {
+          "n": 584,
+          "mu_signed_post_cost": 0.04424003459642226,
+          "mu_signed_pre_cost": 0.0662400345964222
+        },
+        "P3_2023+": {
+          "n": 615,
+          "mu_signed_post_cost": -0.22255773038605425,
+          "mu_signed_pre_cost": -0.2005577303860541
+        }
+      }
+    },
+    "down_+pivotLow": {
+      "n": 1640,
+      "w_eq": {
+        "mu_signed_post_cost": -0.07161391379543552,
+        "mu_signed_pre_cost": -0.04961391379543555,
+        "mu_rev_mfe": 2.844603197424202,
+        "mu_cont_mfe": 3.187080693864432
+      },
+      "w_h2y": {
+        "mu_signed_post_cost": -0.0743210066652821,
+        "mu_signed_pre_cost": -0.05232100666528213,
+        "mu_rev_mfe": 2.7858929651462736,
+        "mu_cont_mfe": 3.192056164760146
+      },
+      "w_h1y": {
+        "mu_signed_post_cost": -0.04127730273508066,
+        "mu_signed_pre_cost": -0.019277302735080697,
+        "mu_rev_mfe": 2.754611913190565,
+        "mu_cont_mfe": 3.170073703173995
+      },
+      "last_2y": {
+        "mu_signed_post_cost": -0.06984792713305375,
+        "mu_signed_pre_cost": -0.047847927133053865,
+        "mu_rev_mfe": 2.7594392528816782,
+        "mu_cont_mfe": 3.2785769600321406
+      },
+      "last_1y": {
+        "mu_signed_post_cost": 0.09806606663848677,
+        "mu_signed_pre_cost": 0.12006606663848673,
+        "mu_rev_mfe": 2.750385758184067,
+        "mu_cont_mfe": 3.0626811682297093
+      },
+      "by_period": {
+        "P1_2016_2019": {
+          "n": 311,
+          "mu_signed_post_cost": 0.14482658971305418,
+          "mu_signed_pre_cost": 0.1668265897130542
+        },
+        "P2_2020_2022": {
+          "n": 677,
+          "mu_signed_post_cost": -0.12207441861759985,
+          "mu_signed_pre_cost": -0.10007441861759979
+        },
+        "P3_2023+": {
+          "n": 652,
+          "mu_signed_post_cost": -0.1224593659833728,
+          "mu_signed_pre_cost": -0.10045936598337274
+        }
+      }
+    },
+    "up_NOTpivotHigh": {
+      "n": 3207,
+      "w_eq": {
+        "mu_signed_post_cost": -0.002814143917830057,
+        "mu_signed_pre_cost": 0.019185856082169907,
+        "mu_rev_mfe": 2.924574436366521,
+        "mu_cont_mfe": 2.705124699318791
+      },
+      "w_h2y": {
+        "mu_signed_post_cost": 0.04130579463284488,
+        "mu_signed_pre_cost": 0.06330579463284486,
+        "mu_rev_mfe": 2.8862130058405477,
+        "mu_cont_mfe": 2.6809298630612224
+      },
+      "w_h1y": {
+        "mu_signed_post_cost": 0.08417145488850698,
+        "mu_signed_pre_cost": 0.10617145488850697,
+        "mu_rev_mfe": 2.8419976326175767,
+        "mu_cont_mfe": 2.656465846836045
+      },
+      "last_2y": {
+        "mu_signed_post_cost": 0.13240069786423028,
+        "mu_signed_pre_cost": 0.15440069786423022,
+        "mu_rev_mfe": 2.857502629285823,
+        "mu_cont_mfe": 2.6732583331308297
+      },
+      "last_1y": {
+        "mu_signed_post_cost": 0.03699603984802971,
+        "mu_signed_pre_cost": 0.05899603984802967,
+        "mu_rev_mfe": 2.9114027518244745,
+        "mu_cont_mfe": 2.6527260327945648
+      },
+      "by_period": {
+        "P1_2016_2019": {
+          "n": 571,
+          "mu_signed_post_cost": 0.3787551375343238,
+          "mu_signed_pre_cost": 0.4007551375343238
+        },
+        "P2_2020_2022": {
+          "n": 1281,
+          "mu_signed_post_cost": -0.3052397910334147,
+          "mu_signed_pre_cost": -0.2832397910334147
+        },
+        "P3_2023+": {
+          "n": 1355,
+          "mu_signed_post_cost": 0.1223011285883574,
+          "mu_signed_pre_cost": 0.1443011285883574
+        }
+      }
+    },
+    "down_NOTpivotLow": {
+      "n": 3142,
+      "w_eq": {
+        "mu_signed_post_cost": -0.042498762688068834,
+        "mu_signed_pre_cost": -0.02049876268806882,
+        "mu_rev_mfe": 2.7427915125756877,
+        "mu_cont_mfe": 2.9807261888597996
+      },
+      "w_h2y": {
+        "mu_signed_post_cost": 0.0012913873495308012,
+        "mu_signed_pre_cost": 0.02329138734953083,
+        "mu_rev_mfe": 2.770514475675918,
+        "mu_cont_mfe": 2.9764582034814264
+      },
+      "w_h1y": {
+        "mu_signed_post_cost": 0.06653737203907448,
+        "mu_signed_pre_cost": 0.08853737203907446,
+        "mu_rev_mfe": 2.798335448190222,
+        "mu_cont_mfe": 2.9623833349148074
+      },
+      "last_2y": {
+        "mu_signed_post_cost": 0.18402684943144934,
+        "mu_signed_pre_cost": 0.20602684943144928,
+        "mu_rev_mfe": 2.8909685928812343,
+        "mu_cont_mfe": 2.975425927486906
+      },
+      "last_1y": {
+        "mu_signed_post_cost": 0.18529705600968596,
+        "mu_signed_pre_cost": 0.2072970560096861,
+        "mu_rev_mfe": 2.877415639598082,
+        "mu_cont_mfe": 2.973129729763583
+      },
+      "by_period": {
+        "P1_2016_2019": {
+          "n": 515,
+          "mu_signed_post_cost": 0.2851523962912114,
+          "mu_signed_pre_cost": 0.30715239629121144
+        },
+        "P2_2020_2022": {
+          "n": 1280,
+          "mu_signed_post_cost": -0.10455239412412443,
+          "mu_signed_pre_cost": -0.0825523941241244
+        },
+        "P3_2023+": {
+          "n": 1347,
+          "mu_signed_post_cost": -0.10880291906236594,
+          "mu_signed_pre_cost": -0.08680291906236598
+        }
+      }
+    },
+    "trade_sim_down_PL_LONG": {
+      "n": 1640,
+      "wr": 0.45182926829268294,
+      "pf": 1.0109794500622638,
+      "expectancy_atr": 0.008922442248034144,
+      "p3_n": 652,
+      "p3_pf": 0.9739893342027548
+    },
+    "trade_sim_up_PH_SHORT": {
+      "n": 1469,
+      "wr": 0.4104833219877468,
+      "pf": 0.8902457317386372,
+      "expectancy_atr": -0.09336671436474225,
+      "p3_n": 615,
+      "p3_pf": 0.8678168883048656
+    }
+  },
+  "confluence_R1000_down_PL_x_kst": {
+    "hour_0": {
+      "n": 68,
+      "h2y": 0.426274016009206,
+      "l2y": 0.8913215312490836
+    },
+    "hour_1": {
+      "n": 80,
+      "h2y": -0.047186023380635475,
+      "l2y": 0.4043725329402409
+    },
+    "hour_2": {
+      "n": 93,
+      "h2y": 0.958064495240079,
+      "l2y": 2.0932510731271035
+    },
+    "hour_3": {
+      "n": 112,
+      "h2y": 0.05784281976974315,
+      "l2y": -0.7715295834445193
+    },
+    "hour_4": {
+      "n": 57,
+      "h2y": -0.14387875290024868,
+      "l2y": -0.8848107981251265
+    },
+    "hour_6": {
+      "n": 31,
+      "h2y": 1.376033480096405,
+      "l2y": 1.688554407495111
+    },
+    "hour_7": {
+      "n": 44,
+      "h2y": -0.7587977656960928,
+      "l2y": -1.0249350234965662
+    },
+    "hour_8": {
+      "n": 63,
+      "h2y": 0.27206072280459875,
+      "l2y": 0.5702115376070915
+    },
+    "hour_9": {
+      "n": 66,
+      "h2y": 0.8000453114512189,
+      "l2y": 1.415896920178587
+    },
+    "hour_10": {
+      "n": 43,
+      "h2y": 0.7712945764020738,
+      "l2y": 0.2853419987256118
+    },
+    "hour_11": {
+      "n": 25,
+      "h2y": -1.0499977416971262,
+      "l2y": -0.3540857088084305
+    },
+    "hour_12": {
+      "n": 26,
+      "h2y": -2.9478965822529912,
+      "l2y": -3.482343299976997
+    },
+    "hour_13": {
+      "n": 52,
+      "h2y": -0.9203782329081016,
+      "l2y": -2.986614392127561
+    },
+    "hour_14": {
+      "n": 42,
+      "h2y": -0.7167514434767143,
+      "l2y": -1.4909549151827761
+    },
+    "hour_15": {
+      "n": 56,
+      "h2y": 1.1640887383515046,
+      "l2y": 1.7921599499186198
+    },
+    "hour_16": {
+      "n": 80,
+      "h2y": 0.35773121778041655,
+      "l2y": 0.0539623354341666
+    },
+    "hour_17": {
+      "n": 45,
+      "h2y": 0.3264902635645017,
+      "l2y": 1.2497043688032854
+    },
+    "hour_18": {
+      "n": 49,
+      "h2y": -0.06930142922511191,
+      "l2y": 0.43691652967733774
+    },
+    "hour_19": {
+      "n": 64,
+      "h2y": -0.4954954988195365,
+      "l2y": -0.003750002278577691
+    },
+    "hour_20": {
+      "n": 57,
+      "h2y": -1.1537836256621186,
+      "l2y": -2.894540136436164
+    },
+    "hour_21": {
+      "n": 150,
+      "h2y": -1.2501782924873537,
+      "l2y": -2.625520473718746
+    },
+    "hour_22": {
+      "n": 198,
+      "h2y": 0.11912639858346089,
+      "l2y": 1.0133701470587573
+    },
+    "hour_23": {
+      "n": 130,
+      "h2y": -0.35099888687175296,
+      "l2y": -0.5902642190623658
+    }
+  },
+  "failed_R1000_up": {
+    "n": 3971,
+    "w_eq": {
+      "mu_signed_post_cost": -0.036614124493311744,
+      "mu_signed_pre_cost": -0.014614124493311753,
+      "mu_rev_mfe": 2.945148810352214,
+      "mu_cont_mfe": 2.2701406516980525
+    },
+    "w_h2y": {
+      "mu_signed_post_cost": 0.005747555656506716,
+      "mu_signed_pre_cost": 0.02774755565650669,
+      "mu_rev_mfe": 2.9778275378005445,
+      "mu_cont_mfe": 2.2977361539597863
+    },
+    "w_h1y": {
+      "mu_signed_post_cost": 0.03364505079830742,
+      "mu_signed_pre_cost": 0.05564505079830737,
+      "mu_rev_mfe": 2.9821470487719157,
+      "mu_cont_mfe": 2.29165751764146
+    },
+    "last_2y": {
+      "mu_signed_post_cost": 0.10372890349040965,
+      "mu_signed_pre_cost": 0.1257289034904097,
+      "mu_rev_mfe": 2.9831690746534654,
+      "mu_cont_mfe": 2.3623042153791234
+    },
+    "last_1y": {
+      "mu_signed_post_cost": -0.07788373015666225,
+      "mu_signed_pre_cost": -0.05588373015666214,
+      "mu_rev_mfe": 3.1175731899434496,
+      "mu_cont_mfe": 2.2108781810745546
+    },
+    "by_period": {
+      "P1_2016_2019": {
+        "n": 720,
+        "mu_signed_post_cost": 0.26960162821291456,
+        "mu_signed_pre_cost": 0.2916016282129146
+      },
+      "P2_2020_2022": {
+        "n": 1587,
+        "mu_signed_post_cost": -0.27187424352012174,
+        "mu_signed_pre_cost": -0.24987424352012172
+      },
+      "P3_2023+": {
+        "n": 1664,
+        "mu_signed_post_cost": 0.055262358046991394,
+        "mu_signed_pre_cost": 0.07726235804699146
+      }
+    }
+  }
+}
